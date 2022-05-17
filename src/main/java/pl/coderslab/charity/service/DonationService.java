@@ -5,8 +5,8 @@ import pl.coderslab.charity.entity.Donation;
 public interface DonationService {
     void save(Donation donation);
 
-    int findTotalQuantity();
+    Integer findTotalQuantity();
 
-    int findNumberOfDonations();
+    Integer findNumberOfDonations();
 
 }

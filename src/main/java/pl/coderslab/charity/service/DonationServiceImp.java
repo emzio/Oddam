@@ -20,12 +20,12 @@ public class DonationServiceImp implements DonationService{
     }
 
     @Override
-    public int findNumberOfDonations(){
+    public Integer findNumberOfDonations(){
         return donationRepository.findNumberOfDonations();
     }
 
     @Override
-    public int findTotalQuantity() {
+    public Integer findTotalQuantity() {
         return donationRepository.findTotalQuantity();
     }
 

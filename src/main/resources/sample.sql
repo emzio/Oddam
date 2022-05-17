@@ -13,3 +13,7 @@ INSERT INTO CharityDonation.category (name) VALUES ('książki');
 INSERT INTO CharityDonation.category (name) VALUES ('ubrania');
 INSERT INTO CharityDonation.category (name) VALUES ('meble');
 
+INSERT INTO CharityDonation.category (name) VALUES ('buty');
+INSERT INTO CharityDonation.category (name) VALUES ('ubrania');
+INSERT INTO CharityDonation.category (name) VALUES ('meble');
+INSERT INTO CharityDonation.category (name) VALUES ('agd');

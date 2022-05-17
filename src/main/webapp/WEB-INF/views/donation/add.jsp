@@ -6,6 +6,7 @@
 
 <%@ include file="../header.jsp" %>
 
+<link rel="stylesheet" href="<c:url value="../../../resources/css/style.css"/>"/>
 
 <form:form method="post" modelAttribute="donation">
     <form:checkboxes path="categories" items="${categories}" itemLabel="name" itemValue="id" />
@@ -20,5 +21,7 @@
 
     <input type="submit" value="add donation" class="btn btn-primary">
 </form:form>
+
+<script src="<c:url value="../../../resources/js/app.js"/>"></script>
 
 <%@ include file="../footer.jsp" %>
