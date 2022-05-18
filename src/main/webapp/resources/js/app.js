@@ -171,4 +171,11 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
+
+  // nowy listener na click na input type chceckobox color =>  yelow;
+
+  // uchwyty do elelemntów formularza, pobrać value / check /
+  // przed zapisem lub jeden krok mniej
 });
+
+
