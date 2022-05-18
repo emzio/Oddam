@@ -83,7 +83,6 @@
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
                 <div class="form-group form-group--checkbox">
-<%--            <form:form method="post" modelAttribute="donation">--%>
 <%--            <form:checkboxes path="categories" items="${categories}" itemLabel="name" itemValue="id" />--%>
                 </div>
 
@@ -183,17 +182,22 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru</h4>
                             <div class="form-group form-group--inline">
-                                <label> Ulica <input type="text" name="address" /> </label>
+                                    <label> Ulica  <form:input path="street" /> </label>
+<%--                                <label> Ulica <input type="text" name="address" /> </label>--%>
                             </div>
 
                             <div class="form-group form-group--inline">
-                                <label> Miasto <input type="text" name="city" /> </label>
+                                <label> Miasto <form:input path="city"/> </label>
+<%--                                <label> Miasto <input type="text" name="city" /> </label>--%>
                             </div>
 
                             <div class="form-group form-group--inline">
                                 <label>
-                                    Kod pocztowy <input type="text" name="postcode" />
+                                    Kod pocztowy <form:input path="zipCode" />
                                 </label>
+<%--                                <label>--%>
+<%--                                    Kod pocztowy <input type="text" name="postcode" />--%>
+<%--                                </label>--%>
                             </div>
 
                             <div class="form-group form-group--inline">
@@ -206,18 +210,25 @@
                         <div class="form-section--column">
                             <h4>Termin odbioru</h4>
                             <div class="form-group form-group--inline">
-                                <label> Data <input type="date" name="data" /> </label>
+                                <label> Data <form:input type="date" path="pickedUpDate"/> </label>
+<%--                                <label> Data <input type="date" name="data" /> </label>--%>
                             </div>
 
                             <div class="form-group form-group--inline">
-                                <label> Godzina <input type="time" name="time" /> </label>
+                                <label> Godzina <form:input type="time" path="pickedUpTime" /> </label>
+<%--                                <label> Godzina <input type="time" name="time" /> </label>--%>
                             </div>
 
                             <div class="form-group form-group--inline">
                                 <label>
                                     Uwagi dla kuriera
-                                    <textarea name="more_info" rows="5"></textarea>
+                                    <form:textarea path="pickUpComment"/>
                                 </label>
+
+<%--                                <label>--%>
+<%--                                    Uwagi dla kuriera--%>
+<%--                                    <textarea name="more_info" rows="5"></textarea>--%>
+<%--                                </label>--%>
                             </div>
                         </div>
                     </div>
@@ -238,7 +249,7 @@
                                 <li>
                                     <span class="icon icon-bag"></span>
                                     <span class="summary--text"
-                                    >4 worki ubrań w dobrym stanie dla dzieci</span
+                                    >${donation.getCity()}4 worki ubrań w dobrym stanie dla dzieci</span
                                     >
                                 </li>
 
