@@ -82,34 +82,34 @@
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
-<%--                <div class="form-group form-group--checkbox">--%>
-<%--            <form:checkboxes path="categories" items="${categories}" itemLabel="name" itemValue="id" />--%>
-<%--                </div>--%>
-
-<%--                <form:checkboxes path="categories" items="${categories}"/>--%>
-<%--                </form:checkboxes>--%>
-
                 <c:forEach items="${categories}" var="category">
-                    <div class="form-group form-group--checkbox">
-                        <label>
-<%--                                <input--%>
-<%--                                    type="checkbox"--%>
-<%--                                    name="categories"--%>
-<%--                                    value="clothes-useless"--%>
-<%--                                />--%>
-
-<%--                            <form:checkbox path="categories" items="${categories}"/>--%>
-                            <form:checkbox path="categories" value="${category.id}"/>
-<%--                                <form:checkbox path="categories" value="${category.id}" label="${category.name}"/>--%>
-
-
-                            <span class="checkbox"></span>
-                            <span class="description">${category.name}</span>
-
-                        </label>
-                    </div>
+                <div class="form-group form-group--checkbox">
+                    <label>
+<%--                        <input--%>
+<%--                                type="checkbox"--%>
+<%--                                name="categories"--%>
+<%--                                value="clothes-to-use"--%>
+<%--                        />--%>
+                        <form:checkbox path="categories" value="${category.id}"/>
+                        <span class="checkbox"></span>
+                        <span class="description"
+                        >${category.name}</span
+                        >
+                    </label>
+                </div>
                 </c:forEach>
-<%--                </form:checkboxes>--%>
+
+<%--                <c:forEach items="${categories}" var="category">--%>
+<%--                    <div class="form-group form-group--checkbox">--%>
+<%--                        <label>--%>
+<%--                            <form:checkbox path="categories" value="${category.id}"/>--%>
+<%--                            <span class="checkbox"></span>--%>
+<%--                            <span class="description">${category.name}</span>--%>
+
+<%--                        </label>--%>
+<%--                    </div>--%>
+<%--                </c:forEach>--%>
+
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn next-step">Dalej</button>
                 </div>
@@ -171,19 +171,19 @@
                     </c:forEach>
 
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="radio" name="organization" value="old" />
-                            <span class="checkbox radio"></span>
-                            <span class="description">
-                                <div class="title">Fundacja “Dla dzieci"</div>
-                                <div class="subtitle">
-                                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                                    życiowej.
-                                </div>
-                            </span>
-                        </label>
-                    </div>
+<%--                    <div class="form-group form-group--checkbox">--%>
+<%--                        <label>--%>
+<%--                            <input type="radio" name="organization" value="old" />--%>
+<%--                            <span class="checkbox radio"></span>--%>
+<%--                            <span class="description">--%>
+<%--                                <div class="title">Fundacja “Dla dzieci"</div>--%>
+<%--                                <div class="subtitle">--%>
+<%--                                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji--%>
+<%--                                    życiowej.--%>
+<%--                                </div>--%>
+<%--                            </span>--%>
+<%--                        </label>--%>
+<%--                    </div>--%>
 
                     <div class="form-group form-group--buttons">
                         <button type="button" class="btn prev-step">Wstecz</button>
