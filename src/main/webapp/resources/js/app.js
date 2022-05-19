@@ -223,7 +223,30 @@ document.addEventListener("DOMContentLoaded", function() {
       const timeEl = getElement("pickedUpTime");
       const commentEl = getElement("pickUpComment");
 
-      // institution start
+
+
+      // console.log("quantityElInner", quantityEl);
+      // console.log("streetEl", streetEl);
+      // console.log("cityEl", cityEl);
+      // console.log("zipCodeEl", zipCodeEl);
+      console.log("phoneEl", phoneEl);
+      // console.log("dateEl", dateEl);
+      // console.log("timeEl", timeEl);
+      // console.log("commentEl", commentEl);
+      // console.log("institutionEl", institutionEl);
+
+      getSummary(quantityEl, items);
+      getSummary(streetEl, streetSummary);
+      getSummary(cityEl, citySummary);
+      getSummary(zipCodeEl, zipCodeSummary);
+
+      getSummary(phoneEl, phoneNumberSummary);
+
+      getSummary(dateEl, dateSummary);
+      getSummary(timeEl, timeSummary);
+      getSummary(commentEl, commentSummary);
+
+      // checkedForms start
 
       function getCheckboxSummary(checkboxEl){
         let arr = [];
@@ -241,10 +264,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         return arr;
       }
-
-
-
-      console.log("this", this.$step, this.currentStep);
 
       let categoryEl;
       if(this.currentStep===1){
@@ -274,36 +293,17 @@ document.addEventListener("DOMContentLoaded", function() {
         institutionEl = document.querySelectorAll(".active .form-group input");
         institutionChecked=getCheckboxSummary(institutionEl);
       }
+
+      // wprowadzenie zmian w kroku podsumowującym
       console.log("institutionChecked: ", institutionChecked );
       if (this.currentStep===5){
-        institutionSummary.innerHTML=institutionChecked.toString();
+        institutionSummary.innerHTML = institutionChecked.toString();
+        items.innerHTML = items.innerHTML + " worki z " + categoryChecked.toString();
       }
 
-      // institution end
-
-      // console.log("quantityElInner", quantityEl);
-      // console.log("streetEl", streetEl);
-      // console.log("cityEl", cityEl);
-      // console.log("zipCodeEl", zipCodeEl);
-      console.log("phoneEl", phoneEl);
-      // console.log("dateEl", dateEl);
-      // console.log("timeEl", timeEl);
-      // console.log("commentEl", commentEl);
-      // console.log("institutionEl", institutionEl);
-
-      getSummary(quantityEl, items);
-      getSummary(streetEl, streetSummary);
-      getSummary(cityEl, citySummary);
-      getSummary(zipCodeEl, zipCodeSummary);
-
-      getSummary(phoneEl, phoneNumberSummary);
-
-      getSummary(dateEl, dateSummary);
-      getSummary(timeEl, timeSummary);
-      getSummary(commentEl, commentSummary);
+      // checkedForms end
 
     }
-
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
