@@ -208,7 +208,7 @@
 
                             <div class="form-group form-group--inline">
                                 <label>
-                                    Numer telefonu <input type="phone" name="phone" />
+                                    Numer telefonu <input id="phone" type="phone" name="phone" />
                                 </label>
                             </div>
                         </div>
@@ -255,7 +255,7 @@
                                 <li>
                                     <span class="icon icon-bag"></span>
                                     <span class="summary--text"
-                                    >${donation} 4 worki ubrań w dobrym stanie dla dzieci</span
+                                    > 4 worki ubrań w dobrym stanie dla dzieci</span
                                     >
                                 </li>
 

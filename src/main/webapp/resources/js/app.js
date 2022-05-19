@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // uchwyty elementy podsumowania
   const summary = document.querySelectorAll("[data-step] .summary--text");
   const items = summary[0];
-  const donationTarget = summary[1];
+  const institutionSummary = summary[1];
 
   const adresSummary = document.querySelectorAll(".summary .form-section--columns ul")[0];
   const streetSummary = adresSummary.querySelectorAll("li")[0];
@@ -16,17 +16,20 @@ document.addEventListener("DOMContentLoaded", function() {
   const timeSummary = receivingSummary.querySelectorAll("li")[1];
   const commentSummary = receivingSummary.querySelectorAll("li")[2];
 
-  console.log("adresSummary", adresSummary);
-  console.log("receivingSummary", receivingSummary);
-  console.log("text1" , items.innerHTML);
-  console.log("text2" , donationTarget.innerHTML);
-  console.log("streetSummary", streetSummary);
-  console.log("citySummary", citySummary);
-  console.log("zipCode", zipCodeSummary);
-  console.log("phoneNumber", phoneNumberSummary);
-  console.log("dateSummary", dateSummary);
-  console.log("timeSummary", timeSummary);
-  console.log("commentSummary", commentSummary);
+  let institutionChecked;
+  let categoryChecked;
+
+  // console.log("adresSummary", adresSummary);
+  // console.log("receivingSummary", receivingSummary);
+  // console.log("text1" , items.innerHTML);
+  // console.log("text2" , donationTarget.innerHTML);
+  // console.log("streetSummary", streetSummary);
+  // console.log("citySummary", citySummary);
+  // console.log("zipCode", zipCodeSummary);
+  // console.log("phoneNumber", phoneNumberSummary);
+  // console.log("dateSummary", dateSummary);
+  // console.log("timeSummary", timeSummary);
+  // console.log("commentSummary", commentSummary);
 
   /**
    * Form Select
@@ -198,35 +201,107 @@ document.addEventListener("DOMContentLoaded", function() {
       function getSummary(sourceElement, resultElement){
         if(sourceElement!=null){
           const activeButtonInFunction = document.querySelector(".active button.next-step");
-          console.log("activeButtonInFunction", activeButtonInFunction);
+          // console.log("activeButtonInFunction", activeButtonInFunction);
           activeButtonInFunction.addEventListener("click", evt => {
-            console.log("sourceElement.value", sourceElement.value);
+            // console.log("sourceElement.value", sourceElement.value);
             resultElement.innerHTML=sourceElement.value;
           });
         }
       }
 
+      function getElement(id){
+        let result = document.querySelector(`.active #${id}`);
+        return result;
+      }
+
       const quantityEl = document.querySelector(".active #quantity");
-      console.log("quantityElInner", quantityEl);
       const streetEl = document.querySelector(".active #street");
-      console.log("streetEl", streetEl);
+      const cityEl = document.querySelector(".active #city");
+      const zipCodeEl = getElement("zipCode");
+      const phoneEl = getElement("phone");
+      const dateEl = getElement("pickedUpDate");
+      const timeEl = getElement("pickedUpTime");
+      const commentEl = getElement("pickUpComment");
+
+      // institution start
+
+      function getCheckboxSummary(checkboxEl){
+        let arr = [];
+        const activeButtonInFunction = document.querySelector(".active button.next-step");
+        console.log("activeButtonInFunction", activeButtonInFunction);
+        activeButtonInFunction.addEventListener("click", evt => {
+          checkboxEl.forEach(el => {
+            if(el.checked){
+              console.log("el", el)
+              let tmp = el.parentElement.querySelector(".description .title").innerHTML;
+              console.log("elParent: ", el.parentElement.querySelector(".description .title").innerHTML);
+              arr.push(tmp);
+            }
+          })
+        });
+        return arr;
+      }
 
 
-      // console.log("this", this.$step, this.$step.querySelector(".active #quantity"));
-      // const activeButton = document.querySelector(".active button.next-step");
-      // console.log("activeButton", activeButton);
-      // if(quantityEl!=null){
-      //   console.log("quantityEl is not null");
-      //   activeButton.addEventListener("click", evt => {
-      //     console.log("quantityEl.value: ", quantityEl.value);
-      //     quantitySummary=quantityEl.value;
-      //     console.log(quantitySummary);
-      //     items.innerHTML=quantitySummary;
-      //   });
-      // }
+
+      console.log("this", this.$step, this.currentStep);
+
+      let categoryEl;
+      if(this.currentStep===1){
+        categoryChecked=[];
+        categoryEl = document.querySelectorAll(".active .form-group input");
+        let arr = [];
+        const activeButtonInFunction = document.querySelector(".active button.next-step");
+        console.log("activeButtonInFunction", activeButtonInFunction);
+        activeButtonInFunction.addEventListener("click", evt => {
+          categoryEl.forEach(el => {
+            console.log("el", el);
+            if(el.type!=="hidden" && el.checked===true){
+              console.log("Element checked: ", el.checked);
+              arr.push(el.parentElement.querySelector(".description").innerHTML);
+              console.log("description: ", el.parentElement.querySelector(".description").innerHTML);
+            }
+          })
+          console.log("arr", arr);
+          categoryChecked = arr;
+        });
+      }
+      console.log("categoryChecked: ", categoryChecked);
+
+
+      let institutionEl;
+      if(this.currentStep===3){
+        institutionEl = document.querySelectorAll(".active .form-group input");
+        institutionChecked=getCheckboxSummary(institutionEl);
+      }
+      console.log("institutionChecked: ", institutionChecked );
+      if (this.currentStep===5){
+        institutionSummary.innerHTML=institutionChecked.toString();
+      }
+
+      // institution end
+
+      // console.log("quantityElInner", quantityEl);
+      // console.log("streetEl", streetEl);
+      // console.log("cityEl", cityEl);
+      // console.log("zipCodeEl", zipCodeEl);
+      console.log("phoneEl", phoneEl);
+      // console.log("dateEl", dateEl);
+      // console.log("timeEl", timeEl);
+      // console.log("commentEl", commentEl);
+      // console.log("institutionEl", institutionEl);
 
       getSummary(quantityEl, items);
-      getSummary(quantityEl, donationTarget);
+      getSummary(streetEl, streetSummary);
+      getSummary(cityEl, citySummary);
+      getSummary(zipCodeEl, zipCodeSummary);
+
+      getSummary(phoneEl, phoneNumberSummary);
+
+      getSummary(dateEl, dateSummary);
+      getSummary(timeEl, timeSummary);
+      getSummary(commentEl, commentSummary);
+
     }
 
   }
@@ -234,15 +309,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
-
-
-
-
-
-
-
-
-
 
   // nowy listener na click na input type chceckobox color =>  yelow;
 
