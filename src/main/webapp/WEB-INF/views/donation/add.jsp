@@ -108,7 +108,7 @@
                 <div data-step="2">
                     <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
-                    <div class="form-group form-group--inline">
+                    <div id="quantityId" class="form-group form-group--inline">
                         <label>
                             Liczba 60l worków:
 <%--                            <input type="number" name="bags" step="1" min="1" />--%>

@@ -1,5 +1,33 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+// uchwyty elementy podsumowania
+  const summary = document.querySelectorAll("[data-step] .summary--text");
+  const items = summary[0];
+  const donationTarget = summary[1];
+
+  const adresSummary = document.querySelectorAll(".summary .form-section--columns ul")[0];
+  const streetSummary = adresSummary.querySelectorAll("li")[0];
+  const citySummary = adresSummary.querySelectorAll("li")[1];
+  const zipCodeSummary = adresSummary.querySelectorAll("li")[2];
+  const phoneNumberSummary = adresSummary.querySelectorAll("li")[3];
+
+  const receivingSummary = document.querySelectorAll(".summary .form-section--columns ul")[1];
+  const dateSummary = receivingSummary.querySelectorAll("li")[0];
+  const timeSummary = receivingSummary.querySelectorAll("li")[1];
+  const commentSummary = receivingSummary.querySelectorAll("li")[2];
+
+  console.log("adresSummary", adresSummary);
+  console.log("receivingSummary", receivingSummary);
+  console.log("text1" , items.innerHTML);
+  console.log("text2" , donationTarget.innerHTML);
+  console.log("streetSummary", streetSummary);
+  console.log("citySummary", citySummary);
+  console.log("zipCode", zipCodeSummary);
+  console.log("phoneNumber", phoneNumberSummary);
+  console.log("dateSummary", dateSummary);
+  console.log("timeSummary", timeSummary);
+  console.log("commentSummary", commentSummary);
+
   /**
    * Form Select
    */
@@ -163,7 +191,42 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
+
+
       // TODO: get data from inputs and show them in summary
+
+      function getSummary(sourceElement, resultElement){
+        if(sourceElement!=null){
+          const activeButtonInFunction = document.querySelector(".active button.next-step");
+          console.log("activeButtonInFunction", activeButtonInFunction);
+          activeButtonInFunction.addEventListener("click", evt => {
+            console.log("sourceElement.value", sourceElement.value);
+            resultElement.innerHTML=sourceElement.value;
+          });
+        }
+      }
+
+      const quantityEl = document.querySelector(".active #quantity");
+      console.log("quantityElInner", quantityEl);
+      const streetEl = document.querySelector(".active #street");
+      console.log("streetEl", streetEl);
+
+
+      // console.log("this", this.$step, this.$step.querySelector(".active #quantity"));
+      // const activeButton = document.querySelector(".active button.next-step");
+      // console.log("activeButton", activeButton);
+      // if(quantityEl!=null){
+      //   console.log("quantityEl is not null");
+      //   activeButton.addEventListener("click", evt => {
+      //     console.log("quantityEl.value: ", quantityEl.value);
+      //     quantitySummary=quantityEl.value;
+      //     console.log(quantitySummary);
+      //     items.innerHTML=quantitySummary;
+      //   });
+      // }
+
+      getSummary(quantityEl, items);
+      getSummary(quantityEl, donationTarget);
     }
 
   }
@@ -171,6 +234,15 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
+
+
+
+
+
+
+
+
+
 
   // nowy listener na click na input type chceckobox color =>  yelow;
 
