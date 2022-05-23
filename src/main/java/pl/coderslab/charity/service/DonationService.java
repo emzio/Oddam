@@ -7,6 +7,6 @@ public interface DonationService {
 
     Integer findTotalQuantity();
 
-    Integer findNumberOfDonations();
+    Integer countDonation();
 
 }

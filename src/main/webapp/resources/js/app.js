@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log("institutionChecked: ", institutionChecked );
       if (this.currentStep===5){
         institutionSummary.innerHTML = institutionChecked.toString();
-        items.innerHTML = items.innerHTML + " worki z " + categoryChecked.toString();
+        items.innerHTML = items.innerHTML + " worki z kategorii: " + categoryChecked.toString();
       }
 
       // checkedForms end
