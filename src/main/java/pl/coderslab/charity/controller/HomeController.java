@@ -24,16 +24,12 @@ public class HomeController {
     public String homeAction(Model model){
         model.addAttribute("institutions", institutionService.findAll());
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
-        model.addAttribute("numberOfDonations", donationService.findNumberOfDonations());
+        model.addAttribute("numberOfDonations", donationService.countDonation());
         return "index";
     }
 
-
-
-
-
 //    testowe  testowe  testowe  testowe
-    @GetMapping("/test")
+    @GetMapping("/admin/test")
     @ResponseBody
     public String test(){
         return String.join(" | " , String.valueOf(donationService.findTotalQuantity()));

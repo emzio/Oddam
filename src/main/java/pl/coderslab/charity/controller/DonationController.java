@@ -22,7 +22,7 @@ public class DonationController {
     }
 
 //                  ADD
-    @GetMapping("/donation/add")
+    @GetMapping("/user/donation/add")
     private String showAddForm(Model model){
         model.addAttribute("donation",new Donation());
         model.addAttribute("categories", categoryService.findAll());
@@ -30,7 +30,7 @@ public class DonationController {
         return "donation/add";
     }
 
-    @PostMapping("/donation/add")
+    @PostMapping("/user/donation/add")
     private String proceedAddForm(Donation donation){
         donationService.save(donation);
         return "redirect:/";
