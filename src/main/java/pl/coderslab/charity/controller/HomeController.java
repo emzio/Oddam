@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +25,21 @@ public class HomeController {
     public String homeAction(Model model){
         model.addAttribute("institutions", institutionService.findAll());
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
-        model.addAttribute("numberOfDonations", donationService.findNumberOfDonations());
+        model.addAttribute("numberOfDonations", donationService.countDonation());
         return "index";
     }
 
-
-
-
-
-//    testowe  testowe  testowe  testowe
-    @GetMapping("/test")
+//    TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE testowe  testowe  testowe  testowe
+    @GetMapping("/admin/test")
     @ResponseBody
     public String test(){
         return String.join(" | " , String.valueOf(donationService.findTotalQuantity()));
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/accestest")
+    @ResponseBody
+    public String accesTest() {
+        return "passed or not";
     }
 }

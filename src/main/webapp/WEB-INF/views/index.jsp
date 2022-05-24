@@ -83,7 +83,7 @@
     <div class="help--slides active" data-id="1">
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
             Możesz sprawdzić czym się zajmują.</p>
-
+<!-- TODO  -->
         <ul class="help--slides-items">
             <c:forEach var="institution" items="${institutions}" varStatus="counter">
                 <c:choose>

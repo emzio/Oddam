@@ -20,8 +20,8 @@ public class DonationServiceImp implements DonationService{
     }
 
     @Override
-    public Integer findNumberOfDonations(){
-        return donationRepository.findNumberOfDonations();
+    public Integer countDonation(){
+        return donationRepository.countDonation();
     }
 
     @Override
