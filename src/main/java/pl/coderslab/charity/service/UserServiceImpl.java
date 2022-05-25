@@ -46,4 +46,21 @@ public class UserServiceImpl implements UserService {
         user.setRoles(new HashSet<>(Arrays.asList(userRole, adminRole)));
         userRepository.save(user);
     }
+
+    @Override
+    public boolean verifyPasswordRepetition(String password, String passwordRep){
+        return password.equals(passwordRep);
+    }
+
+    @Override
+    public Role findRole(CurrentUser customUser){
+        Role role = new Role();
+        if (customUser.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            role.setName("ROLE_ADMIN");
+            return role;
+        }
+        role.setName("ROLE_USER");
+        return role;
+    }
 }

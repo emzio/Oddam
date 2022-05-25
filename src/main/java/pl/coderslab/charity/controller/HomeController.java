@@ -1,13 +1,16 @@
 package pl.coderslab.charity.controller;
 
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.charity.service.CurrentUser;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
+import pl.coderslab.charity.service.UserService;
 
 
 @Controller
@@ -15,17 +18,24 @@ public class HomeController {
 
     private final InstitutionService institutionService;
     private final DonationService donationService;
-    public HomeController(InstitutionService institutionService, DonationService donationService) {
+    private final UserService userService;
+    public HomeController(InstitutionService institutionService, DonationService donationService, UserService userService) {
         this.institutionService = institutionService;
         this.donationService = donationService;
+        this.userService = userService;
     }
 
 
     @RequestMapping("/")
-    public String homeAction(Model model){
+    public String homeAction(Model model, @AuthenticationPrincipal CurrentUser customUser){
         model.addAttribute("institutions", institutionService.findAll());
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
         model.addAttribute("numberOfDonations", donationService.countDonation());
+        if(customUser!=null && userService.findRole(customUser).getName().equals("ROLE_ADMIN")){
+            return "adminstart";
+        } else if (customUser!=null){
+            return "userStart";
+        }
         return "index";
     }
 
