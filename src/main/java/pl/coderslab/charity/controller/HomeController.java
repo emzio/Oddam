@@ -53,8 +53,4 @@ public class HomeController {
         return "passed or not";
     }
 
-    @GetMapping("/user/donation/confirmation")
-    public String showConfirmation(){
-        return "form-confirmation";
-    }
 }
