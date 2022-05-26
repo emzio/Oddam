@@ -16,21 +16,23 @@
 <body>
 <header class="header--main-page">
     <nav class="container container--70">
-<%--        <ul class="nav--actions">--%>
-<%--            <sec:authorize access="isAuthenticated()">--%>
-<%--                <li><h2>Witaj: <sec:authentication property="principal.username"/></h2></li>--%>
-<%--            <li><a href="/logout" class="btn btn--small btn--without-border">Wyloguj</a></li>--%>
-<%--                </sec:authorize>--%>
-<%--                <sec:authorize access="isAnonymous()">--%>
-<%--                    <li> <a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>--%>
-<%--                </sec:authorize>--%>
-
-<%--            <li><a href="/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>--%>
-<%--        </ul>--%>
 
         <ul class="nav--actions">
-            <li><a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li><a href="/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            <sec:authorize access="isAuthenticated()">
+                <li class="logged-user">
+                    Witaj <sec:authentication property="principal.username"/>
+                    <ul class="dropdown">
+                        <li><a href="#">Profil</a></li>
+                        <li><a href="#">Moje zbiórki</a></li>
+                        <li><a href="logout">Wyloguj</a></li>
+                    </ul>
+                </li>
+            </sec:authorize>
+
+            <sec:authorize access="isAnonymous()">
+                <li><a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            </sec:authorize>
         </ul>
 
         <ul>
