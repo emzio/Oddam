@@ -40,6 +40,6 @@
             <li><a href="#" class="btn btn--without-border">O co chodzi?</a></li>
             <li><a href="#" class="btn btn--without-border">O nas</a></li>
             <li><a href="#" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="#" class="btn btn--without-border">Kontakt</a></li>
+            <li><a href="/user/donation/add" class="btn btn--without-border">Przekaż dary</a></li>            <li><a href="#" class="btn btn--without-border">Kontakt</a></li>
         </ul>
     </nav>

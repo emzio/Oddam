@@ -21,7 +21,7 @@ public class DonationController {
         this.institutionService = institutionService;
     }
 
-//                  ADD
+//ADD
     @GetMapping("/user/donation/add")
     private String showAddForm(Model model){
         model.addAttribute("donation",new Donation());
