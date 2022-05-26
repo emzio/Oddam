@@ -271,6 +271,45 @@ document.addEventListener("DOMContentLoaded", function() {
         categoryEl = document.querySelectorAll(".active .form-group input");
         let arr = [];
         const activeButtonInFunction = document.querySelector(".active button.next-step");
+
+        //podświetlanie start
+
+        let checkboxArr = [];
+        checkboxArr = document.querySelectorAll(".active .checkbox");
+        console.log("checkboxArr", checkboxArr);
+
+        function checkedShow(event){
+          if (event.target.style.backgroundColor !== "red"){
+            event.target.style.backgroundColor = "red";
+          } else {
+            event.target.style.backgroundColor = "";
+          }
+        }
+
+        for (let i = 0; i < checkboxArr.length; i++) {
+          checkboxArr[i].addEventListener("click", checkedShow);
+        }
+
+        // for (let i = 0; i < checkboxArr.length; i++) {
+        //   checkboxArr[i].addEventListener("click", ev => {
+        //     // ev.stopPropagation();
+        //     // console.log("evt.target", ev.target);
+        //     // console.log("this" , this);
+        //     let localDescriptionEl = ev.target.parentElement.querySelector("span.description");
+        //     // console.log("description", localDescriptionEl.innerHTML);
+        //     localDescriptionEl.innerHTML+= " TesT ";
+        //     // ev.target.style.backgroundColor = "red";
+        //     if (ev.target.style.backgroundColor !== "red"){
+        //       ev.target.style.backgroundColor = "red";
+        //     } else {
+        //       ev.target.style.backgroundColor = "";
+        //     }
+        //   });
+        // }
+
+        //podświetlanie end
+
+
         console.log("activeButtonInFunction", activeButtonInFunction);
         activeButtonInFunction.addEventListener("click", evt => {
           categoryEl.forEach(el => {
@@ -280,6 +319,11 @@ document.addEventListener("DOMContentLoaded", function() {
               arr.push(el.parentElement.querySelector(".description").innerHTML);
               console.log("description: ", el.parentElement.querySelector(".description").innerHTML);
             }
+          // usuwanie eventu do podświetlania zaznaczonych elementów
+            for (let i = 0; i < checkboxArr.length; i++) {
+              checkboxArr[i].removeEventListener("click", checkedShow);
+            }
+
           })
           console.log("arr", arr);
           categoryChecked = arr;
