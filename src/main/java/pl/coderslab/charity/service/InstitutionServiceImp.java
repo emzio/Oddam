@@ -40,4 +40,8 @@ public class InstitutionServiceImp implements InstitutionService{
         institution.setEnabled(false);
         institutionRepository.save(institution);
     }
+
+    public void save(Institution institution){
+        institutionRepository.save(institution);
+    }
 }

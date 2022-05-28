@@ -50,9 +50,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Enabled</th>
                                 <th>description</th>
                                 <th>Update</th>
-                                <th>Delete</th>
                                 <th>Delete</th>
                             </tr>
                             </thead>
@@ -61,8 +61,8 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Enabled</th>
-                                <th>description</th>
-                                <th>Update</th>
+                                <th>Description</th>
+                                <th>Edit</th>
                                 <th>Delete</th>
 
                             </tr>
@@ -74,7 +74,7 @@
                                     <td>${institution.name}</td>
                                     <td>${institution.enabled}</td>
                                     <td>${institution.description}</td>
-                                    <td><a href="/admin/institution/update/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <td><a href="/admin/institution/edit/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                          update</a></td>
                                     <td><a href="/admin/institution/delete/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> delete</a></td>
                                 </tr>

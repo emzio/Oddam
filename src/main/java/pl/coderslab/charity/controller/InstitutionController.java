@@ -17,7 +17,7 @@ public class InstitutionController {
     }
 
     @GetMapping("admin/institutions")
-    private String showAllDonations(Model model){
+    private String showAllInstitutions(Model model){
         model.addAttribute("institutions", institutionService.findAll());
         return "institution/institutions";
     }
@@ -31,6 +31,18 @@ public class InstitutionController {
     @PostMapping("admin/institution/delete/{id}")
     private String proceedDeleteForm(Institution institution){
         institutionService.delete(institution);
+        return "redirect:/admin/institutions";
+    }
+
+    @GetMapping("admin/institution/edit/{id}")
+    private String showEditForm(@PathVariable Long id, Model model){
+        model.addAttribute("institution", institutionService.finById(id));
+        return "/institution/edit";
+    }
+
+    @PostMapping("admin/institution/edit/{id}")
+    private String proceedEditForm(Institution institution){
+        institutionService.save(institution);
         return "redirect:/admin/institutions";
     }
 }

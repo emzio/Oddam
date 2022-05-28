@@ -13,4 +13,6 @@ public interface InstitutionService {
     Institution finById(Long id);
 
     void delete(Institution institution);
+
+    void save(Institution institution);
 }
