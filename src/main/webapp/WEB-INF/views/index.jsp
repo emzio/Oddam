@@ -94,8 +94,8 @@
                         </div>
                         <c:choose>
                             <c:when test="${counter.last}">
-                                <div class="col">
-                                    <div class="title"></div>
+                                <div  style="background: transparent !important" class="col">
+                                    <div  class="title"></div>
                                     <div class="subtitle"></div>
                                 </div>
                                 </li>

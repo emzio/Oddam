@@ -60,22 +60,23 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Enabled</th>
                                 <th>description</th>
                                 <th>Update</th>
                                 <th>Delete</th>
-                                <th>Delete</th>
+
                             </tr>
                             </tfoot>
                             <tbody>
                             <c:forEach items="${institutions}" var="institution" varStatus="counter">
                                 <tr>
-                                    <td>${counter.index}</td>
+                                    <td>${counter.index + 1}</td>
                                     <td>${institution.name}</td>
+                                    <td>${institution.enabled}</td>
                                     <td>${institution.description}</td>
-                                    <td><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <td><a href="/admin/institution/update/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                          update</a></td>
-                                    <td><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> delete</a></td>
-                                    <td><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> other</a></td>
+                                    <td><a href="/admin/institution/delete/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> delete</a></td>
                                 </tr>
                             </c:forEach>
                             <tr>
