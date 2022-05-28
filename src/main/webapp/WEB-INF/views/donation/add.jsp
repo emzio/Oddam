@@ -234,7 +234,8 @@
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Numer telefonu <input id="phone" type="phone" name="phone" />
+<%--                                Numer telefonu <input id="phone" type="phone" name="phone" />--%>
+                                Numer telefonu <form:input path="phone" />
                             </label>
                         </div>
                     </div>
