@@ -31,10 +31,11 @@ public class HomeController {
         model.addAttribute("institutions", institutionService.findAll());
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
         model.addAttribute("numberOfDonations", donationService.countDonation());
+
         if(customUser!=null && userService.findRole(customUser).getName().equals("ROLE_ADMIN")){
-            return "adminstart";
+            return "admin/admin";
         } else if (customUser!=null){
-            return "userStart";
+            return "user/user";
         }
         return "index";
     }
@@ -52,4 +53,5 @@ public class HomeController {
     public String accesTest() {
         return "passed or not";
     }
+
 }

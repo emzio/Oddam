@@ -21,7 +21,7 @@ public class DonationController {
         this.institutionService = institutionService;
     }
 
-//                  ADD
+//ADD
     @GetMapping("/user/donation/add")
     private String showAddForm(Model model){
         model.addAttribute("donation",new Donation());
@@ -33,7 +33,12 @@ public class DonationController {
     @PostMapping("/user/donation/add")
     private String proceedAddForm(Donation donation){
         donationService.save(donation);
-        return "redirect:/";
+        return "redirect:/user/donation/confirmation";
+    }
+
+    @GetMapping("/user/donation/confirmation")
+    public String showConfirmation(){
+        return "form-confirmation";
     }
 
 
