@@ -45,4 +45,16 @@ public class InstitutionController {
         institutionService.save(institution);
         return "redirect:/admin/institutions";
     }
+
+    @GetMapping("admin/institution/add")
+    private String showAddForm(Model model){
+        model.addAttribute("institution", new Institution());
+        return "/institution/add";
+    }
+
+    @PostMapping("admin/institution/add")
+    private String proceedAddForm(Institution institution){
+        institutionService.add(institution);
+        return "redirect:/admin/institutions";
+    }
 }

@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Admin main</h1>
+        <h1 class="h3 mb-0 text-gray-800">Institutions</h1>
     </div>
 
     <div class="row">
@@ -20,8 +20,9 @@
                 <!-- Card Header - Dropdown -->
                 <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Institutions</h6>
-
+                    <h6 class="m-0 font-weight-bold text-primary">Instytucje</h6>
+                    <a href="/admin/institution/add" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                        Dodaj Instytucje</a>
 <%--                    <div class="dropdown no-arrow">--%>
 <%--                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"--%>
 <%--                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
@@ -51,7 +52,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Enabled</th>
-                                <th>description</th>
+                                <th>Description</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -74,9 +75,9 @@
                                     <td>${institution.name}</td>
                                     <td>${institution.enabled}</td>
                                     <td>${institution.description}</td>
-                                    <td><a href="/admin/institution/edit/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <td><a href="/admin/institution/edit/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
                                          update</a></td>
-                                    <td><a href="/admin/institution/delete/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> delete</a></td>
+                                    <td><a href="/admin/institution/delete/${institution.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a></td>
                                 </tr>
                             </c:forEach>
                             <tr>

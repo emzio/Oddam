@@ -15,4 +15,6 @@ public interface InstitutionService {
     void delete(Institution institution);
 
     void save(Institution institution);
+
+    void add(Institution institution);
 }
