@@ -26,9 +26,15 @@ public class Donation {
     @JoinColumn
     private Institution institution;
 
+    @ManyToOne
+    @JoinColumn
+    private User user;
+
     private String street;
     private String city;
     private String zipCode;
+    private String phone;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickedUpDate;
     @DateTimeFormat(pattern = "HH:mm")
@@ -67,6 +73,14 @@ public class Donation {
         this.institution = institution;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getStreet() {
         return street;
     }
@@ -89,6 +103,14 @@ public class Donation {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public LocalDate getPickedUpDate() {

@@ -28,7 +28,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String homeAction(Model model, @AuthenticationPrincipal CurrentUser customUser){
-        model.addAttribute("institutions", institutionService.findAll());
+        model.addAttribute("institutions", institutionService.findAllByEnabledIsTrue());
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
         model.addAttribute("numberOfDonations", donationService.countDonation());
 

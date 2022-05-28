@@ -24,7 +24,7 @@ public class User {
     private String lastname;
     private String email;
 
-    private Integer phone;
+    private String phone;
 
     public String getName() {
         return name;
@@ -90,11 +90,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

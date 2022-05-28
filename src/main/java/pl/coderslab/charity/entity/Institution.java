@@ -13,6 +13,8 @@ public class Institution {
 
     private String description;
 
+    private Boolean enabled;
+
     @Override
     public String toString() {
         return "Institution{" +
@@ -44,5 +46,13 @@ public class Institution {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }
