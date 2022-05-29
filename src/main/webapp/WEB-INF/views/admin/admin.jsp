@@ -84,6 +84,30 @@
         </div>
     </div>
 
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-lg-12">
+            <div class="card border-left-info shadow h-100 py-2">
+
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Administratorzy</h6>
+
+                </div>
+
+
+                <div class="card-body">
+                    <a href="/admin/list" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                        Administratorzy</a>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
 </div>
 <!-- /.container-fluid -->
 

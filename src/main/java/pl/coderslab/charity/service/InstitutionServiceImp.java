@@ -31,9 +31,12 @@ public class InstitutionServiceImp implements InstitutionService{
     }
 
     @Override
-    public Institution finById(Long id) {
-        return institutionRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found"));
+    public Optional<Institution> finById(Long id) {
+//        return institutionRepository.findById(id)
+//                .orElseThrow(() -> {
+//                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+//                });
+        return institutionRepository.findById(id);
     }
 
     public void delete(Institution institution){

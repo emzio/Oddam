@@ -47,14 +47,16 @@ public class UserController {
         return "redirect:/register";
     }
 
+
+
    // TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE
 
     @GetMapping("/create-user")
     @ResponseBody
     public String createAdmin() {
         User user = new User();
-        user.setUsername("user");
-        user.setPassword("user");
+        user.setUsername("user1");
+        user.setPassword("user1");
         userService.saveUser(user);
         return "user";
     }
@@ -63,8 +65,8 @@ public class UserController {
     @ResponseBody
     public String createUser() {
         User user = new User();
-        user.setUsername("admin");
-        user.setPassword("admin");
+        user.setUsername("admin3");
+        user.setPassword("admin3");
         userService.saveAdmin(user);
         return "admin";
     }
