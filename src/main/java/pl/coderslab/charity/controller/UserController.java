@@ -47,7 +47,41 @@ public class UserController {
         return "redirect:/register";
     }
 
+    @GetMapping("/user/edit")
+    private String showUserEditForm(@AuthenticationPrincipal CurrentUser currentUser, Model model){
+        User user = userService.findByUserName(currentUser.getUsername());
+        model.addAttribute("user", user);
+        return "user/edit";
+    }
 
+//    @GetMapping("/user/edit/{userName}")
+//    private String showUserEditForm(@PathVariable String userName, Model model){
+//        User user = userService.findByUserName(userName);
+//        model.addAttribute("user", user);
+//        return "user/edit";
+//    }
+
+    @PostMapping("/user/edit")
+    private String proceedUserEditForm(User user){
+        userService.save(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/user/password/edit")
+    private String showUserPasswordEditForm(@AuthenticationPrincipal CurrentUser currentUser, Model model){
+        User user = userService.findByUserName(currentUser.getUsername());
+        model.addAttribute("user", user);
+        return "user/password-edit";
+    }
+
+    @PostMapping("/user/password/edit")
+    private String proceedUserPasswordEditForm(User user, @RequestParam String password2){
+        if (userService.verifyPasswordRepetition(user.getPassword(), password2)){
+            userService.changePassword(user);
+            return "redirect:/";
+        }
+        return "redirect:/user/password/edit";
+    }
 
    // TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE
 
