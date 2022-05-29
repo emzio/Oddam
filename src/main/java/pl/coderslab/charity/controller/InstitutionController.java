@@ -1,10 +1,12 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.service.InstitutionService;
 
@@ -24,7 +26,10 @@ public class InstitutionController {
 
     @GetMapping("admin/institution/delete/{id}")
     private String showDeleteForm(Model model, @PathVariable Long id){
-        model.addAttribute("institution", institutionService.finById(id));
+        Institution institution = institutionService.finById(id).orElseThrow(() -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+                });
+        model.addAttribute("institution", institution);
         return "/institution/delete";
     }
 
@@ -36,7 +41,10 @@ public class InstitutionController {
 
     @GetMapping("admin/institution/edit/{id}")
     private String showEditForm(@PathVariable Long id, Model model){
-        model.addAttribute("institution", institutionService.finById(id));
+        Institution institution = institutionService.finById(id).orElseThrow(() -> {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        });
+        model.addAttribute("institution", institution);
         return "/institution/edit";
     }
 

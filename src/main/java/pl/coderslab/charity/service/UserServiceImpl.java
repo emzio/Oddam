@@ -1,14 +1,18 @@
 package pl.coderslab.charity.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.entity.UserRepository;
+import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -62,5 +66,29 @@ public class UserServiceImpl implements UserService {
         }
         role.setName("ROLE_USER");
         return role;
+    }
+
+    @Override
+    public List<User> findAllAdmins(){
+        Role role = roleRepository.findByName("ROLE_ADMIN");
+        return userRepository.findAllByRolesContainingAndEnabledIsTrue(role);
+    }
+
+    @Override
+    public User findById(Long id){
+        return userRepository.findById(id).orElseThrow(() -> {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        });
+    }
+
+    @Override
+    public void deleteAdmin(User user){
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
+
+    public long count() {
+        Role role_admin = roleRepository.findByName("ROLE_ADMIN");
+        return userRepository.countAllByRolesContainingAndEnabledIsTrue(role_admin);
     }
 }

@@ -10,7 +10,7 @@ public interface InstitutionService {
 
     List<Institution> findAllByEnabledIsTrue();
 
-    Institution finById(Long id);
+    Optional<Institution> finById(Long id);
 
     void delete(Institution institution);
 

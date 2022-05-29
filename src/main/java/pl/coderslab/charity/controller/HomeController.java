@@ -51,7 +51,8 @@ public class HomeController {
     @GetMapping("/accestest")
     @ResponseBody
     public String accesTest() {
-        return "passed or not";
+
+        return userService.count() + " passed or not";
     }
 
 }
