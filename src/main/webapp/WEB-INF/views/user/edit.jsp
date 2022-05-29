@@ -9,7 +9,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Edycja </h1>
+        <h1 class="h3 mb-0 text-gray-800">Edycja danych</h1>
     </div>
 
     <div class="row">
@@ -22,22 +22,13 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Edytuj: </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <form:form cssClass="user" method="post" modelAttribute="admin">
-                                    <div class="form-group">
-                                        <label for="loginId">Login</label>
-                                        <form:input path="username" class="form-control form-control-user" id="loginId" />
-                                    </div>
-
+                                <form:form cssClass="user" method="post" modelAttribute="user">
+                                    <form:hidden path="username"/>
                                     <div>
                                         <form:hidden path="password"/>
                                     </div>
 
-                                    <div class="form-group form-check">
-                                        <label class="form-check-label">Enabled true:</label>
-                                        <form:radiobutton path="enabled" value="true"/>
-                                        <label class="form-check-label">Enabled false:</label>
-                                        <form:radiobutton path="enabled" value="false"/>
-                                    </div>
+                                    <form:hidden path="enabled"/>
 
                                     <div>
                                         <form:hidden path="roles"/>

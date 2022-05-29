@@ -30,4 +30,6 @@ public interface UserService {
     List<User> findAllDisabledUsers();
 
     void deleteUser(User user);
+
+    void changePassword(User user);
 }
