@@ -63,12 +63,12 @@
                                     <td>${admin.lastname}</td>
                                     <td>${admin.phone}</td>
                                     <td>
-                                        <a href="/admin/admin/edit/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+                                        <a href="/admin/edit/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
                                         edit</a>
                                     </td>
                                     <td>
                                         <c:if test="${!(counter.isLast() && counter.count==1)}">
-                                        <a href="/admin/admin/delete/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a>
+                                        <a href="/admin/delete/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a>
                                         </c:if>
                                     </td>
                                 </tr>

@@ -9,7 +9,9 @@ public interface UserService {
     User findByUserName(String name);
     void saveUser(User user);
 
-    public void saveAdmin(User user);
+    void saveAdmin(User user);
+
+    void save(User user);
 
     boolean verifyPasswordRepetition(String password, String passwordRep);
 
@@ -22,4 +24,10 @@ public interface UserService {
     void deleteAdmin(User user);
 
     long count();
+
+    List<User> findAllEnabledUsers();
+
+    List<User> findAllDisabledUsers();
+
+    void deleteUser(User user);
 }

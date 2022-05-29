@@ -22,7 +22,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Czy na pewno chcesz skasować ? </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <form:form cssClass="user" method="post" modelAttribute="admin">
+                                <form:form cssClass="user" method="post" modelAttribute="user">
                                     <form:hidden path="username" />
                                     <form:hidden path="password"/>
                                     <form:hidden path="enabled"/>

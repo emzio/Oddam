@@ -51,6 +51,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    public void save(User user){
+        userRepository.save(user);
+    }
+
     @Override
     public boolean verifyPasswordRepetition(String password, String passwordRep){
         return password.equals(passwordRep);
@@ -90,5 +94,23 @@ public class UserServiceImpl implements UserService {
     public long count() {
         Role role_admin = roleRepository.findByName("ROLE_ADMIN");
         return userRepository.countAllByRolesContainingAndEnabledIsTrue(role_admin);
+    }
+
+    @Override
+    public List<User> findAllEnabledUsers(){
+        Role role = roleRepository.findByName("ROLE_ADMIN");
+        return userRepository.findAllByRolesNotContainingAndEnabledIsTrue(role);
+    }
+
+    @Override
+    public List<User> findAllDisabledUsers(){
+        Role role = roleRepository.findByName("ROLE_ADMIN");
+        return userRepository.findAllByRolesNotContainingAndEnabledIsFalse(role);
+    }
+
+    @Override
+    public void deleteUser(User user){
+        user.setEnabled(false);
+        userRepository.save(user);
     }
 }
