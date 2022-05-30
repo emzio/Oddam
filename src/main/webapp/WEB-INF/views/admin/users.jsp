@@ -36,6 +36,7 @@
                                 <th>LastName</th>
                                 <th>phone</th>
                                 <th>Edit</th>
+                                <th>Disable</th>
                                 <th>Delete</th>
                             </tr>
                             </thead>
@@ -48,6 +49,7 @@
                                 <th>LastName</th>
                                 <th>phone</th>
                                 <th>Edit</th>
+                                <th>Disable</th>
                                 <th>Delete</th>
                             </tr>
                             </tfoot>
@@ -63,6 +65,9 @@
                                     <td>
                                         <a href="/admin/user/edit/${user.id}" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
                                             edit</a>
+                                    </td>
+                                    <td>
+                                        <a href="/admin/user/disable/${user.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> disable</a>
                                     </td>
                                     <td>
                                         <a href="/admin/user/delete/${user.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a>

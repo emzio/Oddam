@@ -89,6 +89,12 @@ public class AdminsController {
         return "admin/user-delete";
     }
 
+    @GetMapping("admin/user/disable/{id}")
+    private String disableUser(@PathVariable Long id){
+        User user = userService.findById(id);
+        userService.disableUser(user);
+        return "redirect:/admin/users";
+    }
     @PostMapping("admin/user/delete/{id}")
     private String proceedUserDeleteForm(User user){
         userService.deleteUser(user);
