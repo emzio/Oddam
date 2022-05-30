@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Donation {
+public class Donation implements Comparable<Donation>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -160,5 +160,13 @@ public class Donation {
                 ", pickedUpTime=" + pickedUpTime +
                 ", pickUpComment='" + pickUpComment + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Donation donation) {
+        if (this.getPickedUp().compareTo(donation.pickedUp)==0){
+            return this.getPickedUpDate().compareTo(donation.pickedUpDate);
+        }
+        return this.getPickedUp().compareTo(donation.pickedUp);
     }
 }

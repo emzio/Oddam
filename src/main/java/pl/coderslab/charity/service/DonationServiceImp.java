@@ -6,6 +6,8 @@ import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.DonationRepository;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -35,7 +37,9 @@ public class DonationServiceImp implements DonationService{
 
     @Override
     public List<Donation>  findAllByUserOrderByPickedUp(User user){
-        return donationRepository.findAllByUserOrderByPickedUp(user);
+        List<Donation> donations = donationRepository.findAllByUserOrderByPickedUp(user);
+        Collections.sort(donations);
+        return donations;
     }
 
     @Override
