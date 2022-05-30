@@ -42,4 +42,9 @@ public class DonationServiceImp implements DonationService{
     public Donation findByIdJoiningCategories(Long id){
         return donationRepository.findByIdJoiningCategories(id);
     }
+
+    @Override
+    public void save(Donation donation){
+        donationRepository.save(donation);
+    }
 }

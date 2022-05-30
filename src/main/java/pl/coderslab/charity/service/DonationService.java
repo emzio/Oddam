@@ -17,4 +17,6 @@ public interface DonationService {
     List<Donation> findAllByUserOrderByPickedUp(User user);
 
     Donation findByIdJoiningCategories(Long id);
+
+    void save(Donation donation);
 }

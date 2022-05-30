@@ -27,7 +27,7 @@
 
                                     <div class="form-group">
                                         <label for="password">Name</label>
-                                        <form:input path="password" type="password" value="#" class="form-control form-control-user" id="password" />
+                                        <form:input path="password" type="password" class="form-control form-control-user" id="password" />
                                     </div>
                                     <div class="form-group">
                                         <label for="password2">Name</label>

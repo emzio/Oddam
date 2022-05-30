@@ -29,6 +29,8 @@ public interface UserService {
 
     List<User> findAllDisabledUsers();
 
+    void disableUser(User user);
+
     void deleteUser(User user);
 
     void changePassword(User user);

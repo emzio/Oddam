@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(User user){
+    public void disableUser(User user){
         user.setEnabled(false);
         userRepository.save(user);
     }
@@ -117,6 +117,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    public void deleteUser(User user){
+        user.setEnabled(false);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUsername(passwordEncoder.encode(user.getUsername()));
+        user.setName(passwordEncoder.encode(user.getName()));
+        user.setLastname(passwordEncoder.encode(user.getLastname()));
+        user.setEmail(String.join("", passwordEncoder.encode(user.getEmail()), "@hashed.com"));
+        user.setPhone(passwordEncoder.encode(user.getPhone()));
         userRepository.save(user);
     }
 }

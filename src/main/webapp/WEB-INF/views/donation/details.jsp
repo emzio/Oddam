@@ -30,12 +30,12 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Odebrane</th>
+
                                 <th>Data odbioru</th>
                                 <th>Czas odbioru</th>
                                 <th>Ilość</th>
-                                <th>kategorie</th>
+                                <th>Instytucja</th>
+                                <th>Kategorie</th>
                                 <th>Miasto</th>
                                 <th>Ulica</th>
                                 <th>Kod pocztowy</th>
@@ -45,12 +45,12 @@
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>#</th>
-                                <th>Odebrane</th>
+
                                 <th>Data odbioru</th>
                                 <th>Czas odbioru</th>
                                 <th>Ilość</th>
-                                <th>kategorie</th>
+                                <th>Instytucja</th>
+                                <th>Kategorie</th>
                                 <th>Miasto</th>
                                 <th>Ulica</th>
                                 <th>Kod pocztowy</th>
@@ -60,7 +60,6 @@
                             </tfoot>
                             <tbody>
                                 <tr>
-                                    <td>${donation.pickedUp}</td>
                                     <td>${donation.pickedUpDate}</td>
                                     <td>${donation.pickedUpTime}</td>
                                     <td>${donation.quantity}</td>
@@ -80,7 +79,7 @@
                                             <a href="/user/donation/pickedup/${donation.id}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                                 potwierdź odbiór</a>
                                         </c:if>
-                                        <c:if test="${single.pickedUp==true}">
+                                        <c:if test="${donation.pickedUp==true}">
                                             ODEBRANE
                                         </c:if>
                                     </td>

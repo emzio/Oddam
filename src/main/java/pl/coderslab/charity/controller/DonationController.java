@@ -58,9 +58,11 @@ public class DonationController {
         return "donation/details";
     }
 
-    @GetMapping("/user/donation/details/{id}")
+    @GetMapping("/user/donation/pickedup/{id}")
     private String donationPickUp(@PathVariable Long id){
-
-        return "donation/details";
+        Donation donation = donationService.findByIdJoiningCategories(id);
+        donation.setPickedUp(true);
+        donationService.save(donation);
+        return "redirect:/user/donations";
     }
 }
