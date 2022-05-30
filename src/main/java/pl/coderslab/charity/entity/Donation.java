@@ -41,6 +41,8 @@ public class Donation {
     private LocalTime pickedUpTime;
     private String pickUpComment;
 
+    private Boolean pickedUp;
+
     public Long getId() {
         return id;
     }
@@ -135,6 +137,14 @@ public class Donation {
 
     public void setPickUpComment(String pickUpComment) {
         this.pickUpComment = pickUpComment;
+    }
+
+    public Boolean getPickedUp() {
+        return pickedUp;
+    }
+
+    public void setPickedUp(Boolean pickedUp) {
+        this.pickedUp = pickedUp;
     }
 
     @Override

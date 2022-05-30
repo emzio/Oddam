@@ -6,6 +6,8 @@ import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.DonationRepository;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class DonationServiceImp implements DonationService{
@@ -31,4 +33,13 @@ public class DonationServiceImp implements DonationService{
         return donationRepository.findTotalQuantity();
     }
 
+    @Override
+    public List<Donation>  findAllByUserOrderByPickedUp(User user){
+        return donationRepository.findAllByUserOrderByPickedUp(user);
+    }
+
+    @Override
+    public Donation findByIdJoiningCategories(Long id){
+        return donationRepository.findByIdJoiningCategories(id);
+    }
 }
