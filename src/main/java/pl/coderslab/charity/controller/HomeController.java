@@ -7,19 +7,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.coderslab.charity.service.CurrentUser;
-import pl.coderslab.charity.service.DonationService;
-import pl.coderslab.charity.service.InstitutionService;
-import pl.coderslab.charity.service.UserService;
+import pl.coderslab.charity.service.*;
 
 
 @Controller
 public class HomeController {
 
+    private final EmailService emailService;
     private final InstitutionService institutionService;
     private final DonationService donationService;
     private final UserService userService;
-    public HomeController(InstitutionService institutionService, DonationService donationService, UserService userService) {
+    public HomeController(EmailService emailService, InstitutionService institutionService, DonationService donationService, UserService userService) {
+        this.emailService = emailService;
         this.institutionService = institutionService;
         this.donationService = donationService;
         this.userService = userService;
@@ -53,6 +52,13 @@ public class HomeController {
     public String accesTest() {
 
         return userService.count() + " passed or not";
+    }
+
+    @GetMapping("/email")
+    @ResponseBody
+    private String emailTest(){
+        emailService.sendSimpleMessage("emzio@yahoo.com", "emailTest", "test text");
+        return "email test";
     }
 
 }
