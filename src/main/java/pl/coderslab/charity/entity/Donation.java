@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,15 @@ public class Donation implements Comparable<Donation>{
     private String pickUpComment;
 
     private Boolean pickedUp;
+
+    @Column(name = "created")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdOn;
+
+    @PrePersist
+    public void prePersist() {
+        createdOn = LocalDate.now();
+    }
 
     public Long getId() {
         return id;
@@ -162,11 +172,22 @@ public class Donation implements Comparable<Donation>{
                 '}';
     }
 
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
     @Override
     public int compareTo(Donation donation) {
         if (this.getPickedUp().compareTo(donation.pickedUp)==0){
-            return this.getPickedUpDate().compareTo(donation.pickedUpDate);
+            return (this.pickedUp==false ?
+                    this.getCreatedOn().compareTo(donation.createdOn) :
+                    this.getPickedUpDate().compareTo(donation.pickedUpDate));
         }
+
         return this.getPickedUp().compareTo(donation.pickedUp);
     }
 }

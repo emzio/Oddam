@@ -18,6 +18,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private JavaMailSender emailSender;
 
+
 //    private JavaMailSender emailSender;
 //
 //    @Autowired
@@ -25,9 +26,18 @@ public class EmailServiceImpl implements EmailService {
 //        this.emailSender = emailSender;
 //    }
 
-    public void sendSimpleMessage(String to, String subject, String text){
+//    public void sendSimpleMessage(String to, String subject, String text){
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom("noreply@baeldung.com");
+//        message.setTo(to);
+//        message.setSubject(subject);
+//        message.setText(text);
+//        emailSender.send(message);
+//    }
+
+    public void sendSimpleMessage(String to, String subject, String text)
+    {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@baeldung.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
