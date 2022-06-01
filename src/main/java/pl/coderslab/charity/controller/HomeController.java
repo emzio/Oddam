@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.charity.service.*;
 
+import java.util.UUID;
+
 
 @Controller
 public class HomeController {
@@ -59,6 +61,13 @@ public class HomeController {
     private String emailTest(){
         emailService.sendSimpleMessage("emzio@yahoo.com", "emailTest", "test text");
         return "email test";
+    }
+
+    @GetMapping("/uuid")
+    @ResponseBody
+    private String uuidGenerator(){
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
     }
 
 }
