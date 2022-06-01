@@ -1,6 +1,9 @@
 package pl.coderslab.charity.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -11,6 +14,11 @@ public class User {
 
     @Column(nullable = false, unique = true, length = 60)
     private String username;
+
+    @NotBlank
+    @Size(min = 8)
+//    @Pattern(regexp = ".?[a-z]+.?[0-9]+.?[A-Z]+.?[#?!@$%^&*-]+", message = "zły pattern")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "zły pattern")
     private String password;
 
     private boolean enabled;

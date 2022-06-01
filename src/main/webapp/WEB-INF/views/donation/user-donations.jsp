@@ -31,6 +31,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Odebrane</th>
+                                <th>Data zgłoszenia</th>
                                 <th>Data odbioru</th>
                                 <th>Czas odbioru</th>
                                 <th>Ilość</th>
@@ -43,6 +44,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Odebrane</th>
+                                <th>Data zgłoszenia</th>
                                 <th>Data odbioru</th>
                                 <th>Czas odbioru</th>
                                 <th>Ilość</th>
@@ -56,6 +58,7 @@
                                 <tr>
                                     <td>${counter.index + 1}</td>
                                     <td>${single.pickedUp}</td>
+                                    <td>${single.createdOn}</td>
                                     <td>${single.pickedUpDate}</td>
                                     <td>${single.pickedUpTime}</td>
                                     <td>${single.quantity}</td>

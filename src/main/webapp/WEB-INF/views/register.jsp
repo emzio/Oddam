@@ -40,8 +40,13 @@
         <div class="form-group">
                 <%--            <input type="password" name="password" placeholder="Hasło" />--%>
             <div class="form-label">Password:  </div>
+            <div class="text-danger">
+                <form:errors path="password"/>
+            </div>
             <form:input path="password" type="password"  placeholder="Hasło" value="Hasło"/>
+
         </div>
+
         <div class="form-group">
             <div class="form-label">Powtórz hasło:  </div>
             <input type="password" name="password2" placeholder="Powtórz hasło" />

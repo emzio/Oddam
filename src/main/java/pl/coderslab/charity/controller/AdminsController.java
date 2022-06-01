@@ -1,10 +1,12 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.service.CurrentUser;
 import pl.coderslab.charity.service.UserService;
 
 @Controller
@@ -18,20 +20,22 @@ public class AdminsController {
 
 
     @GetMapping("admin/list")
-    private String showAllAdmins(Model model){
+    private String showAllAdmins(@AuthenticationPrincipal CurrentUser currentUser, Model model){
         model.addAttribute("admins", userService.findAllAdmins());
+        model.addAttribute("userToCompare", userService.findByUserName(currentUser.getUsername()));
         return "admin/list";
     }
 
     @GetMapping("admin/delete/{id}")
-    private String showDeleteForm(@PathVariable Long id, Model model){
+    private String showDeleteForm( @PathVariable Long id, Model model){
         model.addAttribute("admin", userService.findById(id));
         return "admin/delete";
     }
 
     @PostMapping("admin/delete/{id}")
-    private String proceedDeleteForm(User user){
-        userService.deleteAdmin(user);
+    private String proceedDeleteForm(@AuthenticationPrincipal CurrentUser currentUser, User user){
+        User userToCompare = userService.findByUserName(currentUser.getUsername());
+        userService.deleteAdmin(userToCompare, user);
         return "redirect:/admin/list";
     }
 
