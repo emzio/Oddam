@@ -21,7 +21,7 @@ public interface UserService {
 
     User findById(Long id);
 
-    void deleteAdmin(User user);
+    void deleteAdmin(User userToCompare, User user);
 
     long count();
 

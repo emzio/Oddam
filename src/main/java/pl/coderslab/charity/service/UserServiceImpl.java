@@ -1,6 +1,7 @@
 package pl.coderslab.charity.service;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,9 +87,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteAdmin(User user){
-        user.setEnabled(false);
-        userRepository.save(user);
+    public void deleteAdmin(User userToCompare, User user){
+        if(!userToCompare.getId().equals(user.getId())){
+            user.setEnabled(false);
+            userRepository.save(user);
+        }
     }
 
     public long count() {
