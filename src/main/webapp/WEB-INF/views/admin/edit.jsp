@@ -33,10 +33,11 @@
                                     </div>
 
                                     <div class="form-group form-check">
-                                        <label class="form-check-label">Enabled true:</label>
-                                        <form:radiobutton path="enabled" value="true"/>
-                                        <label class="form-check-label">Enabled false:</label>
-                                        <form:radiobutton path="enabled" value="false"/>
+<%--                                        <label class="form-check-label">Enabled true:</label>--%>
+<%--                                        <form:radiobutton path="enabled" value="true"/>--%>
+<%--                                        <label class="form-check-label">Enabled false:</label>--%>
+<%--                                        <form:radiobutton path="enabled" value="false"/>--%>
+                                        <form:hidden path="enabled"/>
                                     </div>
 
                                     <div>
