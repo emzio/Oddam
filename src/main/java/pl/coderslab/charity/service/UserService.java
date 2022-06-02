@@ -38,4 +38,6 @@ public interface UserService {
     void saveNotRegisteredUser(User user);
 
     void register(User user);
+
+    User findByEmail(String email);
 }

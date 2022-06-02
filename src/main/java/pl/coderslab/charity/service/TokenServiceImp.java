@@ -31,4 +31,14 @@ public class TokenServiceImp implements TokenService{
     public Token findByToken(String token){
         return tokenRepository.findByToken(token);
     }
+
+    @Override
+    public Token findByUser(User user){
+        return tokenRepository.findByUser(user);
+    }
+
+    @Override
+    public void delete(Token tokenToDel){
+        tokenRepository.delete(tokenToDel);
+    }
 }

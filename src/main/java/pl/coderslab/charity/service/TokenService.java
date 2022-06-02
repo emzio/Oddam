@@ -9,4 +9,7 @@ public interface TokenService {
     void saveForUser(User user);
 
     Token findByToken(String token);
+
+    Token findByUser(User user);
+    void delete(Token tokenToDel);
 }
