@@ -6,10 +6,10 @@ import java.util.UUID;
 @Entity
 public class Token {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private UUID token;
+    private String token;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -23,11 +23,11 @@ public class Token {
         this.user = user;
     }
 
-    public UUID getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(UUID token) {
+    public void setToken(String token) {
         this.token = token;
     }
 

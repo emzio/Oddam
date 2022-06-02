@@ -17,7 +17,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final EmailService emailService;
     private final InstitutionService institutionService;
     private final DonationService donationService;
     private final UserService userService;
@@ -50,13 +49,6 @@ public class HomeController {
     public String accesTest() {
 
         return userService.count() + " passed or not";
-    }
-
-    @GetMapping("/email")
-    @ResponseBody
-    public String emailTest(){
-        emailService.sendSimpleMessage("emziolkow@gmail.com", "emailTest", "testText");
-        return "email test";
     }
 
     @GetMapping("/uuid")

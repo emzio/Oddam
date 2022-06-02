@@ -1,7 +1,6 @@
 package pl.coderslab.charity.service;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +20,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           BCryptPasswordEncoder passwordEncoder) {
+                           BCryptPasswordEncoder passwordEncoder, TokenService tokenService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -131,6 +132,25 @@ public class UserServiceImpl implements UserService {
         user.setLastname(passwordEncoder.encode(user.getLastname()));
         user.setEmail(String.join("", passwordEncoder.encode(user.getEmail()), "@hashed.com"));
         user.setPhone(passwordEncoder.encode(user.getPhone()));
+        userRepository.save(user);
+    }
+
+    @Transactional
+    @Override
+    public void saveNotRegisteredUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role userRole = roleRepository.findByName("ROLE_USER");
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setRegistered(false);
+        user.setEnabled(false);
+        userRepository.save(user);
+        tokenService.saveForUser(user);
+    }
+
+    @Override
+    public void register(User user){
+        user.setEnabled(true);
+        user.setRegistered(true);
         userRepository.save(user);
     }
 }

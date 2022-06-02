@@ -7,12 +7,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.jsp.PageContext;
 
-@RequiredArgsConstructor//przeszukuje pola finalne i tworzy konstruktor
+@RequiredArgsConstructor
 @Service
 public class EmailServiceImpl implements EmailService {
 
@@ -37,6 +39,7 @@ public class EmailServiceImpl implements EmailService {
 //        emailSender.send(message);
 //    }
 
+    @Override
     public void sendSimpleMessage(String to, String subject, String text)
     {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -46,6 +49,24 @@ public class EmailServiceImpl implements EmailService {
         emailSender.send(message);
     }
 
+    @Override
+    public void sendToken(User user, Token token)
+    {
+        //        pageContext.request.contextPath
+
+        String url = "http://localhost:8080/register/uuid/"+ token.getToken();
+//        String text = "<a href='"+url+"'>"+url+"</a>";
+        String text = url;
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(user.getEmail());
+        message.setSubject("Rejestracja - Oddam w dobre ręce \\n");
+        message.setText("Dziękujemy za rejestrację\\n"
+        + "Aby aktywować konto kliknij link: \\n"
+        + text);
+        emailSender.send(message);
+    }
+
+    @Override
     public void sendEmail(User user, String password) {
 
         MimeMessage message = emailSender.createMimeMessage();
