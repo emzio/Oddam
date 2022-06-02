@@ -1,5 +1,6 @@
 package pl.coderslab.charity.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,12 +12,13 @@ import pl.coderslab.charity.entity.User;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-@Component
-//@Service
+@RequiredArgsConstructor//przeszukuje pola finalne i tworzy konstruktor
+@Service
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
-    private JavaMailSender emailSender;
+//    @Autowired
+
+    private final JavaMailSender emailSender;
 
 
 //    private JavaMailSender emailSender;
