@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.charity.service.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
 import java.util.UUID;
 
 
@@ -56,6 +58,12 @@ public class HomeController {
     public String uuidGenerator(){
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
+    }
+
+    @GetMapping("/path")
+    @ResponseBody
+    public String  pathTest(HttpServletRequest request){
+        return "ContextPath :" + request.getContextPath();
     }
 
 }

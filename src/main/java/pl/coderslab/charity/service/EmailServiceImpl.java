@@ -59,9 +59,9 @@ public class EmailServiceImpl implements EmailService {
         String text = url;
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(user.getEmail());
-        message.setSubject("Rejestracja - Oddam w dobre ręce \\n");
-        message.setText("Dziękujemy za rejestrację\\n"
-        + "Aby aktywować konto kliknij link: \\n"
+        message.setSubject(" Rejestracja - Oddam w dobre ręce \n ");
+        message.setText(" Dziękujemy za rejestrację \n "
+                + " Aby aktywować konto kliknij link: \n "
         + text);
         emailSender.send(message);
     }

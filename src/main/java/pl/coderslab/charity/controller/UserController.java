@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model){
+    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model, HttpServletRequest request){
         if(result.hasErrors()){
             return "register";
         }
@@ -49,15 +49,15 @@ public class UserController {
 
 
     @GetMapping("/register/uuid/{token}")
-    @ResponseBody
     private String showRegisterConfirmation(@PathVariable String token){
         Token byToken = tokenService.findByToken(token);
         if(byToken!=null && byToken.getToken().equals(token)){
             User user = byToken.getUser();
             userService.register(user);
-            return "done" + user.toString();
+            return "register-success";
+
         }
-        return token + "user/verify-uuid";
+        return "/error";
     }
 
 
