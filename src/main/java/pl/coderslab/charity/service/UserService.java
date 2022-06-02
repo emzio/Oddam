@@ -34,4 +34,8 @@ public interface UserService {
     void deleteUser(User user);
 
     void changePassword(User user);
+
+    void saveNotRegisteredUser(User user);
+
+    void register(User user);
 }

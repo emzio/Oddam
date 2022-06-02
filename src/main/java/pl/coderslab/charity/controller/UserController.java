@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,8 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
+import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.CurrentUser;
+import pl.coderslab.charity.service.EmailService;
+import pl.coderslab.charity.service.TokenService;
 import pl.coderslab.charity.service.UserService;
 
 import javax.servlet.http.Cookie;
@@ -17,40 +21,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Controller
-@SessionAttributes({"userToCheckUUID", "generatedUuid"})
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
+    private final TokenService tokenService;
+    private final EmailService emailService;
     @GetMapping("/register")
     private String showRegisterForm(Model model){
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @GetMapping("/register/uuid")
-    private String ShowUUIDForm(Model model, @SessionAttribute(value = "userToCheckUUID", required = false) User userToCheckUUID,
-                                @SessionAttribute(value = "generatedUuid", required = false) String  generatedUuid){
-        model.addAttribute("user", userToCheckUUID);
-        return "user/verify-uuid";
-    }
-
-    @PostMapping("/register/uuid")
-    @ResponseBody
-    private String VerifyUuid(User user, @RequestParam String uuid, @RequestParam String generatedUuid) {
-        userService.saveUser(user);
-                return "porównanie UUID: " + uuid.equals(generatedUuid) + "<br>" + uuid.toString() + "<br>" + generatedUuid.toString();
-//        return "redirect:/login";
-    }
-
     @PostMapping("/register")
-
-    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model){
+    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model, HttpServletRequest request){
         if(result.hasErrors()){
             return "register";
         }
@@ -58,10 +43,23 @@ public class UserController {
             return "redirect:/register";
         }
 
-        model.addAttribute("userToCheckUUID", user);
-        model.addAttribute("generatedUuid", UUID.randomUUID().toString());
-        return "redirect:/register/uuid";
+        userService.saveNotRegisteredUser(user);
+        return "user/register-mail-sent";
     }
+
+
+    @GetMapping("/register/uuid/{token}")
+    private String showRegisterConfirmation(@PathVariable String token){
+        Token byToken = tokenService.findByToken(token);
+        if(byToken!=null && byToken.getToken().equals(token)){
+            User user = byToken.getUser();
+            userService.register(user);
+            return "register-success";
+
+        }
+        return "/error";
+    }
+
 
     @GetMapping("/user/edit")
     private String showUserEditForm(@AuthenticationPrincipal CurrentUser currentUser, Model model){
@@ -126,5 +124,12 @@ public class UserController {
     public String admin(@AuthenticationPrincipal CurrentUser customUser) {
         User entityUser = customUser.getUser();
         return "Hello " + entityUser.getUsername();
+    }
+
+    @GetMapping("/email")
+    @ResponseBody
+    public String emailTest(){
+        emailService.sendSimpleMessage("emziolkow@gmail.com", "emailTest", "testText");
+        return "email test";
     }
 }

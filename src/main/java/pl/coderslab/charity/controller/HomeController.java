@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.charity.service.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
 import java.util.UUID;
 
 
@@ -17,7 +19,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final EmailService emailService;
     private final InstitutionService institutionService;
     private final DonationService donationService;
     private final UserService userService;
@@ -52,18 +53,17 @@ public class HomeController {
         return userService.count() + " passed or not";
     }
 
-    @GetMapping("/email")
-    @ResponseBody
-    public String emailTest(){
-        emailService.sendSimpleMessage("emziolkow@gmail.com", "emailTest", "testText");
-        return "email test";
-    }
-
     @GetMapping("/uuid")
     @ResponseBody
     public String uuidGenerator(){
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
+    }
+
+    @GetMapping("/path")
+    @ResponseBody
+    public String  pathTest(HttpServletRequest request){
+        return "ContextPath :" + request.getContextPath();
     }
 
 }
