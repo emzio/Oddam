@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,18 +14,13 @@ import java.util.UUID;
 
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
     private final EmailService emailService;
     private final InstitutionService institutionService;
     private final DonationService donationService;
     private final UserService userService;
-    public HomeController(EmailService emailService, InstitutionService institutionService, DonationService donationService, UserService userService) {
-        this.emailService = emailService;
-        this.institutionService = institutionService;
-        this.donationService = donationService;
-        this.userService = userService;
-    }
 
 
     @RequestMapping("/")
@@ -58,14 +54,14 @@ public class HomeController {
 
     @GetMapping("/email")
     @ResponseBody
-    private String emailTest(){
-        emailService.sendSimpleMessage("emzio@yahoo.com", "emailTest", "test text");
+    public String emailTest(){
+        emailService.sendSimpleMessage("emziolkow@gmail.com", "emailTest", "testText");
         return "email test";
     }
 
     @GetMapping("/uuid")
     @ResponseBody
-    private String uuidGenerator(){
+    public String uuidGenerator(){
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }
