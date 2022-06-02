@@ -67,8 +67,8 @@
                                         edit</a>
                                     </td>
                                     <td>
-                                        <c:if test="${!(counter.isLast() && counter.count==1)}">
-                                        <a href="/admin/delete/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a>
+                                        <c:if test="${admin.id != userToCompare.id && admin.enabled==true}">
+                                            <a href="/admin/delete/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a>
                                         </c:if>
                                     </td>
                                 </tr>

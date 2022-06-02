@@ -22,6 +22,7 @@ public class DonationServiceImp implements DonationService{
     @Override
     public void save(User user, Donation donation){
         donation.setUser(user);
+        donation.setPickedUp(false);
         donationRepository.save(donation);
     }
 

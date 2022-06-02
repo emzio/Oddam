@@ -4,6 +4,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
 import pl.coderslab.charity.entity.User;
@@ -13,8 +14,11 @@ import pl.coderslab.charity.service.UserService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
+@SessionAttributes({"userToCheckUUID", "generatedUuid"})
 public class UserController {
 
     private final UserService userService;
@@ -24,27 +28,39 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showRegisterForm(HttpServletRequest request, HttpServletResponse response, Model model){
-        Cookie passRep = WebUtils.getCookie(request, "verifyPasswordRep");
-        if(passRep!=null){
-            model.addAttribute("passRep", "Hasła nie są takie same!");
-            passRep.setMaxAge(0);
-            response.addCookie(passRep);
-        }
+    private String showRegisterForm(Model model){
         model.addAttribute("user", new User());
         return "register";
     }
 
+    @GetMapping("/register/uuid")
+    private String ShowUUIDForm(Model model, @SessionAttribute(value = "userToCheckUUID", required = false) User userToCheckUUID,
+                                @SessionAttribute(value = "generatedUuid", required = false) String  generatedUuid){
+        model.addAttribute("user", userToCheckUUID);
+        return "user/verify-uuid";
+    }
+
+    @PostMapping("/register/uuid")
+    @ResponseBody
+    private String VerifyUuid(User user, @RequestParam String uuid, @RequestParam String generatedUuid) {
+        userService.saveUser(user);
+                return "porównanie UUID: " + uuid.equals(generatedUuid) + "<br>" + uuid.toString() + "<br>" + generatedUuid.toString();
+//        return "redirect:/login";
+    }
+
     @PostMapping("/register")
-    public String proceedRegisterForm(User user, HttpServletResponse response, @RequestParam String password2){
-        if(userService.verifyPasswordRepetition(user.getPassword(), password2)){
-            userService.saveUser(user);
-            return "redirect:/login";
+
+    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model){
+        if(result.hasErrors()){
+            return "register";
         }
-        Cookie cookie = new Cookie("verifyPasswordRep", "false");
-        cookie.setPath("/register");
-        response.addCookie(cookie);
-        return "redirect:/register";
+        if (!userService.verifyPasswordRepetition(user.getPassword(), password2)){
+            return "redirect:/register";
+        }
+
+        model.addAttribute("userToCheckUUID", user);
+        model.addAttribute("generatedUuid", UUID.randomUUID().toString());
+        return "redirect:/register/uuid";
     }
 
     @GetMapping("/user/edit")

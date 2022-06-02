@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -7,23 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.coderslab.charity.service.CurrentUser;
-import pl.coderslab.charity.service.DonationService;
-import pl.coderslab.charity.service.InstitutionService;
-import pl.coderslab.charity.service.UserService;
+import pl.coderslab.charity.service.*;
+
+import java.util.UUID;
 
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
+    private final EmailService emailService;
     private final InstitutionService institutionService;
     private final DonationService donationService;
     private final UserService userService;
-    public HomeController(InstitutionService institutionService, DonationService donationService, UserService userService) {
-        this.institutionService = institutionService;
-        this.donationService = donationService;
-        this.userService = userService;
-    }
 
 
     @RequestMapping("/")
@@ -53,6 +50,20 @@ public class HomeController {
     public String accesTest() {
 
         return userService.count() + " passed or not";
+    }
+
+    @GetMapping("/email")
+    @ResponseBody
+    public String emailTest(){
+        emailService.sendSimpleMessage("emziolkow@gmail.com", "emailTest", "testText");
+        return "email test";
+    }
+
+    @GetMapping("/uuid")
+    @ResponseBody
+    public String uuidGenerator(){
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
     }
 
 }
