@@ -12,6 +12,7 @@ import pl.coderslab.charity.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
+import java.io.File;
 import java.util.UUID;
 
 
@@ -63,7 +64,8 @@ public class HomeController {
     @GetMapping("/path")
     @ResponseBody
     public String  pathTest(HttpServletRequest request){
-        return "ContextPath :" + request.getContextPath();
+        return "ContextPath :" + request.getContextPath()
+                + "url: " + request.getRequestURL().toString();
     }
 
 }
