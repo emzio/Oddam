@@ -6,7 +6,6 @@ import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.TokenRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -24,6 +23,11 @@ public class TokenServiceImp implements TokenService{
         String url = "http://localhost:8080/register/uuid/"+ token.getToken();
         String text = "<a href='"+url+"'>"+url+"</a>";
         emailService.sendToken(user, token);
+        tokenRepository.save(token);
+    }
+
+    @Override
+    public void saveUserToken(Token token){
         tokenRepository.save(token);
     }
 
