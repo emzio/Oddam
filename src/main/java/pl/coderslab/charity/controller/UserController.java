@@ -111,7 +111,7 @@ public class UserController {
         Token token = tokenService.findByToken(code);
         if(token!=null && token.getToken().equals(code)){
             model.addAttribute("user", token.getUser());
-            return "user/edit-password";
+            return "user/recovery-password";
         }
         return "/error";
     }
@@ -119,7 +119,7 @@ public class UserController {
     @PostMapping("/password-recovery/uuid/{code}")
     public String processPasswordForm(User user, @RequestParam String password2){
         if (!userService.verifyPasswordRepetition(user.getPassword(), password2)){
-            return "user/edit-password";
+            return "user/recovery-password";
         }
         userPassRecoveryService.editPassword(user);
         return "/password-restore";

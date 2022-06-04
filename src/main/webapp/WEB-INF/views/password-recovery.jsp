@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group form-group--buttons">
-            <input class="btn" type="submit" value="Podaj email">
+            <input class="btn" type="submit" value="Wyślij">
         </div>
     </form>
 </section>

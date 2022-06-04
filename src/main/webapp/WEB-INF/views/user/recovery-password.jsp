@@ -34,13 +34,16 @@
 
         <div class="form-group">
             <div class="form-label">Powtórz hasło:  </div>
-            <input type="password" name="password2" placeholder="Powtórz hasło" />
+            <input type="password" id="password2" name="password2" placeholder="Powtórz hasło" />
         </div>
 
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Ustaw hasło</button>
         </div>
     </form:form>
+
 </section>
+
+<script src="../../../resources/sb-admin/js/password-repeat.js"></script>
 
 <%@ include file="../footer.jsp" %>
