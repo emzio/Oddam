@@ -10,6 +10,8 @@ public interface EmailService {
     void sendSimpleMessage(
             String to, String subject, String text);
 
+    void sendMessage(User user, String subject, String messageText);
+
     void sendEmail(User user, String password);
 
 }

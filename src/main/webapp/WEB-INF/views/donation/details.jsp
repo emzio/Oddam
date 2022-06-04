@@ -40,6 +40,7 @@
                                 <th>Ulica</th>
                                 <th>Kod pocztowy</th>
                                 <th>Telefon</th>
+                                <th>Uwagi</th>
                                 <th>Odbiór</th>
                             </tr>
                             </thead>
@@ -55,6 +56,7 @@
                                 <th>Ulica</th>
                                 <th>Kod pocztowy</th>
                                 <th>Telefon</th>
+                                <th>Uwagi</th>
                                 <th>Odbiór</th>
                             </tr>
                             </tfoot>
@@ -74,6 +76,7 @@
                                     <td>${donation.street} , </td>
                                     <td>${donation.zipCode}</td>
                                     <td>${donation.phone}</td>
+                                    <td>${donation.pickUpComment}</td>
                                     <td>
                                         <c:if test="${donation.pickedUp==false}">
                                             <a href="/user/donation/pickedup/${donation.id}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">

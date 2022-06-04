@@ -1,10 +1,8 @@
 package pl.coderslab.charity.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.entity.Token;
@@ -12,7 +10,6 @@ import pl.coderslab.charity.entity.User;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.jsp.PageContext;
 
 @RequiredArgsConstructor
 @Service
@@ -50,6 +47,16 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    public void sendMessage(User user, String subject, String messageText)
+    {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(user.getEmail());
+        message.setSubject(subject);
+        message.setText(messageText);
+        emailSender.send(message);
+    }
+
+    @Override
     public void sendToken(User user, Token token)
     {
         //        pageContext.request.contextPath
@@ -61,7 +68,7 @@ public class EmailServiceImpl implements EmailService {
         message.setTo(user.getEmail());
         message.setSubject(" Rejestracja - Oddam w dobre ręce \n ");
         message.setText(" Dziękujemy za rejestrację \n "
-                + " Aby aktywować konto kliknij link: \n "
+                + " Aby aktywować konto kliknij w link: \n "
         + text);
         emailSender.send(message);
     }

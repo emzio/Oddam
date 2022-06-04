@@ -6,7 +6,6 @@ import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.TokenRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -28,7 +27,22 @@ public class TokenServiceImp implements TokenService{
     }
 
     @Override
+    public void saveUserToken(Token token){
+        tokenRepository.save(token);
+    }
+
+    @Override
     public Token findByToken(String token){
         return tokenRepository.findByToken(token);
+    }
+
+    @Override
+    public Token findByUser(User user){
+        return tokenRepository.findByUser(user);
+    }
+
+    @Override
+    public void delete(Token tokenToDel){
+        tokenRepository.delete(tokenToDel);
     }
 }

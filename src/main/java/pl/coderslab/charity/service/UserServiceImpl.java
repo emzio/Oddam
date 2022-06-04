@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.charity.entity.Role;
+import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.repository.RoleRepository;
@@ -147,10 +148,18 @@ public class UserServiceImpl implements UserService {
         tokenService.saveForUser(user);
     }
 
+    @Transactional
     @Override
     public void register(User user){
+        Token tokenToDel = tokenService.findByUser(user);
+        tokenService.delete(tokenToDel);
         user.setEnabled(true);
         user.setRegistered(true);
         userRepository.save(user);
+    }
+
+    @Override
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 }

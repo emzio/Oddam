@@ -11,7 +11,7 @@
 <header>
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="/login">Zaloguj</a></li>
+            <li><a href="/login">Odzyskiwanie hasła </a></li>
             <li class="highlighted"><a href="/register">Załóż konto</a></li>
         </ul>
 
@@ -29,18 +29,11 @@
     <h2>Zaloguj się</h2>
     <form method="post">
         <div class="form-group">
-            <label> Login: <input type="text" name="username"/> </label>
-        </div>
-        <div class="form-group">
-            <label> Hasło: <input type="password" name="password"/> </label>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <a href="/password-recovery" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+            <label> Wpisz email na który wyślemy link: <input type="email" name="email"/> </label>
         </div>
 
         <div class="form-group form-group--buttons">
-            <a href="/register" class="btn btn--without-border">Załóż konto</a>
-            <input class="btn" type="submit" value="Zaloguj się">
+            <input class="btn" type="submit" value="Wyślij">
         </div>
     </form>
 </section>

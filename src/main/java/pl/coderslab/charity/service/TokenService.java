@@ -8,5 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 public interface TokenService {
     void saveForUser(User user);
 
+    void saveUserToken(Token token);
+
     Token findByToken(String token);
+
+    Token findByUser(User user);
+    void delete(Token tokenToDel);
 }

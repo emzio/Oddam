@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
 import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.service.CurrentUser;
-import pl.coderslab.charity.service.EmailService;
-import pl.coderslab.charity.service.TokenService;
-import pl.coderslab.charity.service.UserService;
+import pl.coderslab.charity.service.*;
+import pl.coderslab.charity.util.MessageTextUtil;
+import pl.coderslab.charity.util.TokenUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +27,8 @@ public class UserController {
     private final UserService userService;
     private final TokenService tokenService;
     private final EmailService emailService;
+
+    private final UserPasswordRecoveryService userPassRecoveryService;
     @GetMapping("/register")
     private String showRegisterForm(Model model){
         model.addAttribute("user", new User());
@@ -68,13 +69,6 @@ public class UserController {
         return "user/edit";
     }
 
-//    @GetMapping("/user/edit/{userName}")
-//    private String showUserEditForm(@PathVariable String userName, Model model){
-//        User user = userService.findByUserName(userName);
-//        model.addAttribute("user", user);
-//        return "user/edit";
-//    }
-
     @PostMapping("/user/edit")
     private String proceedUserEditForm(User user){
         userService.save(user);
@@ -95,6 +89,40 @@ public class UserController {
             return "redirect:/";
         }
         return "redirect:/user/password/edit";
+    }
+
+    @GetMapping("/password-recovery")
+    public String showPasswordRecoveryForm(){
+        return "password-recovery";
+    }
+
+    @PostMapping("/password-recovery")
+    public String processPasswordRecoveryForm(@RequestParam String email){
+        User user = userService.findByEmail(email);
+        if(user!=null){
+            userPassRecoveryService.passwordRecover(user);
+            return "user/pass-recovery-mail-sent";
+        }
+        return "user/unknown-mail";
+    }
+
+    @GetMapping("/password-recovery/uuid/{code}")
+    public String showPasswordForm(Model model, @PathVariable String code){
+        Token token = tokenService.findByToken(code);
+        if(token!=null && token.getToken().equals(code)){
+            model.addAttribute("user", token.getUser());
+            return "user/recovery-password";
+        }
+        return "/error";
+    }
+
+    @PostMapping("/password-recovery/uuid/{code}")
+    public String processPasswordForm(User user, @RequestParam String password2){
+        if (!userService.verifyPasswordRepetition(user.getPassword(), password2)){
+            return "user/recovery-password";
+        }
+        userPassRecoveryService.editPassword(user);
+        return "/password-restore";
     }
 
    // TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE
@@ -132,4 +160,5 @@ public class UserController {
         emailService.sendSimpleMessage("emziolkow@gmail.com", "emailTest", "testText");
         return "email test";
     }
+
 }
