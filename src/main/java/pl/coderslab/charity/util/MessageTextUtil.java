@@ -7,6 +7,6 @@ public class MessageTextUtil {
     public static String passRecoveryMessage(String tokenString){
         return "Link do resetowania Hasła \n "
                 + "Aby zresetować hasło kliknij w link: \n "
-                + URL + "pass-recovery/" + tokenString;
+                + URL + "password-recovery/uuid/" + tokenString;
     }
 }

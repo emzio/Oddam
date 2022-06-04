@@ -5,4 +5,6 @@ import pl.coderslab.charity.entity.User;
 public interface UserPasswordRecoveryService {
 
     void passwordRecover(User user);
+
+    void editPassword(User user);
 }

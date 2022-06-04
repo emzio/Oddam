@@ -33,8 +33,7 @@
         </div>
 
         <div class="form-group form-group--buttons">
-            <a href="/register" class="btn btn--without-border">Załóż konto</a>
-            <input class="btn" type="submit" value="Zaloguj się">
+            <input class="btn" type="submit" value="Podaj email">
         </div>
     </form>
 </section>
