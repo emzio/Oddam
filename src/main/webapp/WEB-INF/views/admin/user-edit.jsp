@@ -23,9 +23,9 @@
                                 Edytuj: </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <form:form cssClass="user" method="post" modelAttribute="user">
-                                    <div class="form-group">
-                                        <label for="loginId">Login</label>
-                                        <form:input path="username" class="form-control form-control-user" id="loginId" />
+
+                                    <div>
+                                        <form:hidden path="username"/>
                                     </div>
 
                                     <div>
@@ -39,9 +39,12 @@
                                         <form:radiobutton path="enabled" value="false"/>
                                     </div>
 
-                                    <div>
-                                        <form:hidden path="roles"/>
+
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label"> Roles </label>
+                                        <form:checkboxes path="roles" items="${allRoles}" itemLabel="name" itemValue="id"/>
                                     </div>
+
 
                                     <div class="form-group">
                                         <label for="name">Name</label>
@@ -63,6 +66,7 @@
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
                                     </div>
 
+                                    <form:hidden path="registered"/>
                                     <form:hidden path="id"/>
                                     <input type="submit" value="Update" class="btn btn-secondary">
                                 </form:form>
