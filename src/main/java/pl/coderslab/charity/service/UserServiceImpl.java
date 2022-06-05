@@ -91,7 +91,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteAdmin(User userToCompare, User user){
         if(!userToCompare.getId().equals(user.getId())){
-            user.setEnabled(false);
+            Role roleAdmin = roleRepository.findByName("ROLE_ADMIN");
+            user.getRoles().remove(roleAdmin);
+//            user.setEnabled(false);
             userRepository.save(user);
         }
     }
