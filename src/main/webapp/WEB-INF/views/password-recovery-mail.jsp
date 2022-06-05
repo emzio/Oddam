@@ -11,7 +11,7 @@
 <header>
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="/login">Odzyskiwanie hasła </a></li>
+            <li><a href="/login"> Zaloguj się </a></li>
             <li class="highlighted"><a href="/register">Załóż konto</a></li>
         </ul>
 

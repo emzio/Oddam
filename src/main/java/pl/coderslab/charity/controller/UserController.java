@@ -94,7 +94,7 @@ public class UserController {
 
     @GetMapping("/password-recovery")
     public String showPasswordRecoveryForm(){
-        return "password-recovery";
+        return "password-recovery-mail";
     }
 
     @PostMapping("/password-recovery")
@@ -123,7 +123,7 @@ public class UserController {
             return "user/recovery-password";
         }
         userPassRecoveryService.editPassword(user);
-        return "/password-restore";
+        return "password-restore-confirmed";
     }
 
 
