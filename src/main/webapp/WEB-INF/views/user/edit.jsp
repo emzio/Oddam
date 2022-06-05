@@ -53,7 +53,7 @@
                                         <label for="phone">Phone</label>
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
                                     </div>
-
+                                    <form:hidden path="registered"/>
                                     <form:hidden path="id"/>
                                     <input type="submit" value="Update" class="btn btn-secondary">
                                 </form:form>

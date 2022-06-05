@@ -78,6 +78,7 @@ public class UserController {
     @GetMapping("/user/password/edit")
     private String showUserPasswordEditForm(@AuthenticationPrincipal CurrentUser currentUser, Model model){
         User user = userService.findByUserName(currentUser.getUsername());
+        user.setPassword("");
         model.addAttribute("user", user);
         return "user/password-edit";
     }
@@ -93,7 +94,7 @@ public class UserController {
 
     @GetMapping("/password-recovery")
     public String showPasswordRecoveryForm(){
-        return "password-recovery";
+        return "password-recovery-mail";
     }
 
     @PostMapping("/password-recovery")
@@ -122,20 +123,11 @@ public class UserController {
             return "user/recovery-password";
         }
         userPassRecoveryService.editPassword(user);
-        return "/password-restore";
+        return "password-restore-confirmed";
     }
 
-   // TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE
 
-    @GetMapping("/create-user")
-    @ResponseBody
-    public String createAdmin() {
-        User user = new User();
-        user.setUsername("user1");
-        user.setPassword("user1");
-        userService.saveUser(user);
-        return "user";
-    }
+   // BACK DOOR BACK DOOR BACK DOOR
 
     @GetMapping("/create-admin")
     @ResponseBody
@@ -145,20 +137,6 @@ public class UserController {
         user.setPassword("admin3");
         userService.saveAdmin(user);
         return "admin";
-    }
-
-    @GetMapping("/introduce")
-    @ResponseBody
-    public String admin(@AuthenticationPrincipal CurrentUser customUser) {
-        User entityUser = customUser.getUser();
-        return "Hello " + entityUser.getUsername();
-    }
-
-    @GetMapping("/email")
-    @ResponseBody
-    public String emailTest(){
-        emailService.sendSimpleMessage("emziolkow@gmail.com", "emailTest", "testText");
-        return "email test";
     }
 
 }
