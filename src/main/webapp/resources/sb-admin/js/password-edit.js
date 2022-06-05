@@ -1,4 +1,4 @@
-const button = document.querySelector(".form-group .btn");
+const button = document.querySelector("#button");
 const password = document.querySelector("#password");
 const passwordRep = document.querySelector("#password2");
 let done;
@@ -30,3 +30,4 @@ function removePasswordRep(event){
 }
 
 button.addEventListener("click", verifyPasswordRep);
+

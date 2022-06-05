@@ -1,5 +1,6 @@
 package pl.coderslab.charity.repository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,9 +18,11 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
     @Query("SELECT COUNT(d) FROM Donation d ")
     Integer countDonation();
 
-    List<Donation> findAllByUserOrderByPickedUp(User user);
+    List<Donation> findAllByUserOrderByPickedUp (User user);
+
+//    List<Donation> findAllByUserOrderByPickedUpPPickedUpDateAndCreatedOn(User user);
+
 
     @Query("SELECT d FROM Donation d JOIN d.categories WHERE d.id=?1")
     Donation findByIdJoiningCategories(Long id);
-//    FETCH
 }

@@ -17,17 +17,16 @@
 <header class="header--form-page">
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li class="logged-user">
-                <sec:authorize access="isAuthenticated()">
+            <sec:authorize access="isAuthenticated()">
+                <li class="logged-user">
                     Witaj <sec:authentication property="principal.username"/>
-                </sec:authorize>
-
-                <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">Moje zbiórki</a></li>
-                    <li><a href="/logout">Wyloguj</a></li>
-                </ul>
-            </li>
+                    <ul class="dropdown">
+                        <li><a href="/">Profil</a></li>
+                        <li><a href="/user/donations">Moje zbiórki</a></li>
+                        <li><a href="/logout">Wyloguj</a></li>
+                    </ul>
+                </li>
+            </sec:authorize>
         </ul>
 
         <ul>

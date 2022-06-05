@@ -20,20 +20,21 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Czy na pewno chcesz skasować ? </div>
+                                Wpisz nowe hasło ? </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <form:form cssClass="user" method="post" modelAttribute="user">
                                     <form:hidden path="username" />
 
                                     <div class="form-group">
-                                        <label for="password">Name</label>
+                                        <label for="password">Hasło</label>
                                         <form:input path="password" type="password" class="form-control form-control-user" id="password" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="password2">Name</label>
+                                        <label for="password2">Powtórz</label>
                                         <input name="password2" type="password" class="form-control form-control-user" id="password2" />
                                     </div>
 
+                                    <form:hidden path="registered"/>
                                     <form:hidden path="enabled"/>
                                     <form:hidden path="roles"/>
                                     <form:hidden path="name"/>
@@ -41,7 +42,7 @@
                                     <form:hidden path="email"/>
                                     <form:hidden path="phone"/>
                                     <form:hidden path="id"/>
-                                    <input type="submit" value="Zmień" class="btn btn-danger">
+                                    <input type="submit" value="Zmień" class="btn btn-danger" id="button">
                                 </form:form>
                             </div>
                         </div>
@@ -57,5 +58,5 @@
 
 </div>
 <!-- End of Main Content -->
-
+<script src="../../../resources/sb-admin/js/password-edit.js"></script>
 <%@ include file="../footer-sb-admin.jsp" %>
