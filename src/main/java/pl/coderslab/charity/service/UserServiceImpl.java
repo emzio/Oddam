@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     public void saveAdmin(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
+        user.setRegistered(true);
         Role userRole = roleRepository.findByName("ROLE_USER");
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
         user.setRoles(new HashSet<>(Arrays.asList(userRole, adminRole)));
@@ -129,6 +130,7 @@ public class UserServiceImpl implements UserService {
 
     public void deleteUser(User user){
         user.setEnabled(false);
+        user.setRegistered(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUsername(passwordEncoder.encode(user.getUsername()));
         user.setName(passwordEncoder.encode(user.getName()));

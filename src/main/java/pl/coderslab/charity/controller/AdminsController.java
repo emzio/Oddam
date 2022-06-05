@@ -1,22 +1,23 @@
 package pl.coderslab.charity.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.service.CurrentUser;
+import pl.coderslab.charity.service.RoleService;
 import pl.coderslab.charity.service.UserService;
 
+@AllArgsConstructor
 @Controller
 public class AdminsController {
 
     private final UserService userService;
-
-    public AdminsController(UserService userService) {
-        this.userService = userService;
-    }
+    private final RoleService roleService;
 
 
     @GetMapping("admin/list")
@@ -77,6 +78,7 @@ public class AdminsController {
 
     @GetMapping("admin/user/edit/{id}")
     private String showUserEditForm(@PathVariable Long id, Model model){
+        model.addAttribute("allRoles", roleService.findAll());
         model.addAttribute("user", userService.findById(id));
         return "admin/user-edit";
     }
