@@ -1,6 +1,7 @@
 package pl.coderslab.charity.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -12,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false, unique = true, length = 60)
     private String username;
 
@@ -20,6 +22,7 @@ public class User {
 //    @Pattern(regexp = ".?[a-z]+.?[0-9]+.?[A-Z]+.?[#?!@$%^&*-]+", message = "zły pattern")
     @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "zły pattern")
     private String password;
+
 
     private boolean enabled;
 
@@ -30,9 +33,16 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @NotBlank
     private String name;
+    @NotBlank
     private String lastname;
+
+    @Email
+    @Column(nullable = false, unique = true)
     private String email;
+
+
 
     private String phone;
 
