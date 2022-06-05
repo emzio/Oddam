@@ -41,7 +41,6 @@
 
 
                                     <div class="form-group form-check">
-                                        <label class="form-check-label"> Roles </label>
                                         <form:checkboxes path="roles" items="${allRoles}" itemLabel="name" itemValue="id"/>
                                     </div>
 

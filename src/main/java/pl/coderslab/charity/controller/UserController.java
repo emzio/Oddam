@@ -37,12 +37,13 @@ public class UserController {
 
     @PostMapping("/register")
     private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model, HttpServletRequest request){
-        if(result.hasErrors()){
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2)){
             return "register";
         }
-        if (!userService.verifyPasswordRepetition(user.getPassword(), password2)){
-            return "redirect:/register";
-        }
+//        if (!userService.verifyPasswordRepetition(user.getPassword(), password2)){
+//            return "register";
+////            return "redirect:/register";
+//        }
 
         userService.saveNotRegisteredUser(user);
         return "user/register-mail-sent";
@@ -135,6 +136,10 @@ public class UserController {
         User user = new User();
         user.setUsername("admin3");
         user.setPassword("admin3");
+        user.setEmail("emzio@outlook.com");
+        user.setLastname("admin3");
+        user.setName("admin3");
+
         userService.saveAdmin(user);
         return "admin";
     }

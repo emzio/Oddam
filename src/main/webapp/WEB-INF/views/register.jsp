@@ -9,31 +9,48 @@
 
 <section class="login-page">
     <h2>Załóż konto</h2>
-    <c:if test="${not empty passRep}" ><h2>${passRep}</h2> </c:if>
     <form:form modelAttribute="user" method="post">
         <div class="form-group">
 <%--            <input type="email" name="email" placeholder="Email" />--%>
             <div class="form-label">email:  </div>
-            <form:input path="email" type="email" value="Email"/>
+            <div class="alert-warning">
+                <form:errors path="email"/>
+            </div>
+
+            <form:input path="email" type="email"/>
         </div>
 
         <div class="form-group">
             <div class="form-label"> Login:</div>
+            <div class="alert-warning">
+                <form:errors path="username"/>
+            </div>
             <form:input path="username"/>
         </div>
 
         <div class="form-group">
             <div class="form-label"> Imię:</div>
+            <div class="alert-warning">
+                <form:errors path="name"/>
+            </div>
             <form:input path="name"/>
         </div>
 
         <div class="form-group">
             <div class="form-label"> Nazwisko:</div>
+
+                        <div class="alert-warning">
+                            <form:errors path="lastname"/>
+                        </div>
+
             <form:input path="lastname"/>
         </div>
 
         <div class="form-group">
             <div class="form-label"> Numer Telefonu(opcjonalnie):</div>
+            <div class="alert-warning">
+                <form:errors path="phone"/>
+            </div>
             <form:input path="phone"/>
         </div>
 
