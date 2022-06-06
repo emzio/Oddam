@@ -19,8 +19,7 @@ public class User {
 
     @NotBlank
     @Size(min = 8)
-//    @Pattern(regexp = ".?[a-z]+.?[0-9]+.?[A-Z]+.?[#?!@$%^&*-]+", message = "zły pattern")
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "zły pattern")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
     private String password;
 
 
