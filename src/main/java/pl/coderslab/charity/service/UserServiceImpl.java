@@ -170,6 +170,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean emailRepetitionFound(User user){
         List<String> allEmails = userRepository.findAllEmails();
+        allEmails.removeIf(e -> user.getEmail().equals(e));
         return allEmails.contains(user.getEmail());
     }
 }
