@@ -64,6 +64,9 @@ public class AdminsController {
 
     @PostMapping("admin/edit/{id}")
     private String proceedAddForm(User user){
+        if (userService.emailRepetitionFound(user)){
+            return "admin/edit";
+        }
         userService.save(user);
         return "redirect:/admin/list";
     }
@@ -85,6 +88,9 @@ public class AdminsController {
 
     @PostMapping("admin/user/edit/{id}")
     private String proceedUserEditForm(User user){
+        if (userService.emailRepetitionFound(user)){
+            return "admin/user-edit";
+        }
         userService.save(user);
         return "redirect:/admin/users";
     }
