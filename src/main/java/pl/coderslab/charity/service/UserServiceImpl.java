@@ -14,6 +14,7 @@ import pl.coderslab.charity.repository.RoleRepository;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -94,7 +95,6 @@ public class UserServiceImpl implements UserService {
         if(!userToCompare.getId().equals(user.getId())){
             Role roleAdmin = roleRepository.findByName("ROLE_ADMIN");
             user.getRoles().remove(roleAdmin);
-//            user.setEnabled(false);
             userRepository.save(user);
         }
     }
@@ -168,9 +168,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean emailRepetitionFound(User user){
-        List<String> allEmails = userRepository.findAllEmails();
-        allEmails.removeIf(e -> user.getEmail().equals(e));
-        return allEmails.contains(user.getEmail());
+    public boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser){
+//        return optionalSavedUser
+//                .map(savedUser -> !savedUser.getUsername().equals(user.getUsername()))
+//                .orElseGet(() -> userRepository.findByUsername(user.getUsername())==null);
+        if(optionalSavedUser.isPresent()){
+            return !optionalSavedUser.get().getUsername().equals(user.getUsername());
+        }
+        return userRepository.findByUsername(user.getUsername())==null;
+    }
+
+    @Override
+    public boolean dataRepetitionFound(User user){
+        Optional<User> optSavedUser = userRepository.findById(user.getId());
+//        return emailRepetitionFound(user, optSavedUser) || usernameRepetitionFound(user, optSavedUser);
+//        return usernameRepetitionFound(user, optSavedUser);
+//        return emailRepetitionFound(user, optSavedUser);
+        boolean test = emailRepetitionFound(user, optSavedUser);
+        return test;
+    }
+    @Override
+    public boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser){
+//        return optionalSavedUser
+//                .map(value -> !value.getEmail().equals(user.getEmail()))
+//                .orElseGet(() -> userRepository.findByEmail(user.getEmail()) == null);
+
+        boolean result = userRepository.findByEmail(user.getEmail())!=null;
+        if (result){
+            return !optionalSavedUser.get().getEmail().equals(user.getEmail());
+        }
+        return result;
     }
 }

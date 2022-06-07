@@ -23,6 +23,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    @Query("SELECT u.email FROM User u")
-    List<String> findAllEmails();
 }

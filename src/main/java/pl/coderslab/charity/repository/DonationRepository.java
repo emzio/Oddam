@@ -20,9 +20,6 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 
     List<Donation> findAllByUserOrderByPickedUp (User user);
 
-//    List<Donation> findAllByUserOrderByPickedUpPPickedUpDateAndCreatedOn(User user);
-
-
     @Query("SELECT d FROM Donation d JOIN d.categories WHERE d.id=?1")
     Donation findByIdJoiningCategories(Long id);
 }

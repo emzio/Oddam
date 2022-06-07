@@ -4,6 +4,7 @@ import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User findByUserName(String name);
@@ -41,5 +42,9 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    boolean emailRepetitionFound(User user);
+    boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser);
+
+    boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser);
+
+    boolean dataRepetitionFound(User user);
 }

@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping("/register")
     private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model, HttpServletRequest request){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.emailRepetitionFound(user)){
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
             return "register";
         }
         userService.saveNotRegisteredUser(user);
@@ -67,7 +67,7 @@ public class UserController {
 
     @PostMapping("/user/edit")
     private String proceedUserEditForm(User user){
-        if(userService.emailRepetitionFound(user)){
+        if(userService.dataRepetitionFound(user)){
             return "user/edit";
         }
         userService.save(user);
