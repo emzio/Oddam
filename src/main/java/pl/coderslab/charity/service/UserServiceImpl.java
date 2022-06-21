@@ -1,6 +1,7 @@
 package pl.coderslab.charity.service;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,14 +67,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Role findRole(CurrentUser customUser){
-        Role role = new Role();
-        if (customUser.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
-            role.setName("ROLE_ADMIN");
-            return role;
-        }
-        role.setName("ROLE_USER");
+    public String findRole(CurrentUser customUser){
+
+        String role = customUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .filter(userRole -> userRole.equals("ROLE_ADMIN"))
+                .findAny().orElse("ROLE_USER");
         return role;
     }
 

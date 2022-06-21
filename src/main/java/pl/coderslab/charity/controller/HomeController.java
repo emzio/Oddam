@@ -31,7 +31,7 @@ public class HomeController {
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
         model.addAttribute("numberOfDonations", donationService.countDonation());
 
-        if(customUser!=null && userService.findRole(customUser).getName().equals("ROLE_ADMIN")){
+        if(customUser!=null && userService.findRole(customUser).equals("ROLE_ADMIN")){
             return "admin/admin";
         } else if (customUser!=null){
             return "user/user";
