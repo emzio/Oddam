@@ -5,12 +5,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.service.CurrentUser;
 import pl.coderslab.charity.service.RoleService;
 import pl.coderslab.charity.service.UserService;
+
+import javax.validation.Valid;
 
 @AllArgsConstructor
 @Controller
@@ -42,17 +45,18 @@ public class AdminsController {
 
     @GetMapping("admin/add")
     private String showAddForm(Model model){
-        model.addAttribute("admin", new User());
+        model.addAttribute("user", new User());
         return "admin/add";
     }
 
     @PostMapping("admin/add")
-    private String proceedAddForm(User user, @RequestParam String passwordRep){
-        if(userService.verifyPasswordRepetition(user.getPassword(),passwordRep)){
-            userService.saveAdmin(user);
-            return "redirect:/admin/list";
+    private String proceedAddForm(@Valid User user, BindingResult result, @RequestParam String passwordRep){
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(),passwordRep) || userService.dataRepetitionFound(user)
+        ){
+            return "admin/add";
         }
-        return "redirect:/admin/add";
+        userService.saveAdmin(user);
+        return "redirect:/admin/list";
     }
 
     @GetMapping("admin/edit/{id}")

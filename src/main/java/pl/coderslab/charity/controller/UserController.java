@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2, Model model, HttpServletRequest request){
+    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2){
         if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
             return "register";
         }
