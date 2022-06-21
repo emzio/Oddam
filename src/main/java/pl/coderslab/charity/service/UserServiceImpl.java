@@ -98,10 +98,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public long count() {
-        Role role_admin = roleRepository.findByName("ROLE_ADMIN");
-        return userRepository.countAllByRolesContainingAndEnabledIsTrue(role_admin);
-    }
 
     @Override
     public List<User> findAllEnabledUsers(){
@@ -139,27 +135,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Transactional
-    @Override
-    public void saveNotRegisteredUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        user.setRegistered(false);
-        user.setEnabled(false);
-        userRepository.save(user);
-        tokenService.saveForUser(user);
-    }
-
-    @Transactional
-    @Override
-    public void register(User user){
-        Token tokenToDel = tokenService.findByUser(user);
-        tokenService.delete(tokenToDel);
-        user.setEnabled(true);
-        user.setRegistered(true);
-        userRepository.save(user);
-    }
 
     @Override
     public User findByEmail(String email){

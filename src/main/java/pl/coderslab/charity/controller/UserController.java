@@ -27,6 +27,7 @@ public class UserController {
     private final UserService userService;
     private final TokenService tokenService;
     private final EmailService emailService;
+    private final UserRegister userRegister;
 
     private final UserPasswordRecoveryService userPassRecoveryService;
     @GetMapping("/register")
@@ -40,19 +41,17 @@ public class UserController {
         if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
             return "register";
         }
-        userService.saveNotRegisteredUser(user);
+        userRegister.saveNotRegisteredUser(user);
         return "user/register-mail-sent";
     }
 
 
     @GetMapping("/register/uuid/{token}")
     private String showRegisterConfirmation(@PathVariable String token){
-        Token byToken = tokenService.findByToken(token);
-        if(byToken!=null && byToken.getToken().equals(token)){
-            User user = byToken.getUser();
-            userService.register(user);
+        Token tokenDB = tokenService.findByToken(token);
+        if(tokenDB!=null && tokenDB.getToken().equals(token)){
+            userRegister.register(tokenDB.getUser());
             return "register-success";
-
         }
         return "/error";
     }

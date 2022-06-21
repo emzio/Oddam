@@ -14,8 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByRolesContainingAndEnabledIsTrue(Role role);
 
-    long countAllByRolesContainingAndEnabledIsTrue(Role role);
-
     List<User> findAllByRolesNotContainingAndEnabledIsTrue(Role role);
 
     List<User> findAllByRolesNotContainingAndEnabledIsFalse(Role role);

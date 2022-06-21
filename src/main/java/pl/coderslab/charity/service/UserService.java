@@ -24,8 +24,6 @@ public interface UserService {
 
     void deleteAdmin(User userToCompare, User user);
 
-    long count();
-
     List<User> findAllEnabledUsers();
 
     List<User> findAllDisabledUsers();
@@ -36,9 +34,7 @@ public interface UserService {
 
     void changePassword(User user);
 
-    void saveNotRegisteredUser(User user);
 
-    void register(User user);
 
     User findByEmail(String email);
 

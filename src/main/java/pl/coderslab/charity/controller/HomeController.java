@@ -46,13 +46,13 @@ public class HomeController {
         return String.join(" | " , String.valueOf(donationService.findTotalQuantity()));
     }
 
-    @Secured("ROLE_ADMIN")
-    @GetMapping("/accestest")
-    @ResponseBody
-    public String accesTest() {
-
-        return userService.count() + " passed or not";
-    }
+//    @Secured("ROLE_ADMIN")
+//    @GetMapping("/accestest")
+//    @ResponseBody
+//    public String accesTest() {
+//
+//        return userService.count() + " passed or not";
+//    }
 
     @GetMapping("/uuid")
     @ResponseBody
