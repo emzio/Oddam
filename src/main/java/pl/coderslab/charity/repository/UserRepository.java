@@ -14,8 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByRolesContainingAndEnabledIsTrue(Role role);
 
-    long countAllByRolesContainingAndEnabledIsTrue(Role role);
-
     List<User> findAllByRolesNotContainingAndEnabledIsTrue(Role role);
 
     List<User> findAllByRolesNotContainingAndEnabledIsFalse(Role role);
@@ -23,6 +21,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    @Query("SELECT u.email FROM User u")
-    List<String> findAllEmails();
 }

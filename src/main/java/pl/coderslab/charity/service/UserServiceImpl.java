@@ -1,6 +1,7 @@
 package pl.coderslab.charity.service;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import pl.coderslab.charity.repository.RoleRepository;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -65,14 +67,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Role findRole(CurrentUser customUser){
-        Role role = new Role();
-        if (customUser.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
-            role.setName("ROLE_ADMIN");
-            return role;
-        }
-        role.setName("ROLE_USER");
+    public String findRole(CurrentUser customUser){
+
+        String role = customUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .filter(userRole -> userRole.equals("ROLE_ADMIN"))
+                .findAny().orElse("ROLE_USER");
         return role;
     }
 
@@ -94,15 +94,10 @@ public class UserServiceImpl implements UserService {
         if(!userToCompare.getId().equals(user.getId())){
             Role roleAdmin = roleRepository.findByName("ROLE_ADMIN");
             user.getRoles().remove(roleAdmin);
-//            user.setEnabled(false);
             userRepository.save(user);
         }
     }
 
-    public long count() {
-        Role role_admin = roleRepository.findByName("ROLE_ADMIN");
-        return userRepository.countAllByRolesContainingAndEnabledIsTrue(role_admin);
-    }
 
     @Override
     public List<User> findAllEnabledUsers(){
@@ -140,27 +135,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Transactional
-    @Override
-    public void saveNotRegisteredUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        user.setRegistered(false);
-        user.setEnabled(false);
-        userRepository.save(user);
-        tokenService.saveForUser(user);
-    }
-
-    @Transactional
-    @Override
-    public void register(User user){
-        Token tokenToDel = tokenService.findByUser(user);
-        tokenService.delete(tokenToDel);
-        user.setEnabled(true);
-        user.setRegistered(true);
-        userRepository.save(user);
-    }
 
     @Override
     public User findByEmail(String email){
@@ -168,9 +142,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean emailRepetitionFound(User user){
-        List<String> allEmails = userRepository.findAllEmails();
-        allEmails.removeIf(e -> user.getEmail().equals(e));
-        return allEmails.contains(user.getEmail());
+    public boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser){
+        if(userRepository.findByUsername(user.getUsername())!=null){
+            return optionalSavedUser
+                    .map( savedUser -> !savedUser.getUsername().equals(user.getUsername()))
+                    .orElseGet(()-> true);
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean dataRepetitionFound(User user){
+//        Optional<User> optSavedUser = userRepository.findById(user.getId());
+        Optional<Long> idOptional = Optional.ofNullable(user.getId());
+        Optional<User> optSavedUser = idOptional.flatMap(userRepository::findById);
+//        Optional<User> optSavedUser = Optional.ofNullable(user.getId()).flatMap(userRepository::findById);
+
+        return emailRepetitionFound(user, optSavedUser) || usernameRepetitionFound(user, optSavedUser);
+    }
+    @Override
+    public boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser){
+
+        if (userRepository.findByEmail(user.getEmail())!=null){
+            return !optionalSavedUser
+                    .map(savedUser -> savedUser.getEmail().equals(user.getEmail()))
+                    .orElseGet(() -> true);
+        }
+        return false;
     }
 }

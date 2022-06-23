@@ -22,14 +22,16 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Edytuj: </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <form:form cssClass="user" method="post" modelAttribute="admin">
+                                <form:form cssClass="user" method="post" modelAttribute="user">
                                     <div class="form-group">
                                         <label for="loginId">Login</label>
+                                        <form:errors path="username"/>
                                         <form:input path="username" class="form-control form-control-user" id="loginId" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="password">Password</label>
+                                        <form:errors path="password"/>
                                         <form:input path="password" type="password" class="form-control form-control-user" id="password" />
                                     </div>
 
@@ -55,25 +57,29 @@
 
                                     <div class="form-group">
                                         <label for="name">Name</label>
+                                        <form:errors path="name"/>
                                         <form:input path="name" class="form-control form-control-user" id="name" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="lastname">Lastame</label>
+                                        <form:errors path="lastname"/>
                                         <form:input path="lastname" class="form-control form-control-user" id="lastname" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">Email</label>
+                                        <form:errors path="email"/>
                                         <form:input path="email" type="email" class="form-control form-control-user" id="email" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
+                                        <form:errors path="phone"/>
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
                                     </div>
 
-                                    <form:hidden path="id"/>
+
                                     <input type="submit" value="Dodaj" class="btn btn-secondary">
                                 </form:form>
                             </div>

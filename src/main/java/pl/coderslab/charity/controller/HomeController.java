@@ -31,7 +31,7 @@ public class HomeController {
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
         model.addAttribute("numberOfDonations", donationService.countDonation());
 
-        if(customUser!=null && userService.findRole(customUser).getName().equals("ROLE_ADMIN")){
+        if(customUser!=null && userService.findRole(customUser).equals("ROLE_ADMIN")){
             return "admin/admin";
         } else if (customUser!=null){
             return "user/user";
@@ -46,13 +46,13 @@ public class HomeController {
         return String.join(" | " , String.valueOf(donationService.findTotalQuantity()));
     }
 
-    @Secured("ROLE_ADMIN")
-    @GetMapping("/accestest")
-    @ResponseBody
-    public String accesTest() {
-
-        return userService.count() + " passed or not";
-    }
+//    @Secured("ROLE_ADMIN")
+//    @GetMapping("/accestest")
+//    @ResponseBody
+//    public String accesTest() {
+//
+//        return userService.count() + " passed or not";
+//    }
 
     @GetMapping("/uuid")
     @ResponseBody
