@@ -1,17 +1,24 @@
-const button = document.querySelector(".form-group .btn");
+// const button = document.querySelector(".form-group .btn");
+const button = document.querySelector("#submitBtn");
 const password = document.querySelector("#password");
 const passwordRep = document.querySelector("#password2");
-let done;
+let done=false;
 let div = document.createElement("div");
 
+console.log(button);
+
 function verifyPasswordRep(event){
-    done=false;
+    if(done===true){
+        done=false;
+        return;
+    }
     event.preventDefault();
     if(password.value===passwordRep.value){
-        div.innerText="Hasła są zgodne, kliknij zmień!";
-        console.log("zgodne");
         done=true;
-        removePasswordRep(event);
+        // debugger;
+        console.log("this", this);
+        console.log("event.target",event.target);
+        $(this).trigger("click");
     } else {
         passwordRep.parentElement.appendChild(div);
         div.innerText="Hasła są niezgodne!";
@@ -20,13 +27,5 @@ function verifyPasswordRep(event){
 
 }
 
-function removePasswordRep(event){
-    if(done===true){
-        console.log("done", done);
-        button.removeEventListener("click", verifyPasswordRep);
-        // console.log(event.target);
-        // event.target.trigger("click");
-    }
-}
 
 button.addEventListener("click", verifyPasswordRep);

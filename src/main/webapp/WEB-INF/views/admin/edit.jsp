@@ -22,9 +22,12 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Edytuj: </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <form:form cssClass="user" method="post" modelAttribute="admin">
+                                <form:form cssClass="user" method="post" modelAttribute="user">
                                     <div class="form-group">
                                         <label for="loginId">Login</label>
+                                        <div class="alert-warning">
+                                            <form:errors path="username"/>
+                                        </div>
                                         <form:input path="username" class="form-control form-control-user" id="loginId" />
                                     </div>
 
@@ -46,21 +49,33 @@
 
                                     <div class="form-group">
                                         <label for="name">Name</label>
+                                        <div class="alert-warning">
+                                            <form:errors path="name"/>
+                                        </div>
                                         <form:input path="name" class="form-control form-control-user" id="name" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="lastname">Lastame</label>
+                                        <div class="alert-warning">
+                                            <form:errors path="lastname"/>
+                                        </div>
                                         <form:input path="lastname" class="form-control form-control-user" id="lastname" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">Email</label>
+                                        <div class="alert-warning">
+                                            <form:errors path="email"/>
+                                        </div>
                                         <form:input path="email" type="email" class="form-control form-control-user" id="email" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
+                                        <div class="alert-warning">
+                                            <form:errors path="phone"/>
+                                        </div>
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
                                     </div>
                                     <form:hidden path="registered"/>

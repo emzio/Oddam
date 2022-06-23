@@ -26,6 +26,7 @@
                                     <form:hidden path="username" />
                                     <form:hidden path="password"/>
                                     <form:hidden path="enabled"/>
+                                    <form:hidden path="registered"/>
                                     <form:hidden path="roles"/>
                                     <form:hidden path="name"/>
                                     <form:hidden path="lastname"/>

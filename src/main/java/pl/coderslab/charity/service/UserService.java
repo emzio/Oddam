@@ -20,7 +20,7 @@ public interface UserService {
 
     List<User> findAllAdmins();
 
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
     void deleteAdmin(User userToCompare, User user);
 

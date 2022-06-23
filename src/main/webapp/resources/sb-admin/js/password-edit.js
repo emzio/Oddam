@@ -11,10 +11,10 @@ function verifyPasswordRep(event){
     }
     event.preventDefault();
     if(password.value===passwordRep.value){
-        div.innerText="Hasła są zgodne, kliknij zmień!";
-        console.log("zgodne");
+        // div.innerText="Hasła są zgodne, kliknij zmień!";
+        // console.log("zgodne");
         done=true;
-        debugger;
+        // debugger;
         $(this).trigger("click");
         // removePasswordRep(event);
     } else {

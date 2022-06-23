@@ -1,12 +1,15 @@
 package pl.coderslab.charity.controller;
 
+import ch.qos.logback.classic.spi.IThrowableProxy;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.service.CurrentUser;
@@ -14,6 +17,7 @@ import pl.coderslab.charity.service.RoleService;
 import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
@@ -32,7 +36,9 @@ public class AdminsController {
 
     @GetMapping("admin/delete/{id}")
     private String showDeleteForm( @PathVariable Long id, Model model){
-        model.addAttribute("admin", userService.findById(id));
+        userService.findById(id).ifPresentOrElse(user -> model.addAttribute("admin", user), () -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        });
         return "admin/delete";
     }
 
@@ -61,20 +67,20 @@ public class AdminsController {
 
     @GetMapping("admin/edit/{id}")
     private String showEditForm(@PathVariable Long id, Model model){
-        User user = userService.findById(id);
-        model.addAttribute("admin", user);
+        userService.findById(id).ifPresentOrElse(user -> model.addAttribute("user", user), () -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+                });
         return "admin/edit";
     }
 
     @PostMapping("admin/edit/{id}")
-    private String proceedAddForm(User user){
-        if (userService.dataRepetitionFound(user)){
+    private String proceedAddForm(@Valid User user, BindingResult result){
+        if (userService.dataRepetitionFound(user) || result.hasErrors()){
             return "admin/edit";
         }
         userService.save(user);
         return "redirect:/admin/list";
     }
-
 
     @GetMapping("/admin/users")
     private String showAllUsers(Model model){
@@ -85,8 +91,13 @@ public class AdminsController {
 
     @GetMapping("admin/user/edit/{id}")
     private String showUserEditForm(@PathVariable Long id, Model model){
-        model.addAttribute("allRoles", roleService.findAll());
-        model.addAttribute("user", userService.findById(id));
+        userService.findById(id).ifPresentOrElse(user -> {
+            model.addAttribute("allRoles", roleService.findAll());
+            model.addAttribute("user", user);
+        }, () -> {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        });
+
         return "admin/user-edit";
     }
 
@@ -107,10 +118,17 @@ public class AdminsController {
 
     @GetMapping("admin/user/disable/{id}")
     private String disableUser(@PathVariable Long id){
-        User user = userService.findById(id);
-        userService.disableUser(user);
+//        User user = userService.findById(id);
+//        userService.disableUser(user);
+
+//        userService.findById(id).ifPresent(userService::disableUser);
+
+        userService.findById(id).ifPresentOrElse(userService::disableUser, () -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+                });
         return "redirect:/admin/users";
     }
+
     @PostMapping("admin/user/delete/{id}")
     private String proceedUserDeleteForm(User user){
         userService.deleteUser(user);

@@ -18,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -66,6 +67,9 @@ public class UserController {
 
     @PostMapping("/user/edit")
     private String proceedUserEditForm(User user){
+
+        if (userService.emailRepetitionFound(user, userService.findById(user.getId())))
+
         if(userService.dataRepetitionFound(user)){
             return "user/edit";
         }

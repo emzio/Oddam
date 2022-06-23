@@ -55,7 +55,6 @@
         </div>
 
         <div class="form-group">
-                <%--            <input type="password" name="password" placeholder="Hasło" />--%>
             <div class="form-label">Password:  </div>
             <div class="text-danger">
                 <form:errors path="password"/>
@@ -66,14 +65,17 @@
 
         <div class="form-group">
             <div class="form-label">Powtórz hasło:  </div>
-            <input type="password" name="password2" placeholder="Powtórz hasło" />
+            <input id="password2" type="password" name="password2" placeholder="Powtórz hasło" />
         </div>
 
         <div class="form-group form-group--buttons">
             <a href="login.html" class="btn btn--without-border">Zaloguj się</a>
-            <button class="btn" type="submit">Załóż konto</button>
+            <button id="submitBtn" class="btn" type="submit">Załóż konto</button>
         </div>
     </form:form>
 </section>
+
+<script src="../../resources/js/jquery-3.6.0.js"></script>
+<script src="../../resources/sb-admin/js/password-repeat.js"></script>
 
 <%@ include file="footer.jsp" %>

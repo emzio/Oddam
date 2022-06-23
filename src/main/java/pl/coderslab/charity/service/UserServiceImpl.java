@@ -83,10 +83,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id){
-        return userRepository.findById(id).orElseThrow(() -> {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
-        });
+    public Optional<User> findById(Long id){
+
+        return userRepository.findById(id);
+
+//        return userRepository.findById(id).orElseThrow(() -> {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+//        });
     }
 
     @Override
