@@ -84,12 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findById(Long id){
-
         return userRepository.findById(id);
-
-//        return userRepository.findById(id).orElseThrow(() -> {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
-//        });
     }
 
     @Override
@@ -157,10 +152,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean dataRepetitionFound(User user){
-//        Optional<User> optSavedUser = userRepository.findById(user.getId());
         Optional<Long> idOptional = Optional.ofNullable(user.getId());
         Optional<User> optSavedUser = idOptional.flatMap(userRepository::findById);
-//        Optional<User> optSavedUser = Optional.ofNullable(user.getId()).flatMap(userRepository::findById);
 
         return emailRepetitionFound(user, optSavedUser) || usernameRepetitionFound(user, optSavedUser);
     }

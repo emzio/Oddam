@@ -102,8 +102,9 @@ public class AdminsController {
     }
 
     @PostMapping("admin/user/edit/{id}")
-    private String proceedUserEditForm(User user){
-        if (userService.dataRepetitionFound(user)){
+    private String proceedUserEditForm(@Valid User user, BindingResult result, Model model){
+        if (userService.dataRepetitionFound(user) || result.hasErrors()){
+            model.addAttribute("allRoles", roleService.findAll());
             return "admin/user-edit";
         }
         userService.save(user);
@@ -112,26 +113,23 @@ public class AdminsController {
 
     @GetMapping("admin/user/delete/{id}")
     private String showUserDeleteForm(@PathVariable Long id, Model model){
-        model.addAttribute("user", userService.findById(id));
+        userService.findById(id).ifPresentOrElse(user -> model.addAttribute("user", user), () -> {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        });
         return "admin/user-delete";
+    }
+    @PostMapping("admin/user/delete/{id}")
+    private String proceedUserDeleteForm(User user){
+        userService.deleteUser(user);
+        return "redirect:/admin/users";
     }
 
     @GetMapping("admin/user/disable/{id}")
     private String disableUser(@PathVariable Long id){
-//        User user = userService.findById(id);
-//        userService.disableUser(user);
-
-//        userService.findById(id).ifPresent(userService::disableUser);
-
         userService.findById(id).ifPresentOrElse(userService::disableUser, () -> {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
                 });
         return "redirect:/admin/users";
     }
 
-    @PostMapping("admin/user/delete/{id}")
-    private String proceedUserDeleteForm(User user){
-        userService.deleteUser(user);
-        return "redirect:/admin/users";
-    }
 }

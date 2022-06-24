@@ -49,20 +49,32 @@
                                         <label for="name">Name</label>
                                         <form:input path="name" class="form-control form-control-user" id="name" />
                                     </div>
+                                    <div class="alert-warning">
+                                        <form:errors path="name"/>
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="lastname">Lastname</label>
                                         <form:input path="lastname" class="form-control form-control-user" id="lastname" />
+                                    </div>
+                                    <div class="alert-warning">
+                                        <form:errors path="lastname"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <form:input path="email" type="email" class="form-control form-control-user" id="email" />
                                     </div>
+                                    <div class="alert-warning">
+                                        <form:errors path="email"/>
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
+                                    </div>
+                                    <div class="alert-warning">
+                                        <form:errors path="phone"/>
                                     </div>
 
                                     <form:hidden path="registered"/>
