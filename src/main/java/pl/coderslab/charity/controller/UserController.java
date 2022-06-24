@@ -60,17 +60,14 @@ public class UserController {
 
     @GetMapping("/user/edit")
     private String showUserEditForm(@AuthenticationPrincipal CurrentUser currentUser, Model model){
-        User user = userService.findByUserName(currentUser.getUsername());
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.findByUserName(currentUser.getUsername()));
         return "user/edit";
     }
 
     @PostMapping("/user/edit")
     private String proceedUserEditForm(User user){
 
-        if (userService.emailRepetitionFound(user, userService.findById(user.getId())))
-
-        if(userService.dataRepetitionFound(user)){
+        if (userService.emailRepetitionFound(user, userService.findById(user.getId()))){
             return "user/edit";
         }
         userService.save(user);
