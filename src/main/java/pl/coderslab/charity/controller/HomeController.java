@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.charity.service.CurrentUser;
@@ -59,11 +60,14 @@ public class HomeController {
         return uuid.toString();
     }
 
-    @GetMapping("/path")
+    @GetMapping("/path/{email}")
     @ResponseBody
-    public String  pathTest(@AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request){
-        return "ContextPath :" + request.getContextPath()
-                + "url: " + request.getRequestURL().toString();
+    public String  pathTest(@AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request, @PathVariable String email){
+//        return "ContextPath :" + request.getContextPath()
+//                + "url: " + request.getRequestURL().toString();
+//        return "email: " + userService.findEmail(email) + " is: " + (userService.findEmail(email)==null);
+        return "email: " + userService.findEmail(email) + " is: " + (userService.findEmail(email)==null);
+
     }
 
 }

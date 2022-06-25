@@ -98,9 +98,9 @@ public class UserController {
 
     @PostMapping("/password-recovery")
     public String processPasswordRecoveryForm(@RequestParam String email){
-        User user = userService.findByEmail(email);
-        if(user!=null){
-            userPassRecoveryService.passwordRecover(user);
+        Optional<User> userOptional = userService.findByEmail(email);
+        if (userOptional.isPresent()){
+            userPassRecoveryService.passwordRecover(userOptional.get());
             return "user/pass-recovery-mail-sent";
         }
         return "user/unknown-mail";

@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findByEmail(String email){
+    public Optional<User> findByEmail(String email){
         return userRepository.findByEmail(email);
     }
 
@@ -158,12 +158,29 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser){
+//        if (userRepository.findEmail(user.getEmail())!=null){
+//            return optionalSavedUser
+//                    .map(savedUser -> !savedUser.getEmail().equals(user.getEmail()))
+//                    .orElseGet(() -> true);
+//        }
 
-        if (userRepository.findByEmail(user.getEmail())!=null){
-            return !optionalSavedUser
-                    .map(savedUser -> savedUser.getEmail().equals(user.getEmail()))
-                    .orElseGet(() -> true);
-        }
-        return false;
+//        if (userRepository.findByEmail(user.getEmail())!=null){
+//            return optionalSavedUser
+//                    .map(savedUser -> !savedUser.getEmail().equals(user.getEmail()))
+//                    .orElseGet(() -> true);
+//        }
+
+//        return false;
+
+
+
+        return userRepository.findByEmail(user.getEmail())
+                .map(savedUser -> !savedUser.getId().equals(user.getId()))
+                .orElse(false);
+    }
+
+    @Override
+    public String findEmail(String email){
+        return userRepository.findEmail(email);
     }
 }

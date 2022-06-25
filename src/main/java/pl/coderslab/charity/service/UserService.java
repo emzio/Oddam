@@ -36,11 +36,13 @@ public interface UserService {
 
 
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser);
 
     boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser);
 
     boolean dataRepetitionFound(User user);
+
+    String findEmail(String email);
 }
