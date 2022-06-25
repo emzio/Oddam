@@ -1,18 +1,18 @@
 package pl.coderslab.charity.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.coderslab.charity.service.*;
+import pl.coderslab.charity.service.CurrentUser;
+import pl.coderslab.charity.service.DonationService;
+import pl.coderslab.charity.service.InstitutionService;
+import pl.coderslab.charity.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.PageContext;
-import java.io.File;
 import java.util.UUID;
 
 
@@ -31,7 +31,7 @@ public class HomeController {
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
         model.addAttribute("numberOfDonations", donationService.countDonation());
 
-        if(customUser!=null && userService.findRole(customUser).equals("ROLE_ADMIN")){
+        if(customUser!=null && userService.findRolesNames(customUser).contains("ROLE_ADMIN")){
             return "admin/admin";
         } else if (customUser!=null){
             return "user/user";
@@ -63,7 +63,7 @@ public class HomeController {
 
     @GetMapping("/path")
     @ResponseBody
-    public String  pathTest(HttpServletRequest request){
+    public String  pathTest(@AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request){
         return "ContextPath :" + request.getContextPath()
                 + "url: " + request.getRequestURL().toString();
     }

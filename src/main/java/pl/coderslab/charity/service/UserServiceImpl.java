@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -67,14 +68,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String findRole(CurrentUser customUser){
-
-        String role = customUser.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .filter(userRole -> userRole.equals("ROLE_ADMIN"))
-                .findAny().orElse("ROLE_USER");
-        return role;
+    public List<String> findRolesNames(CurrentUser customUser){
+        return customUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).toList();
     }
+
+
 
     @Override
     public List<User> findAllAdmins(){

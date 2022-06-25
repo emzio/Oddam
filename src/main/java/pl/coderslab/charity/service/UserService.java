@@ -16,7 +16,7 @@ public interface UserService {
 
     boolean verifyPasswordRepetition(String password, String passwordRep);
 
-    String findRole(CurrentUser customUser);
+    List<String> findRolesNames(CurrentUser customUser);
 
     List<User> findAllAdmins();
 
