@@ -24,18 +24,16 @@ public class HomeController {
     private final DonationService donationService;
     private final UserService userService;
 
-
     @RequestMapping("/")
     public String homeAction(Model model, @AuthenticationPrincipal CurrentUser customUser){
-        model.addAttribute("institutions", institutionService.findAllByEnabledIsTrue());
-        model.addAttribute("totalQuantity", donationService.findTotalQuantity());
-        model.addAttribute("numberOfDonations", donationService.countDonation());
-
         if(customUser!=null && userService.findRolesNames(customUser).contains("ROLE_ADMIN")){
             return "admin/admin";
         } else if (customUser!=null){
             return "user/user";
         }
+        model.addAttribute("institutions", institutionService.findAllByEnabledIsTrue());
+        model.addAttribute("totalQuantity", donationService.findTotalQuantity());
+        model.addAttribute("numberOfDonations", donationService.countDonation());
         return "index";
     }
 
