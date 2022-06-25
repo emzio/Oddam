@@ -15,8 +15,6 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-//    @Autowired
-
     private final JavaMailSender emailSender;
 
 
@@ -59,10 +57,8 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendToken(User user, Token token)
     {
-        //        pageContext.request.contextPath
 
         String url = "http://localhost:8080/register/uuid/"+ token.getToken();
-//        String text = "<a href='"+url+"'>"+url+"</a>";
         String text = url;
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(user.getEmail());

@@ -139,48 +139,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser){
-        if(userRepository.findByUsername(user.getUsername())!=null){
-            return optionalSavedUser
-                    .map( savedUser -> !savedUser.getUsername().equals(user.getUsername()))
-                    .orElseGet(()-> true);
+    public boolean usernameRepetitionFound(User user){
+        User savedUser = userRepository.findByUsername(user.getUsername());
+        if(savedUser!=null){
+            return !savedUser.getId().equals(user.getId());
         }
         return false;
     }
 
-
     @Override
-    public boolean dataRepetitionFound(User user){
-        Optional<Long> idOptional = Optional.ofNullable(user.getId());
-        Optional<User> optSavedUser = idOptional.flatMap(userRepository::findById);
-
-        return emailRepetitionFound(user, optSavedUser) || usernameRepetitionFound(user, optSavedUser);
-    }
-    @Override
-    public boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser){
-//        if (userRepository.findEmail(user.getEmail())!=null){
-//            return optionalSavedUser
-//                    .map(savedUser -> !savedUser.getEmail().equals(user.getEmail()))
-//                    .orElseGet(() -> true);
-//        }
-
-//        if (userRepository.findByEmail(user.getEmail())!=null){
-//            return optionalSavedUser
-//                    .map(savedUser -> !savedUser.getEmail().equals(user.getEmail()))
-//                    .orElseGet(() -> true);
-//        }
-
-//        return false;
-
-
-
+    public boolean emailRepetitionFound(User user){
         return userRepository.findByEmail(user.getEmail())
                 .map(savedUser -> !savedUser.getId().equals(user.getId()))
                 .orElse(false);
     }
 
     @Override
-    public String findEmail(String email){
-        return userRepository.findEmail(email);
+    public boolean dataRepetitionFound(User user){
+        return emailRepetitionFound(user) || usernameRepetitionFound(user);
     }
 }

@@ -67,7 +67,7 @@ public class UserController {
     @PostMapping("/user/edit")
     private String proceedUserEditForm(User user){
 
-        if (userService.emailRepetitionFound(user, userService.findById(user.getId()))){
+        if (userService.emailRepetitionFound(user)){
             return "user/edit";
         }
         userService.save(user);

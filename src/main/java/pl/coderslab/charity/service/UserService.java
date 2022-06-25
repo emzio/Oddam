@@ -38,11 +38,10 @@ public interface UserService {
 
     Optional<User> findByEmail(String email);
 
-    boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser);
+    boolean emailRepetitionFound(User user);
 
-    boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser);
+    boolean usernameRepetitionFound(User user);
 
     boolean dataRepetitionFound(User user);
 
-    String findEmail(String email);
 }

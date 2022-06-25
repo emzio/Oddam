@@ -63,11 +63,8 @@ public class HomeController {
     @GetMapping("/path/{email}")
     @ResponseBody
     public String  pathTest(@AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request, @PathVariable String email){
-//        return "ContextPath :" + request.getContextPath()
-//                + "url: " + request.getRequestURL().toString();
-//        return "email: " + userService.findEmail(email) + " is: " + (userService.findEmail(email)==null);
-        return "email: " + userService.findEmail(email) + " is: " + (userService.findEmail(email)==null);
-
+        return "ContextPath :" + request.getContextPath()
+                + "url: " + request.getRequestURL().toString();
     }
 
 }

@@ -20,12 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByRolesNotContainingAndEnabledIsFalse(Role role);
 
-
     Optional<User> findByEmail(String email);
 
-    @Query("SELECT u.email FROM User u where u.email = ?1")
-    String findEmail(String email);
-
-    @Query("SELECT u.username FROM User u WHERE u.username = ?1")
-    String findUserName(String username);
 }
