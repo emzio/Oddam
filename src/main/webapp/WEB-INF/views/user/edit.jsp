@@ -37,21 +37,33 @@
                                     <div class="form-group">
                                         <label for="name">Name</label>
                                         <form:input path="name" class="form-control form-control-user" id="name" />
+                                        <div class="alert-warning">
+                                            <form:errors path="name"/>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="lastname">Lastame</label>
                                         <form:input path="lastname" class="form-control form-control-user" id="lastname" />
+                                        <div class="alert-warning">
+                                            <form:errors path="lastname"/>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <form:input path="email" type="email" class="form-control form-control-user" id="email" />
+                                        <div class="alert-warning">
+                                            <form:errors path="email"/>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
+                                        <div class="alert-warning">
+                                            <form:errors path="phone"/>
+                                        </div>
                                     </div>
                                     <form:hidden path="registered"/>
                                     <form:hidden path="id"/>

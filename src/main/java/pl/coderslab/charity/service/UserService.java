@@ -34,8 +34,6 @@ public interface UserService {
 
     void changePassword(User user);
 
-
-
     Optional<User> findByEmail(String email);
 
     boolean emailRepetitionFound(User user);

@@ -73,8 +73,6 @@ public class UserServiceImpl implements UserService {
                 .map(GrantedAuthority::getAuthority).toList();
     }
 
-
-
     @Override
     public List<User> findAllAdmins(){
         Role role = roleRepository.findByName("ROLE_ADMIN");
@@ -94,7 +92,6 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }
     }
-
 
     @Override
     public List<User> findAllEnabledUsers(){

@@ -11,7 +11,6 @@
     <h2>Załóż konto</h2>
     <form:form modelAttribute="user" method="post">
         <div class="form-group">
-<%--            <input type="email" name="email" placeholder="Email" />--%>
             <div class="form-label">email:  </div>
             <div class="alert-warning">
                 <form:errors path="email"/>
@@ -25,7 +24,7 @@
             <div class="alert-warning">
                 <form:errors path="username"/>
             </div>
-            <form:input path="username"/>
+            <form:input path="username" required="true"/>
         </div>
 
         <div class="form-group">
@@ -33,7 +32,7 @@
             <div class="alert-warning">
                 <form:errors path="name"/>
             </div>
-            <form:input path="name"/>
+            <form:input path="name" required="true"/>
         </div>
 
         <div class="form-group">
@@ -43,7 +42,7 @@
                             <form:errors path="lastname"/>
                         </div>
 
-            <form:input path="lastname"/>
+            <form:input path="lastname" required="true"/>
         </div>
 
         <div class="form-group">
@@ -59,13 +58,13 @@
             <div class="text-danger">
                 <form:errors path="password"/>
             </div>
-            <form:input path="password" type="password"  placeholder="Hasło" value="Hasło"/>
+            <form:input path="password" type="password" required="true" placeholder="Hasło" value="Hasło" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"/>
 
         </div>
 
         <div class="form-group">
             <div class="form-label">Powtórz hasło:  </div>
-            <input id="password2" type="password" name="password2" placeholder="Powtórz hasło" />
+            <input id="password2" type="password" required="true" name="password2" placeholder="Powtórz hasło" />
         </div>
 
         <div class="form-group form-group--buttons">

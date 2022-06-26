@@ -46,7 +46,6 @@ public class UserController {
         return "user/register-mail-sent";
     }
 
-
     @GetMapping("/register/uuid/{token}")
     private String showRegisterConfirmation(@PathVariable String token){
         Token tokenDB = tokenService.findByToken(token);
@@ -65,9 +64,9 @@ public class UserController {
     }
 
     @PostMapping("/user/edit")
-    private String proceedUserEditForm(User user){
+    private String proceedUserEditForm(@Valid User user, BindingResult result){
 
-        if (userService.emailRepetitionFound(user)){
+        if (userService.emailRepetitionFound(user) || result.hasErrors()){
             return "user/edit";
         }
         userService.save(user);
@@ -83,12 +82,12 @@ public class UserController {
     }
 
     @PostMapping("/user/password/edit")
-    private String proceedUserPasswordEditForm(User user, @RequestParam String password2){
-        if (userService.verifyPasswordRepetition(user.getPassword(), password2)){
+    private String proceedUserPasswordEditForm(@Valid User user, BindingResult result, @RequestParam String password2){
+        if (!result.hasErrors() && userService.verifyPasswordRepetition(user.getPassword(), password2)){
             userService.changePassword(user);
             return "redirect:/";
         }
-        return "redirect:/user/password/edit";
+        return "user/password-edit";
     }
 
     @GetMapping("/password-recovery")

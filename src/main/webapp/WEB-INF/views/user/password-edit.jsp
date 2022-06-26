@@ -27,7 +27,11 @@
 
                                     <div class="form-group">
                                         <label for="password">Hasło</label>
+                                        <div class="alert-warning">
+                                            <form:errors path="password"/>
+                                        </div>
                                         <form:input path="password" type="password" class="form-control form-control-user" id="password" />
+
                                     </div>
                                     <div class="form-group">
                                         <label for="password2">Powtórz</label>
