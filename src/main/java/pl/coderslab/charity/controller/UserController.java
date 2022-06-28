@@ -34,7 +34,7 @@ public class UserController {
             return "register";
         }
         userRegister.saveNotRegisteredUser(user);
-        return "user/register-mail-sent";
+        return "register-mail-sent";
     }
 
     @GetMapping("/register/uuid/{token}")
