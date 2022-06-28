@@ -62,5 +62,6 @@
 
 </div>
 <!-- End of Main Content -->
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
 <script src="../../../resources/sb-admin/js/password-edit.js"></script>
 <%@ include file="../footer-sb-admin.jsp" %>

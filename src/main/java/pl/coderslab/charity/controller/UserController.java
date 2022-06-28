@@ -3,23 +3,15 @@ package pl.coderslab.charity.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.WebUtils;
 import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.*;
-import pl.coderslab.charity.util.MessageTextUtil;
-import pl.coderslab.charity.util.TokenUtil;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Controller
@@ -27,7 +19,6 @@ public class UserController {
 
     private final UserService userService;
     private final TokenService tokenService;
-    private final EmailService emailService;
     private final UserRegister userRegister;
 
     private final UserPasswordRecoveryService userPassRecoveryService;
@@ -110,20 +101,19 @@ public class UserController {
         Token token = tokenService.findByToken(code);
         if(token!=null && token.getToken().equals(code)){
             model.addAttribute("user", token.getUser());
-            return "user/recovery-password";
+            return "user/password-recovery-set";
         }
         return "/error";
     }
 
     @PostMapping("/password-recovery/uuid/{code}")
-    public String processPasswordForm(User user, @RequestParam String password2){
-        if (!userService.verifyPasswordRepetition(user.getPassword(), password2)){
-            return "user/recovery-password";
+    public String processPasswordForm(@Valid User user, BindingResult result, @RequestParam String password2){
+        if (!userService.verifyPasswordRepetition(user.getPassword(), password2) || result.hasErrors()){
+            return "user/password-recovery-set";
         }
         userPassRecoveryService.editPassword(user);
         return "password-restore-confirmed";
     }
-
 
    // BACK DOOR BACK DOOR BACK DOOR
 

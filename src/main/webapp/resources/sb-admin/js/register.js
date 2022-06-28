@@ -1,4 +1,4 @@
-const button = document.querySelector(".form-group .btn");
+const button = document.querySelector("#submitBtn");
 const password = document.querySelector("#password");
 const passwordRep = document.querySelector("#password2");
 let done=false;

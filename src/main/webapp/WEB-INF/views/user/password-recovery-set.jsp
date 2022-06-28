@@ -45,5 +45,5 @@
 </section>
 
 <script src="../../../resources/sb-admin/js/password-repeat.js"></script>
-
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
 <%@ include file="../footer.jsp" %>
