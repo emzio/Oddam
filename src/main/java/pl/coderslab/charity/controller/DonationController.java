@@ -40,7 +40,7 @@ public class DonationController {
 
     @GetMapping("/user/donation/confirmation")
     public String showConfirmation(){
-        return "form-confirmation";
+        return "/donation/form-confirmation";
     }
 
     @GetMapping("/user/donations")

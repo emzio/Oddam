@@ -4,7 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 </header>
 
 <section class="login-page">
@@ -74,7 +74,7 @@
     </form:form>
 </section>
 
-<script src="../../resources/js/jquery-3.6.0.js"></script>
-<script src="../../resources/sb-admin/js/register.js"></script>
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
+<script src="../../../resources/sb-admin/js/register.js"></script>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../footer.jsp" %>

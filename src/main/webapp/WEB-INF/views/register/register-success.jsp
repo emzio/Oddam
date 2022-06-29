@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="header-sb-admin.jsp" %>
+<%@ include file="../header-sb-admin.jsp" %>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -39,4 +39,4 @@
 </div>
 <!-- End of Main Content -->
 
-<%@ include file="footer-sb-admin.jsp" %>
+<%@ include file="../footer-sb-admin.jsp" %>

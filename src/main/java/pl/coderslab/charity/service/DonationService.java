@@ -19,4 +19,6 @@ public interface DonationService {
     Donation findByIdJoiningCategories(Long id);
 
     void save(Donation donation);
+
+//    void setPickedUp(Long id);
 }

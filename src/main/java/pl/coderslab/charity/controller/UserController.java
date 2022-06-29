@@ -20,21 +20,21 @@ public class UserController {
     private final UserService userService;
     private final TokenService tokenService;
     private final UserRegister userRegister;
-
     private final UserPasswordRecoveryService userPassRecoveryService;
+
     @GetMapping("/register")
     private String showRegisterForm(Model model){
         model.addAttribute("user", new User());
-        return "register";
+        return "/register/register";
     }
 
     @PostMapping("/register")
     private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2){
         if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
-            return "register";
+            return "/register/register";
         }
         userRegister.saveNotRegisteredUser(user);
-        return "register-mail-sent";
+        return "/register/register-mail-sent";
     }
 
     @GetMapping("/register/uuid/{token}")
@@ -42,7 +42,7 @@ public class UserController {
         Token tokenDB = tokenService.findByToken(token);
         if(tokenDB!=null && tokenDB.getToken().equals(token)){
             userRegister.register(tokenDB.getUser());
-            return "register-success";
+            return "/register/register-success";
         }
         return "/error";
     }
@@ -83,7 +83,7 @@ public class UserController {
 
     @GetMapping("/password-recovery")
     public String showPasswordRecoveryForm(){
-        return "password-recovery-mail";
+        return "/password-recovery/get-mail";
     }
 
     @PostMapping("/password-recovery")
@@ -91,7 +91,7 @@ public class UserController {
         Optional<User> userOptional = userService.findByEmail(email);
         if (userOptional.isPresent()){
             userPassRecoveryService.passwordRecover(userOptional.get());
-            return "user/pass-recovery-mail-sent";
+            return "/password-recovery/mail-sent";
         }
         return "user/unknown-mail";
     }
@@ -101,7 +101,7 @@ public class UserController {
         Token token = tokenService.findByToken(code);
         if(token!=null && token.getToken().equals(code)){
             model.addAttribute("user", token.getUser());
-            return "user/password-recovery-set";
+            return "/password-recovery/set";
         }
         return "/error";
     }
@@ -109,10 +109,10 @@ public class UserController {
     @PostMapping("/password-recovery/uuid/{code}")
     public String processPasswordForm(@Valid User user, BindingResult result, @RequestParam String password2){
         if (!userService.verifyPasswordRepetition(user.getPassword(), password2) || result.hasErrors()){
-            return "user/password-recovery-set";
+            return "/password-recovery/set";
         }
         userPassRecoveryService.editPassword(user);
-        return "password-restore-confirmed";
+        return "/password-recovery/confirmed";
     }
 
    // BACK DOOR BACK DOOR BACK DOOR
