@@ -53,4 +53,10 @@ public class DonationServiceImp implements DonationService{
         donationRepository.save(donation);
     }
 
+    @Override
+    public void setPickedUp(Long id){
+        Donation donation = findByIdJoiningCategories(id);
+        donation.setPickedUp(true);
+        save(donation);
+    }
 }

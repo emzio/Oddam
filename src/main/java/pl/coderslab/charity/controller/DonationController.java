@@ -58,9 +58,7 @@ public class DonationController {
 
     @GetMapping("/user/donation/pickedup/{id}")
     private String donationPickUp(@PathVariable Long id){
-        Donation donation = donationService.findByIdJoiningCategories(id);
-        donation.setPickedUp(true);
-        donationService.save(donation);
+        donationService.setPickedUp(id);
         return "redirect:/user/donations";
     }
 }

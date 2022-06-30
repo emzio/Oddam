@@ -5,7 +5,7 @@
 
 <%@ include file="header.jsp" %>
 
-<div class="slogan container container--90">
+<div class="slogan container container--90" id="slogan">
     <div class="slogan--item">
         <h1>
             Zacznij pomagać!<br/>
@@ -15,7 +15,7 @@
 </div>
 </header>
 
-<section class="stats">
+<section class="stats" >
     <div class="container container--85">
         <div class="stats--item">
             <em>${totalQuantity}</em>
@@ -64,7 +64,7 @@
     <a href="#" class="btn btn--large">Załóż konto</a>
 </section>
 
-<section class="about-us">
+<section class="about-us" id="about-us">
     <div class="about-us--text">
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
@@ -75,7 +75,7 @@
     </div>
 </section>
 
-<section class="help">
+<section class="help" id="help">
     <h2>Komu pomagamy?</h2>
 
     <!-- SLIDE 1 -->
