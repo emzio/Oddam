@@ -24,6 +24,12 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
 
                                 <button type="button" class="btn-danger">test the rest!</button>
+                                <form method="post">
+                                    <input type="hidden" value="2" id="id">
+                                    <input type="text" name="email" placeholder="email" id="email">
+                                    <input type="submit" class="btn-success" value="check email" id="submit">
+                                </form>
+<%--                                <button type="button" class="btn-danger"> email</button>--%>
                             </div>
                         </div>
                     </div>
