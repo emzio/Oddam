@@ -124,16 +124,11 @@ public class UserServiceImpl implements UserService {
         user.setUsername(passwordEncoder.encode(user.getUsername()));
         user.setName(passwordEncoder.encode(user.getName()));
         user.setLastname(passwordEncoder.encode(user.getLastname()));
-        user.setEmail(String.join("", passwordEncoder.encode(user.getEmail()), "@hashed.com"));
         user.setPhone(passwordEncoder.encode(user.getPhone()));
         userRepository.save(user);
     }
 
 
-    @Override
-    public Optional<User> findByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
 
     @Override
     public boolean usernameRepetitionFound(User user){
@@ -144,15 +139,4 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
-    public boolean emailRepetitionFound(User user){
-        return userRepository.findByEmail(user.getEmail())
-                .map(savedUser -> !savedUser.getId().equals(user.getId()))
-                .orElse(false);
-    }
-
-    @Override
-    public boolean dataRepetitionFound(User user){
-        return emailRepetitionFound(user) || usernameRepetitionFound(user);
-    }
 }

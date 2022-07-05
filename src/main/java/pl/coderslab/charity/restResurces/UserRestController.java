@@ -44,17 +44,17 @@ public class UserRestController {
     }
 
 //    @GetMapping("/check/email/{email}/{id}")
-    @GetMapping("/check/email/{email}")
+    @GetMapping("/check/email/{userName}")
 
 //    EntityModel<User> findByEmail(@PathVariable(required = false) Long id, @PathVariable String email){
-    Boolean emailCheck(@PathVariable String email , @RequestParam(required = false) Long id){
+    Boolean emailCheck(@PathVariable String userName , @RequestParam(required = false) Long id){
 //        Boolean result = userService.findByEmail(email)
 //                .map(user -> Optional.ofNullable(id).map(l -> l.equals(user.getId()))
 //                        .orElse(true)
 //                )
 //                .orElse(true);
 
-        return userService.findByEmail(email)
+        return Optional.ofNullable(userService.findByUserName(userName))
                 .map(user -> Optional.ofNullable(id).map(l -> l.equals(user.getId()))
                         .orElse(false)
                 )

@@ -29,7 +29,7 @@
     <h2>Zaloguj się</h2>
     <form method="post">
         <div class="form-group">
-            <label> Login: <input type="text" name="username"/> </label>
+            <label> Email: <input type="email" name="username"/> </label>
         </div>
         <div class="form-group">
             <label> Hasło: <input type="password" name="password"/> </label>

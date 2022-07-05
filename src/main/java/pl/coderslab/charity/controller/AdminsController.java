@@ -57,7 +57,7 @@ public class AdminsController {
 
     @PostMapping("admin/add")
     private String proceedAddForm(@Valid User user, BindingResult result, @RequestParam String passwordRep){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(),passwordRep) || userService.dataRepetitionFound(user)
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(),passwordRep) || userService.usernameRepetitionFound(user)
         ){
             return "admin/add";
         }
@@ -75,7 +75,7 @@ public class AdminsController {
 
     @PostMapping("admin/edit/{id}")
     private String proceedAddForm(@Valid User user, BindingResult result){
-        if (userService.dataRepetitionFound(user) || result.hasErrors()){
+        if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             return "admin/edit";
         }
         userService.save(user);
@@ -103,7 +103,7 @@ public class AdminsController {
 
     @PostMapping("admin/user/edit/{id}")
     private String proceedUserEditForm(@Valid User user, BindingResult result, Model model){
-        if (userService.dataRepetitionFound(user) || result.hasErrors()){
+        if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             model.addAttribute("allRoles", roleService.findAll());
             return "admin/user-edit";
         }

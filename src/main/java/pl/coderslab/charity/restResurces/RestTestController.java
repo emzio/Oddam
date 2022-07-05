@@ -35,7 +35,7 @@ public class RestTestController {
     @PostMapping("rest/user/edit")
     private String proceedUserEditForm(@Valid User user, BindingResult result){
 
-        if (userService.emailRepetitionFound(user) || result.hasErrors()){
+        if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             return "rest/editUserRest";
         }
         userService.save(user);
@@ -50,7 +50,7 @@ public class RestTestController {
 
     @PostMapping("rest/register")
     private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.usernameRepetitionFound(user)){
             return "/rest/register-rest";
         }
         userRegister.saveNotRegisteredUser(user);

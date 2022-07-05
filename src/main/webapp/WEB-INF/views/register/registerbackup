@@ -10,18 +10,26 @@
 <section class="login-page">
     <h2>Załóż konto</h2>
     <form:form modelAttribute="user" method="post">
+        <div class="form-group">
+            <div class="form-label">email:  </div>
+            <div class="alert-warning">
+                <form:errors path="email"/>
+            </div>
+
+            <form:input path="email" type="email"/>
+        </div>
 
         <div class="form-group">
-            <div class="form-label"> Email</div>
-            <div class="alert-form">
+            <div class="form-label"> Login:</div>
+            <div class="alert-warning">
                 <form:errors path="username"/>
             </div>
-            <form:input path="username"/>
+            <form:input path="username" required="true"/>
         </div>
 
         <div class="form-group">
             <div class="form-label"> Imię:</div>
-            <div class="alert-form">
+            <div class="alert-warning">
                 <form:errors path="name"/>
             </div>
             <form:input path="name" required="true"/>
@@ -30,16 +38,16 @@
         <div class="form-group">
             <div class="form-label"> Nazwisko:</div>
 
-            <div class="alert-form">
-                <form:errors path="lastname"/>
-            </div>
+                        <div class="alert-warning">
+                            <form:errors path="lastname"/>
+                        </div>
 
             <form:input path="lastname" required="true"/>
         </div>
 
         <div class="form-group">
             <div class="form-label"> Numer Telefonu(opcjonalnie):</div>
-            <div class="alert-form">
+            <div class="alert-warning">
                 <form:errors path="phone"/>
             </div>
             <form:input path="phone"/>
@@ -47,10 +55,10 @@
 
         <div class="form-group">
             <div class="form-label">Password:  </div>
-            <div class="alert-form">
+            <div class="text-danger">
                 <form:errors path="password"/>
             </div>
-            <form:input path="password" type="password" required="true" placeholder="Hasło" value="Hasło" />
+            <form:input path="password" type="password" required="true" placeholder="Hasło" value="Hasło" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"/>
 
         </div>
 
@@ -67,5 +75,6 @@
 </section>
 
 <script src="../../../resources/js/jquery-3.6.0.js"></script>
-<script src="../../../resources/restTest/data-verify.js"></script>
+<script src="../../../resources/sb-admin/js/register.js"></script>
+
 <%@ include file="../footer.jsp" %>
