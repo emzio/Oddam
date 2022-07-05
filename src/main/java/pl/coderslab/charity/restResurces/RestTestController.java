@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.CurrentUser;
+import pl.coderslab.charity.service.UserRegister;
 import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
@@ -17,6 +19,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class RestTestController {
     private final UserService userService;
+    private final UserRegister userRegister;
 
     @GetMapping("rest/test")
     public String restTest(){
@@ -33,9 +36,24 @@ public class RestTestController {
     private String proceedUserEditForm(@Valid User user, BindingResult result){
 
         if (userService.emailRepetitionFound(user) || result.hasErrors()){
-            return "user/edit";
+            return "rest/editUserRest";
         }
         userService.save(user);
         return "redirect:/";
+    }
+
+    @GetMapping("rest/register")
+    private String showRegisterForm(Model model){
+        model.addAttribute("user", new User());
+        return "/rest/register-rest";
+    }
+
+    @PostMapping("rest/register")
+    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2){
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
+            return "/rest/register-rest";
+        }
+        userRegister.saveNotRegisteredUser(user);
+        return "/register/register-mail-sent";
     }
 }
