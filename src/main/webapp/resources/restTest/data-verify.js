@@ -59,8 +59,11 @@ document.addEventListener("DOMContentLoaded",function (e) {
         }
     }
 
+
     function checkEmailFormat() {
-        if (email.value === "") {
+        const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        console.log("email patter", pattern);
+        if (!email.value.match(pattern) ) {
             createMessage("Wpisz email", email, "#emailEmpty");
         }
     }
