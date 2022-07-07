@@ -1,4 +1,4 @@
-package pl.coderslab.charity.restResurces;
+package pl.coderslab.charity.restController;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

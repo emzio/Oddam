@@ -1,6 +1,5 @@
-package pl.coderslab.charity.restResurces;
+package pl.coderslab.charity.restController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.UserService;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

@@ -67,5 +67,5 @@
 </section>
 
 <script src="../../../resources/js/jquery-3.6.0.js"></script>
-<script src="../../../resources/restTest/data-verify.js"></script>
+<script src="../../../resources/js/data-verify.js"></script>
 <%@ include file="../footer.jsp" %>

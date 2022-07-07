@@ -34,15 +34,15 @@ document.addEventListener("DOMContentLoaded",function (e) {
         console.log("messagesArr", messagesArr);
 
         if (messagesArr.length === 0) {
-            checkEmailAvailability();
-        }
-
-        console.log("messagesArrAfterEmailCheck", messagesArr);
-
-        if (messagesArr.length === 0) {
-            done = true;
-            console.log("trigger on");
-            $(this).trigger("click");
+            checkEmailJson(email, id).then(result => {
+                if(!result){
+                    createMessage("Ten adres email nie jest dostępny.", email, "#emailMessage");
+                } else {
+                    done = true;
+                    console.log("trigger on");
+                    $(this).trigger("click");
+                }
+            })
         }
     }
 
@@ -62,18 +62,9 @@ document.addEventListener("DOMContentLoaded",function (e) {
 
     function checkEmailFormat() {
         const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        console.log("email patter", pattern);
         if (!email.value.match(pattern) ) {
             createMessage("Wpisz email", email, "#emailEmpty");
         }
-    }
-
-    function checkEmailAvailability() {
-        checkEmailJson(email, id).then(result => {
-        if (!result) {
-            createMessage("Ten adres email nie jest dostępny.", email, "#emailMessage");
-        }
-    });
     }
 
     function checkEmailJson(email, id) {
@@ -85,7 +76,9 @@ document.addEventListener("DOMContentLoaded",function (e) {
                     alert('Wystąpił błąd!');
                     return resp.status;
                 }
-                return resp;
+                let ret = resp;
+                console.log("ret", ret);
+                return ret.json();
             }
         )
     }
