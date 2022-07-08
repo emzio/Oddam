@@ -99,7 +99,7 @@ public class UserController {
             userPassRecoveryService.passwordRecover(user);
             return "/password-recovery/mail-sent";
         }
-        return "user/unknown-mail";
+        return "password-recovery/unknown-mail";
     }
 
     @GetMapping("/password-recovery/uuid/{code}")

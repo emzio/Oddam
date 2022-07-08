@@ -5,11 +5,14 @@ let done = false;
 const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 let messagesArr = [];
 
+
+
 function createMessage(text) {
     let messageEl = document.getElementById(id);
     if (messageEl === null) {
         let div = document.createElement("div");
         div.classList.add("alert-warning");
+        div.classList.add("alert-form");
         div.innerText = text;
         password.parentElement.appendChild(div);
         messagesArr.push(div);
