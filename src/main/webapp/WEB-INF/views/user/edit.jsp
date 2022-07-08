@@ -23,7 +23,7 @@
                                 Edytuj: </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <form:form cssClass="user" method="post" modelAttribute="user">
-                                    <form:hidden path="username"/>
+
                                     <div>
                                         <form:hidden path="password"/>
                                     </div>
@@ -32,6 +32,14 @@
 
                                     <div>
                                         <form:hidden path="roles"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <form:input path="username" type="email" class="form-control form-control-user"/>
+                                        <div class="alert-warning">
+                                            <form:errors path="username"/>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -47,14 +55,6 @@
                                         <form:input path="lastname" class="form-control form-control-user" id="lastname" />
                                         <div class="alert-warning">
                                             <form:errors path="lastname"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <form:input path="email" type="email" class="form-control form-control-user" id="email" />
-                                        <div class="alert-warning">
-                                            <form:errors path="email"/>
                                         </div>
                                     </div>
 
@@ -85,5 +85,6 @@
 <!-- End of Main Content -->
 
 
-
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
+<script src="../../../resources/js/data-verify.js"></script>
 <%@ include file="../footer-sb-admin.jsp" %>

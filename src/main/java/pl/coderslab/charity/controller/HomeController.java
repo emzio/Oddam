@@ -28,9 +28,9 @@ public class HomeController {
     @RequestMapping("/")
     public String homeAction(Model model, @AuthenticationPrincipal CurrentUser customUser){
         if(customUser!=null && userService.findRolesNames(customUser).contains("ROLE_ADMIN")){
-            return "admin/admin";
-        } else if (customUser!=null){
-            return "user/user";
+            return "redirect:/admin/admin";
+        } else if (customUser!=null) {
+            return "redirect:/home";
         }
         model.addAttribute("institutions", institutionService.findAllByEnabledIsTrue());
         model.addAttribute("totalQuantity", donationService.findTotalQuantity());
@@ -38,33 +38,11 @@ public class HomeController {
         return "index";
     }
 
-//    TESTOWE TESTOWE TESTOWE TESTOWE TESTOWE testowe  testowe  testowe  testowe
-    @GetMapping("/admin/test")
-    @ResponseBody
-    public String test(){
-        return String.join(" | " , String.valueOf(donationService.findTotalQuantity()));
+    @GetMapping("/home")
+    public String home(Model model){
+        model.addAttribute("institutions", institutionService.findAllByEnabledIsTrue());
+        model.addAttribute("totalQuantity", donationService.findTotalQuantity());
+        model.addAttribute("numberOfDonations", donationService.countDonation());
+        return "user/home";
     }
-
-//    @Secured("ROLE_ADMIN")
-//    @GetMapping("/accestest")
-//    @ResponseBody
-//    public String accesTest() {
-//
-//        return userService.count() + " passed or not";
-//    }
-
-    @GetMapping("/uuid")
-    @ResponseBody
-    public String uuidGenerator(){
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString();
-    }
-
-    @GetMapping("/path/{email}")
-    @ResponseBody
-    public String  pathTest(@AuthenticationPrincipal CurrentUser currentUser, HttpServletRequest request, @PathVariable String email){
-        return "ContextPath :" + request.getContextPath()
-                + "url: " + request.getRequestURL().toString();
-    }
-
 }

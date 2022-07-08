@@ -43,7 +43,6 @@
                                     <form:hidden path="roles"/>
                                     <form:hidden path="name"/>
                                     <form:hidden path="lastname"/>
-                                    <form:hidden path="email"/>
                                     <form:hidden path="phone"/>
                                     <form:hidden path="id"/>
                                     <input type="submit" value="Zmień" class="btn btn-danger" id="button">

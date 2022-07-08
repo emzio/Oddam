@@ -22,6 +22,12 @@ public class UserController {
     private final UserRegister userRegister;
     private final UserPasswordRecoveryService userPassRecoveryService;
 
+    @GetMapping("/user/profile")
+    public String startPage(Model model, @AuthenticationPrincipal CurrentUser currentUser){
+        model.addAttribute("user", userService.findByUserName(currentUser.getUsername()));
+        return "user/profile";
+    }
+
     @GetMapping("/register")
     private String showRegisterForm(Model model){
         model.addAttribute("user", new User());

@@ -26,6 +26,10 @@ public class AdminsController {
     private final UserService userService;
     private final RoleService roleService;
 
+    @GetMapping("/admin/admin")
+    public String startPage(){
+        return "/admin/admin";
+    }
 
     @GetMapping("admin/list")
     private String showAllAdmins(@AuthenticationPrincipal CurrentUser currentUser, Model model){

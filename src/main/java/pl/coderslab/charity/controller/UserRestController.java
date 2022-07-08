@@ -1,4 +1,4 @@
-package pl.coderslab.charity.restController;
+package pl.coderslab.charity.controller;
 
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -25,36 +25,12 @@ public class UserRestController {
     private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
-    @GetMapping("/rest")
-    List<User> findAll(){
-        return userService.findAllEnabledUsers();
-    }
-
-
-    @GetMapping("/rest/{id}")
-    EntityModel<User> findById(@PathVariable Long id){
-        User user = userService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Rest entity not found"));
-        return EntityModel.of(user,
-    linkTo(methodOn(UserRestController.class).findById(id)).withSelfRel(),
-    linkTo(methodOn(UserRestController.class).findAll()).withRel("rest"));
-    }
-
-//    @GetMapping("/check/email/{email}/{id}")
     @GetMapping("/check/email/{userName}")
-
-//    EntityModel<User> findByEmail(@PathVariable(required = false) Long id, @PathVariable String email){
     Boolean emailCheck(@PathVariable String userName , @RequestParam(required = false) Long id){
-//        Boolean result = userService.findByEmail(email)
-//                .map(user -> Optional.ofNullable(id).map(l -> l.equals(user.getId()))
-//                        .orElse(true)
-//                )
-//                .orElse(true);
-
         return Optional.ofNullable(userService.findByUserName(userName))
                 .map(user -> Optional.ofNullable(id).map(l -> l.equals(user.getId()))
                         .orElse(false)
                 )
                 .orElse(true);
     }
-
 }
