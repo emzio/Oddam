@@ -27,7 +27,11 @@
 
                                     <div class="form-group">
                                         <label for="password">Hasło</label>
+                                        <div class="alert-warning">
+                                            <form:errors path="password"/>
+                                        </div>
                                         <form:input path="password" type="password" class="form-control form-control-user" id="password" />
+
                                     </div>
                                     <div class="form-group">
                                         <label for="password2">Powtórz</label>
@@ -39,10 +43,10 @@
                                     <form:hidden path="roles"/>
                                     <form:hidden path="name"/>
                                     <form:hidden path="lastname"/>
-                                    <form:hidden path="email"/>
                                     <form:hidden path="phone"/>
                                     <form:hidden path="id"/>
                                     <input type="submit" value="Zmień" class="btn btn-danger" id="button">
+                                    <a type="button" class="btn btn-secondary" onClick="history.go(-1)">Cofnij</a>
                                 </form:form>
                             </div>
                         </div>
@@ -58,5 +62,6 @@
 
 </div>
 <!-- End of Main Content -->
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
 <script src="../../../resources/sb-admin/js/password-edit.js"></script>
 <%@ include file="../footer-sb-admin.jsp" %>

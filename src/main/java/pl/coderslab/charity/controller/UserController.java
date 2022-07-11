@@ -3,22 +3,15 @@ package pl.coderslab.charity.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.WebUtils;
 import pl.coderslab.charity.entity.Token;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.*;
-import pl.coderslab.charity.util.MessageTextUtil;
-import pl.coderslab.charity.util.TokenUtil;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.UUID;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,32 +19,36 @@ public class UserController {
 
     private final UserService userService;
     private final TokenService tokenService;
-    private final EmailService emailService;
     private final UserRegister userRegister;
-
     private final UserPasswordRecoveryService userPassRecoveryService;
+
+    @GetMapping("/user/profile")
+    public String startPage(Model model, @AuthenticationPrincipal CurrentUser currentUser){
+        model.addAttribute("user", userService.findByUserName(currentUser.getUsername()));
+        return "user/profile";
+    }
+
     @GetMapping("/register")
     private String showRegisterForm(Model model){
         model.addAttribute("user", new User());
-        return "register";
+        return "/register/register";
     }
 
     @PostMapping("/register")
     private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
-            return "register";
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.usernameRepetitionFound(user)){
+            return "/register/register";
         }
         userRegister.saveNotRegisteredUser(user);
-        return "user/register-mail-sent";
+        return "/register/register-mail-sent";
     }
-
 
     @GetMapping("/register/uuid/{token}")
     private String showRegisterConfirmation(@PathVariable String token){
         Token tokenDB = tokenService.findByToken(token);
         if(tokenDB!=null && tokenDB.getToken().equals(token)){
             userRegister.register(tokenDB.getUser());
-            return "register-success";
+            return "/register/register-success";
         }
         return "/error";
     }
@@ -59,14 +56,14 @@ public class UserController {
 
     @GetMapping("/user/edit")
     private String showUserEditForm(@AuthenticationPrincipal CurrentUser currentUser, Model model){
-        User user = userService.findByUserName(currentUser.getUsername());
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.findByUserName(currentUser.getUsername()));
         return "user/edit";
     }
 
     @PostMapping("/user/edit")
-    private String proceedUserEditForm(User user){
-        if(userService.dataRepetitionFound(user)){
+    private String proceedUserEditForm(@Valid User user, BindingResult result){
+
+        if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             return "user/edit";
         }
         userService.save(user);
@@ -82,27 +79,27 @@ public class UserController {
     }
 
     @PostMapping("/user/password/edit")
-    private String proceedUserPasswordEditForm(User user, @RequestParam String password2){
-        if (userService.verifyPasswordRepetition(user.getPassword(), password2)){
+    private String proceedUserPasswordEditForm(@Valid User user, BindingResult result, @RequestParam String password2){
+        if (!result.hasErrors() && userService.verifyPasswordRepetition(user.getPassword(), password2)){
             userService.changePassword(user);
             return "redirect:/";
         }
-        return "redirect:/user/password/edit";
+        return "user/password-edit";
     }
 
     @GetMapping("/password-recovery")
     public String showPasswordRecoveryForm(){
-        return "password-recovery-mail";
+        return "/password-recovery/get-mail";
     }
 
     @PostMapping("/password-recovery")
     public String processPasswordRecoveryForm(@RequestParam String email){
-        User user = userService.findByEmail(email);
-        if(user!=null){
+        User user = userService.findByUserName(email);
+        if (user!=null){
             userPassRecoveryService.passwordRecover(user);
-            return "user/pass-recovery-mail-sent";
+            return "/password-recovery/mail-sent";
         }
-        return "user/unknown-mail";
+        return "password-recovery/unknown-mail";
     }
 
     @GetMapping("/password-recovery/uuid/{code}")
@@ -110,20 +107,19 @@ public class UserController {
         Token token = tokenService.findByToken(code);
         if(token!=null && token.getToken().equals(code)){
             model.addAttribute("user", token.getUser());
-            return "user/recovery-password";
+            return "/password-recovery/set";
         }
         return "/error";
     }
 
     @PostMapping("/password-recovery/uuid/{code}")
-    public String processPasswordForm(User user, @RequestParam String password2){
-        if (!userService.verifyPasswordRepetition(user.getPassword(), password2)){
-            return "user/recovery-password";
+    public String processPasswordForm(@Valid User user, BindingResult result, @RequestParam String password2){
+        if (!userService.verifyPasswordRepetition(user.getPassword(), password2) || result.hasErrors()){
+            return "/password-recovery/set";
         }
         userPassRecoveryService.editPassword(user);
-        return "password-restore-confirmed";
+        return "/password-recovery/confirmed";
     }
-
 
    // BACK DOOR BACK DOOR BACK DOOR
 
@@ -131,9 +127,8 @@ public class UserController {
     @ResponseBody
     public String createUser() {
         User user = new User();
-        user.setUsername("admin3");
+        user.setUsername("admin3@outlook.com");
         user.setPassword("admin3");
-        user.setEmail("emzio@outlook.com");
         user.setLastname("admin3");
         user.setName("admin3");
 

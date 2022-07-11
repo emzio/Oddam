@@ -16,11 +16,11 @@ public interface UserService {
 
     boolean verifyPasswordRepetition(String password, String passwordRep);
 
-    String findRole(CurrentUser customUser);
+    List<String> findRolesNames(CurrentUser customUser);
 
     List<User> findAllAdmins();
 
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
     void deleteAdmin(User userToCompare, User user);
 
@@ -35,12 +35,8 @@ public interface UserService {
     void changePassword(User user);
 
 
+    boolean usernameRepetitionFound(User user);
 
-    User findByEmail(String email);
 
-    boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser);
 
-    boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser);
-
-    boolean dataRepetitionFound(User user);
 }

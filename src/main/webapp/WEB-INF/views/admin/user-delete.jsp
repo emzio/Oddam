@@ -20,7 +20,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Czy na pewno chcesz skasować ? </div>
+                                Czy na pewno chcesz usunąć ? </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <form:form cssClass="user" method="post" modelAttribute="user">
                                     <form:hidden path="username" />
@@ -29,10 +29,10 @@
                                     <form:hidden path="roles"/>
                                     <form:hidden path="name"/>
                                     <form:hidden path="lastname"/>
-                                    <form:hidden path="email"/>
                                     <form:hidden path="phone"/>
                                     <form:hidden path="id"/>
-                                    <input type="submit" value="Zablokuj" class="btn btn-danger">
+                                    <input type="submit" value="Usuń" class="btn btn-danger">
+                                    <a type="button" class="btn btn-secondary" onClick="history.go(-1)">Back</a>
                                 </form:form>
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 package pl.coderslab.charity.service;
 
+import com.sun.xml.bind.v2.TODO;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import pl.coderslab.charity.entity.Donation;
@@ -19,4 +20,7 @@ public interface DonationService {
     Donation findByIdJoiningCategories(Long id);
 
     void save(Donation donation);
+
+
+    void setPickedUp(Long id);
 }

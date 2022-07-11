@@ -14,6 +14,7 @@ public class User {
     private Long id;
 
     @NotBlank
+    @Email
     @Column(nullable = false, unique = true, length = 60)
     private String username;
 
@@ -37,11 +38,6 @@ public class User {
     @NotBlank
     private String lastname;
 
-    @Email
-    @Column(nullable = false, unique = true)
-    private String email;
-
-
 
     private String phone;
 
@@ -61,13 +57,6 @@ public class User {
         this.lastname = lastname;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Long getId() {
         return id;
@@ -135,7 +124,6 @@ public class User {
                 ", roles=" + roles +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
                 '}';
     }
 }

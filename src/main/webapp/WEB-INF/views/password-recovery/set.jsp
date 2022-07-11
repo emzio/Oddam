@@ -5,7 +5,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ include file="../header.jsp" %>
-</header>
 
 <section class="login-page">
     <h2>Zmiana hasła</h2>
@@ -13,7 +12,7 @@
 
     <form:form modelAttribute="user" method="post">
 
-        <form:hidden path="email"/>
+
         <form:hidden path="username"/>
         <form:hidden path="name"/>
         <form:hidden path="lastname"/>
@@ -38,12 +37,13 @@
         </div>
 
         <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Ustaw hasło</button>
+            <button class="btn" type="submit" id="button">Ustaw hasło</button>
         </div>
     </form:form>
 
 </section>
 
-<script src="../../../resources/sb-admin/js/password-repeat.js"></script>
 
+<script src="../../../resources/sb-admin/js/password-edit.js"></script>
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
 <%@ include file="../footer.jsp" %>

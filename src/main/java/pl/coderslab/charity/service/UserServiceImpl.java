@@ -12,10 +12,8 @@ import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,14 +21,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final TokenService tokenService;
+
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           BCryptPasswordEncoder passwordEncoder, TokenService tokenService) {
+                           BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.tokenService = tokenService;
     }
 
     @Override
@@ -67,13 +64,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String findRole(CurrentUser customUser){
-
-        String role = customUser.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .filter(userRole -> userRole.equals("ROLE_ADMIN"))
-                .findAny().orElse("ROLE_USER");
-        return role;
+    public List<String> findRolesNames(CurrentUser customUser){
+        return customUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).toList();
     }
 
     @Override
@@ -83,10 +76,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id){
-        return userRepository.findById(id).orElseThrow(() -> {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
-        });
+    public Optional<User> findById(Long id){
+        return userRepository.findById(id);
     }
 
     @Override
@@ -97,7 +88,6 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }
     }
-
 
     @Override
     public List<User> findAllEnabledUsers(){
@@ -127,48 +117,22 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(false);
         user.setRegistered(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setUsername(passwordEncoder.encode(user.getUsername()));
+        user.setUsername(UUID.randomUUID().toString() + "@non.non");
         user.setName(passwordEncoder.encode(user.getName()));
         user.setLastname(passwordEncoder.encode(user.getLastname()));
-        user.setEmail(String.join("", passwordEncoder.encode(user.getEmail()), "@hashed.com"));
         user.setPhone(passwordEncoder.encode(user.getPhone()));
         userRepository.save(user);
     }
 
 
-    @Override
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
 
     @Override
-    public boolean usernameRepetitionFound(User user,Optional<User> optionalSavedUser){
-        if(userRepository.findByUsername(user.getUsername())!=null){
-            return optionalSavedUser
-                    .map( savedUser -> !savedUser.getUsername().equals(user.getUsername()))
-                    .orElseGet(()-> true);
+    public boolean usernameRepetitionFound(User user){
+        User savedUser = userRepository.findByUsername(user.getUsername());
+        if(savedUser!=null){
+            return !savedUser.getId().equals(user.getId());
         }
         return false;
     }
 
-
-    @Override
-    public boolean dataRepetitionFound(User user){
-//        Optional<User> optSavedUser = userRepository.findById(user.getId());
-        Optional<Long> idOptional = Optional.ofNullable(user.getId());
-        Optional<User> optSavedUser = idOptional.flatMap(userRepository::findById);
-//        Optional<User> optSavedUser = Optional.ofNullable(user.getId()).flatMap(userRepository::findById);
-
-        return emailRepetitionFound(user, optSavedUser) || usernameRepetitionFound(user, optSavedUser);
-    }
-    @Override
-    public boolean emailRepetitionFound(User user, Optional<User> optionalSavedUser){
-
-        if (userRepository.findByEmail(user.getEmail())!=null){
-            return !optionalSavedUser
-                    .map(savedUser -> savedUser.getEmail().equals(user.getEmail()))
-                    .orElseGet(() -> true);
-        }
-        return false;
-    }
 }

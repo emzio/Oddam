@@ -9,7 +9,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"> Błąd </h1>
+        <h1 class="h3 mb-0 text-gray-800"> Zmiana hasła zakończona sukcesem. </h1>
     </div>
 
     <div class="row">
@@ -20,9 +20,9 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Nieprawidłowy adres email </div>
+                                Hasło zostało zmienione </div>
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <a href="/" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> Home </a>
+                                <a href="/login" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> login</a>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 </div>
                             </div>

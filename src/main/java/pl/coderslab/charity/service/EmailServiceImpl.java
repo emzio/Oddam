@@ -15,8 +15,6 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-//    @Autowired
-
     private final JavaMailSender emailSender;
 
 
@@ -50,7 +48,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendMessage(User user, String subject, String messageText)
     {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
+        message.setTo(user.getUsername());
         message.setSubject(subject);
         message.setText(messageText);
         emailSender.send(message);
@@ -59,13 +57,11 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendToken(User user, Token token)
     {
-        //        pageContext.request.contextPath
 
         String url = "http://localhost:8080/register/uuid/"+ token.getToken();
-//        String text = "<a href='"+url+"'>"+url+"</a>";
         String text = url;
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
+        message.setTo(user.getUsername());
         message.setSubject(" Rejestracja - Oddam w dobre ręce \n ");
         message.setText(" Dziękujemy za rejestrację \n "
                 + " Aby aktywować konto kliknij w link: \n "
@@ -79,7 +75,7 @@ public class EmailServiceImpl implements EmailService {
         MimeMessage message = emailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(user.getEmail());
+            helper.setTo(user.getUsername());
             helper.setFrom("test@gmail.com");
             helper.setSubject("test");
             helper.setText("test ");

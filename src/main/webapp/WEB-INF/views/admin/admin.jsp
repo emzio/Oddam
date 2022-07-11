@@ -21,7 +21,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Institutions</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                    <a href="/admin/institutions" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                                    <a href="/admin/institutions" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
                                                             class="fas fa-download fa-sm text-white-50"></i> Institutions </a>
                             </div>
                         </div>
@@ -57,8 +57,8 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                        <a href="/admin/donations" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                                class="fas fa-download fa-sm text-white-50"></i> Donations </a>
+                                        <a href="/admin/list" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i
+                                                class="fas fa-download fa-sm text-white-50"></i> Administratorzy </a>
                                     </div>
                                 </div>
                             </div>
@@ -84,29 +84,6 @@
         </div>
     </div>
 
-    <div class="row">
-
-        <!-- Area Chart -->
-        <div class="col-xl-12 col-lg-12">
-            <div class="card border-left-info shadow h-100 py-2">
-
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Administratorzy</h6>
-
-                </div>
-
-
-                <div class="card-body">
-                    <a href="/admin/list" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                        Administratorzy</a>
-                </div>
-            </div>
-        </div>
-
-
-
-    </div>
 
 </div>
 <!-- /.container-fluid -->
