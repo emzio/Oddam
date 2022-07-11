@@ -3,7 +3,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../header-sb-admin.jsp" %>
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -32,9 +31,11 @@
             </div>
 
         </div>
-
     </div>
-    <!-- /.container-fluid -->
+
+
+</div>
+<!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

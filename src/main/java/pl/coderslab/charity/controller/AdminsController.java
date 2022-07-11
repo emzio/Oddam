@@ -26,6 +26,10 @@ public class AdminsController {
     private final UserService userService;
     private final RoleService roleService;
 
+    @GetMapping("/admin/admin")
+    public String startPage(){
+        return "/admin/admin";
+    }
 
     @GetMapping("admin/list")
     private String showAllAdmins(@AuthenticationPrincipal CurrentUser currentUser, Model model){
@@ -57,7 +61,7 @@ public class AdminsController {
 
     @PostMapping("admin/add")
     private String proceedAddForm(@Valid User user, BindingResult result, @RequestParam String passwordRep){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(),passwordRep) || userService.dataRepetitionFound(user)
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(),passwordRep) || userService.usernameRepetitionFound(user)
         ){
             return "admin/add";
         }
@@ -75,7 +79,7 @@ public class AdminsController {
 
     @PostMapping("admin/edit/{id}")
     private String proceedAddForm(@Valid User user, BindingResult result){
-        if (userService.dataRepetitionFound(user) || result.hasErrors()){
+        if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             return "admin/edit";
         }
         userService.save(user);
@@ -103,12 +107,34 @@ public class AdminsController {
 
     @PostMapping("admin/user/edit/{id}")
     private String proceedUserEditForm(@Valid User user, BindingResult result, Model model){
-        if (userService.dataRepetitionFound(user) || result.hasErrors()){
+        if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             model.addAttribute("allRoles", roleService.findAll());
             return "admin/user-edit";
         }
         userService.save(user);
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/password/{id}/{roleName}")
+    public String showUserPasswordEditForm(@PathVariable Long id, @PathVariable String roleName, Model model){
+        User user = userService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "not found"));
+        user.setPassword("");
+        model.addAttribute("user", user);
+        return "user/password-edit";
+    }
+
+    @PostMapping("/admin/password/{id}/{roleName}   ")
+    public String proceedUserPasswordEditForm(@Valid User user, BindingResult result,@PathVariable String roleName){
+        if (!result.hasErrors()){
+            userService.changePassword(user);
+            switch (roleName){
+                case "admin" :
+                    return "redirect:/admin/list";
+                case "user" :
+                    return "redirect:/admin/users";
+            }
+        }
+        return "user/password-edit";
     }
 
     @GetMapping("admin/user/delete/{id}")

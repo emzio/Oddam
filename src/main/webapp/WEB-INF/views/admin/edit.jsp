@@ -24,11 +24,11 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <form:form cssClass="user" method="post" modelAttribute="user">
                                     <div class="form-group">
-                                        <label for="loginId">Login</label>
+                                        <label for="username">Login</label>
                                         <div class="alert-warning">
                                             <form:errors path="username"/>
                                         </div>
-                                        <form:input path="username" class="form-control form-control-user" id="loginId" />
+                                        <form:input path="username" class="form-control form-control-user"/>
                                     </div>
 
                                     <div>
@@ -60,14 +60,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <div class="alert-warning">
-                                            <form:errors path="email"/>
-                                        </div>
-                                        <form:input path="email" type="email" class="form-control form-control-user" id="email" />
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="phone">Phone</label>
                                         <div class="alert-warning">
                                             <form:errors path="phone"/>
@@ -76,7 +68,8 @@
                                     </div>
                                     <form:hidden path="registered"/>
                                     <form:hidden path="id"/>
-                                    <input type="submit" value="Update" class="btn btn-secondary">
+                                    <input type="submit" value="Update" class="btn btn-danger">
+                                    <a type="button" class="btn btn-secondary" onClick="history.go(-1)">Back</a>
                                 </form:form>
                             </div>
                         </div>
@@ -93,4 +86,7 @@
 </div>
 <!-- End of Main Content -->
 
+
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
+<script src="../../../resources/js/data-verify.js"></script>
 <%@ include file="../footer-sb-admin.jsp" %>

@@ -31,7 +31,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Login</th>
-                                <th>Email</th>
                                 <th>Name</th>
                                 <th>LastName</th>
                                 <th>phone</th>
@@ -44,7 +43,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Login</th>
-                                <th>Email</th>
                                 <th>Name</th>
                                 <th>LastName</th>
                                 <th>phone</th>
@@ -58,7 +56,6 @@
                                 <tr>
                                     <td>${counter.index + 1}</td>
                                     <td>${user.username}</td>
-                                    <td>${user.email}</td>
                                     <td>${user.name}</td>
                                     <td>${user.lastname}</td>
                                     <td>${user.phone}</td>
@@ -101,24 +98,20 @@
                             <tr>
                                 <th>#</th>
                                 <th>Login</th>
-                                <th>Email</th>
                                 <th>Name</th>
                                 <th>LastName</th>
                                 <th>phone</th>
                                 <th>Edit</th>
-                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>#</th>
                                 <th>Login</th>
-                                <th>Email</th>
                                 <th>Name</th>
                                 <th>LastName</th>
                                 <th>phone</th>
                                 <th>Edit</th>
-                                <th>Delete</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -126,16 +119,12 @@
                                 <tr>
                                     <td>${counter.index + 1}</td>
                                     <td>${user.username}</td>
-                                    <td>${user.email}</td>
                                     <td>${user.name}</td>
                                     <td>${user.lastname}</td>
                                     <td>${user.phone}</td>
                                     <td>
                                         <a href="/admin/user/edit/${user.id}" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
                                             edit</a>
-                                    </td>
-                                    <td>
-                                        <a href="/admin/user/delete/${user.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a>
                                     </td>
                                 </tr>
                             </c:forEach>

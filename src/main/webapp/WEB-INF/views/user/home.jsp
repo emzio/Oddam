@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <body>
     <header class="header--main-page">
@@ -35,7 +35,7 @@
                 <li><a href="/user/donation/add" class="btn btn--without-border">Przekaż dary</a></li>
                 <li><a href="/#contact" class="btn btn--without-border">Kontakt</a></li>
                 <sec:authorize access="isAuthenticated()">
-                    <li><a href="user/donations" class="btn btn--without-border active">Moje zbiórki </a></li>
+                    <li><a href="user/profile" class="btn btn--without-border active">Profil</a></li>
                 </sec:authorize>
             </ul>
         </nav>
@@ -103,9 +103,9 @@
             <h2>O nas</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
                 optio esse quisquam illo omnis.</p>
-            <img src="<c:url value="../../resources/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
+            <img src="<c:url value="../../../resources/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
         </div>
-        <div class="about-us--image"><img src="<c:url value="../../resources/images/about-us.jpg"/>" alt="People in circle"/>
+        <div class="about-us--image"><img src="<c:url value="../../../resources/images/about-us.jpg"/>" alt="People in circle"/>
         </div>
     </section>
 
@@ -116,7 +116,7 @@
         <div class="help--slides active" data-id="1">
             <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
                 Możesz sprawdzić czym się zajmują.</p>
-    <!-- TODO  -->
+            <!-- TODO  -->
             <ul class="help--slides-items">
                 <c:forEach var="institution" items="${institutions}" varStatus="counter">
                     <c:choose>
@@ -147,10 +147,11 @@
                 </c:forEach>
             </ul>
         </div>
+
     </section>
 
 
-<%@ include file="footer.jsp" %>
+    <%@ include file="../footer.jsp" %>
 
 </body>
 </html>
