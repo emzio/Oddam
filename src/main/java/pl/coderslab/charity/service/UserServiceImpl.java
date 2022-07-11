@@ -12,10 +12,7 @@ import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,14 +21,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final TokenService tokenService;
+
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           BCryptPasswordEncoder passwordEncoder, TokenService tokenService) {
+                           BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.tokenService = tokenService;
     }
 
     @Override
@@ -121,19 +117,14 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(false);
         user.setRegistered(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setUsername(passwordEncoder.encode(user.getUsername()));
+        user.setUsername(UUID.randomUUID().toString() + "@non.non");
         user.setName(passwordEncoder.encode(user.getName()));
         user.setLastname(passwordEncoder.encode(user.getLastname()));
-        user.setEmail(String.join("", passwordEncoder.encode(user.getEmail()), "@hashed.com"));
         user.setPhone(passwordEncoder.encode(user.getPhone()));
         userRepository.save(user);
     }
 
 
-    @Override
-    public Optional<User> findByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
 
     @Override
     public boolean usernameRepetitionFound(User user){
@@ -144,15 +135,4 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
-    public boolean emailRepetitionFound(User user){
-        return userRepository.findByEmail(user.getEmail())
-                .map(savedUser -> !savedUser.getId().equals(user.getId()))
-                .orElse(false);
-    }
-
-    @Override
-    public boolean dataRepetitionFound(User user){
-        return emailRepetitionFound(user) || usernameRepetitionFound(user);
-    }
 }

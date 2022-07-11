@@ -20,6 +20,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByRolesNotContainingAndEnabledIsFalse(Role role);
 
-    Optional<User> findByEmail(String email);
 
 }

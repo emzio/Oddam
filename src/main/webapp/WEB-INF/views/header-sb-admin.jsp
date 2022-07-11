@@ -61,7 +61,9 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Wybierz:</h6>
                     <a class="collapse-item" href="/user/donation/add">Przekaż Dar</a>
-                    <a class="collapse-item" href="#">Nothing</a>
+                    <a class="collapse-item" href="/logout">logout</a>
+                    <a class="collapse-item" href="/user/password/edit">Zmień hasło</a>
+                    <a class="collapse-item" href="/user/edit">Zmień dane</a>
                 </div>
             </div>
         </li>
@@ -124,25 +126,16 @@
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Zmień hasło
                             </a>
-<%--                            <a class="dropdown-item" href="user/edit/{<sec:authentication property="principal.username"/>}">--%>
-<%--                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>--%>
-<%--                                Zmień dane--%>
-<%--                            </a>--%>
 
                             <a class="dropdown-item" href="/user/edit">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Zmień dane
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
 
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="logout" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Broken Logout
+                                Logout
                             </a>
                         </div>
                     </li>

@@ -33,24 +33,24 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Login</th>
-                                    <th>Email</th>
                                     <th>Name</th>
                                     <th>LastName</th>
                                     <th>phone</th>
                                     <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Remove admins permission</th>
+                                    <th>Password edit</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>#</th>
                                     <th>Login</th>
-                                    <th>Email</th>
                                     <th>Name</th>
                                     <th>LastName</th>
                                     <th>phone</th>
                                     <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Remove admins permission</th>
+                                    <th>Password edit</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -58,17 +58,23 @@
                                 <tr>
                                     <td>${counter.index + 1}</td>
                                     <td>${admin.username}</td>
-                                    <td>${admin.email}</td>
                                     <td>${admin.name}</td>
                                     <td>${admin.lastname}</td>
                                     <td>${admin.phone}</td>
                                     <td>
+                                        <c:if test="${admin.id != userToCompare.id && admin.enabled==true}">
                                         <a href="/admin/edit/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
                                         edit</a>
+                                        </c:if>
                                     </td>
                                     <td>
                                         <c:if test="${admin.id != userToCompare.id && admin.enabled==true}">
-                                            <a href="/admin/delete/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> delete</a>
+                                            <a href="/admin/delete/${admin.id}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> remove</a>
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${admin.id != userToCompare.id && admin.enabled==true}">
+                                            <a href="/admin/password/${admin.id}/admin" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> pass edit</a>
                                         </c:if>
                                     </td>
                                 </tr>

@@ -22,6 +22,12 @@ public class UserController {
     private final UserRegister userRegister;
     private final UserPasswordRecoveryService userPassRecoveryService;
 
+    @GetMapping("/user/profile")
+    public String startPage(Model model, @AuthenticationPrincipal CurrentUser currentUser){
+        model.addAttribute("user", userService.findByUserName(currentUser.getUsername()));
+        return "user/profile";
+    }
+
     @GetMapping("/register")
     private String showRegisterForm(Model model){
         model.addAttribute("user", new User());
@@ -30,7 +36,7 @@ public class UserController {
 
     @PostMapping("/register")
     private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.dataRepetitionFound(user)){
+        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.usernameRepetitionFound(user)){
             return "/register/register";
         }
         userRegister.saveNotRegisteredUser(user);
@@ -57,7 +63,7 @@ public class UserController {
     @PostMapping("/user/edit")
     private String proceedUserEditForm(@Valid User user, BindingResult result){
 
-        if (userService.emailRepetitionFound(user) || result.hasErrors()){
+        if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             return "user/edit";
         }
         userService.save(user);
@@ -88,12 +94,12 @@ public class UserController {
 
     @PostMapping("/password-recovery")
     public String processPasswordRecoveryForm(@RequestParam String email){
-        Optional<User> userOptional = userService.findByEmail(email);
-        if (userOptional.isPresent()){
-            userPassRecoveryService.passwordRecover(userOptional.get());
+        User user = userService.findByUserName(email);
+        if (user!=null){
+            userPassRecoveryService.passwordRecover(user);
             return "/password-recovery/mail-sent";
         }
-        return "user/unknown-mail";
+        return "password-recovery/unknown-mail";
     }
 
     @GetMapping("/password-recovery/uuid/{code}")
@@ -121,9 +127,8 @@ public class UserController {
     @ResponseBody
     public String createUser() {
         User user = new User();
-        user.setUsername("admin3");
+        user.setUsername("admin3@outlook.com");
         user.setPassword("admin3");
-        user.setEmail("emzio@outlook.com");
         user.setLastname("admin3");
         user.setName("admin3");
 

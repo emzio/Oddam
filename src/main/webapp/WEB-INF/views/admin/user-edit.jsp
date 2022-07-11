@@ -24,8 +24,13 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <form:form cssClass="user" method="post" modelAttribute="user">
 
-                                    <div>
-                                        <form:hidden path="username"/>
+
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <form:input path="username" class="form-control form-control-user"/>
+                                    </div>
+                                    <div class="alert-warning">
+                                        <form:errors path="username"/>
                                     </div>
 
                                     <div>
@@ -62,14 +67,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <form:input path="email" type="email" class="form-control form-control-user" id="email" />
-                                    </div>
-                                    <div class="alert-warning">
-                                        <form:errors path="email"/>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="phone">Phone</label>
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
                                     </div>
@@ -77,7 +74,13 @@
                                         <form:errors path="phone"/>
                                     </div>
 
-                                    <form:hidden path="registered"/>
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label">Registered true:</label>
+                                        <form:radiobutton path="registered" value="true"/>
+                                        <label class="form-check-label">Registered false:</label>
+                                        <form:radiobutton path="registered" value="false"/>
+                                    </div>
+
                                     <form:hidden path="id"/>
                                     <input type="submit" value="Update" class="btn btn-secondary">
                                 </form:form>
@@ -96,4 +99,6 @@
 </div>
 <!-- End of Main Content -->
 
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
+<script src="../../../resources/js/data-verify.js"></script>
 <%@ include file="../footer-sb-admin.jsp" %>

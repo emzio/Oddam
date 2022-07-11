@@ -9,7 +9,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Delete</h1>
+        <h1 class="h3 mb-0 text-gray-800">Add</h1>
     </div>
 
     <div class="row">
@@ -24,14 +24,14 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <form:form cssClass="user" method="post" modelAttribute="user">
                                     <div class="form-group">
-                                        <label for="loginId">Login</label>
-                                        <form:errors path="username"/>
-                                        <form:input path="username" class="form-control form-control-user" id="loginId" />
+                                        <label for="username">Login</label>
+                                        <div class="alert-warning"><form:errors path="username"/></div>
+                                        <form:input path="username" class="form-control form-control-user"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <form:errors path="password"/>
+                                        <div class="alert-warning"><form:errors path="password"/></div>
                                         <form:input path="password" type="password" class="form-control form-control-user" id="password" />
                                     </div>
 
@@ -39,46 +39,30 @@
                                         <label for="password2">Password repetition</label>
                                         <input name="passwordRep" type="password" class="form-control form-control-user" id="password2" />
                                     </div>
-
-<%--                                    <div class="form-group form-check">--%>
-<%--                                        <label class="form-check-label">Enabled true:</label>--%>
-<%--                                        <form:radiobutton path="enabled" value="true"/>--%>
-<%--                                        <label class="form-check-label">Enabled false:</label>--%>
-<%--                                        <form:radiobutton path="enabled" value="false"/>--%>
-<%--                                    </div>--%>
                                     <div>
                                         <form:hidden path="enabled"/>
                                     </div>
-
-
                                     <div>
                                         <form:hidden path="roles"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <form:errors path="name"/>
+                                        <div class="alert-warning"><form:errors path="name"/></div>
                                         <form:input path="name" class="form-control form-control-user" id="name" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="lastname">Lastame</label>
-                                        <form:errors path="lastname"/>
+                                        <div class="alert-warning"><form:errors path="lastname"/></div>
                                         <form:input path="lastname" class="form-control form-control-user" id="lastname" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <form:errors path="email"/>
-                                        <form:input path="email" type="email" class="form-control form-control-user" id="email" />
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="phone">Phone</label>
-                                        <form:errors path="phone"/>
+                                        <div class="alert-warning"><form:errors path="phone"/></div>
                                         <form:input path="phone" class="form-control form-control-user" id="phone" />
                                     </div>
-
 
                                     <input type="submit" value="Dodaj" class="btn btn-secondary">
                                 </form:form>
@@ -96,5 +80,6 @@
 
 </div>
 <!-- End of Main Content -->
-
+<script src="../../../resources/js/jquery-3.6.0.js"></script>
+<script src="../../../resources/js/data-verify.js"></script>
 <%@ include file="../footer-sb-admin.jsp" %>
