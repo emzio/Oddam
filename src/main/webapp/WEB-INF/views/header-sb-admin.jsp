@@ -62,8 +62,8 @@
                     <h6 class="collapse-header">Wybierz:</h6>
                     <a class="collapse-item" href="/user/donation/add">Przekaż Dar</a>
                     <a class="collapse-item" href="/logout">logout</a>
-                    <a class="collapse-item" href="/user/password/edit">Zmień dane</a>
-                    <a class="collapse-item" href="/user/edit">Zmień hasło</a>
+                    <a class="collapse-item" href="/user/password/edit">Zmień hasło</a>
+                    <a class="collapse-item" href="/user/edit">Zmień dane</a>
                 </div>
             </div>
         </li>

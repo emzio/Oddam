@@ -1,3 +1,125 @@
+//
+// document.addEventListener("DOMContentLoaded",function (e) {
+//
+//     let done = false;
+//     const password = document.querySelector("#password");
+//     const passwordRep = document.querySelector("#password2");
+//     const submit = document.querySelector(".btn[type=submit]");
+//     const email = document.querySelector("#username");
+//     const id = document.querySelector("#id");
+//     const name = $("#name")[0];
+//     const lastname = $("#lastname")[0];
+//     console.log("name", name);
+//     console.log("lastname", lastname);
+//
+//     let messagesArr = [];
+//
+//     function getApiHost(email, id) {
+//         if (id === null) {
+//             return 'http://localhost:8080/check/email/' + email.value;
+//         } else {
+//             return 'http://localhost:8080/check/email/' + email.value + '/?id=' + id.value;
+//         }
+//     }
+//
+//     function dataCheckingEvent(event) {
+//         if (done === true) {
+//             done = false;
+//             return;
+//         }
+//         event.preventDefault();
+//         console.log("messagesArr before clearing", messagesArr);
+//
+//         clear();
+//         console.log("messagesArr AFTER clearing", messagesArr);
+//         checkPassRepetition();
+//         checkPassFormat();
+//         checkEmailFormat();
+//         checkNames("Wpisz imię", name, "nameMess");
+//         checkNames("Wpisz nazwisko", lastname, "lastnameMess");
+//
+//
+//         console.log("messagesArr", messagesArr);
+//
+//         if (messagesArr.length === 0) {
+//             checkEmailJson(email, id).then(result => {
+//                 if(!result){
+//                     createMessage("Ten adres email nie jest dostępny.", email, "#emailMessage");
+//                 } else {
+//                     done = true;
+//                     console.log("trigger on");
+//                     $(this).trigger("click");
+//                 }
+//             })
+//         }
+//     }
+//
+//     function checkPassRepetition() {
+//         if (passwordRep && password.value !== passwordRep.value) {
+//             createMessage("Hasła są niezgodne!", password, "#passwordMessage");
+//         }
+//     }
+//
+//     function checkPassFormat(){
+//         const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+//         if(!password.value.match(pattern)){
+//             createMessage("Hasło musi zawierać małe i duże znaki, znak specjalny i cyfrę i mieć co najmniej 8 znaków", password, "#passFormatMess");
+//         }
+//     }
+//
+//
+//     function checkEmailFormat() {
+//         const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+//         if (!email.value.match(pattern) ) {
+//             createMessage("Wpisz email", email, "#emailEmpty");
+//         }
+//     }
+//
+//     function checkNames(text, element, id){
+//         if(element.value===""){
+//             createMessage(text, element, `#${id}`);
+//         }
+//     }
+//
+//     function checkEmailJson(email, id) {
+//         return fetch(getApiHost(email, id),
+//             {}
+//         ).then(
+//             function (resp) {
+//                 if (!resp.ok) {
+//                     alert('Wystąpił błąd!');
+//                     return resp.status;
+//                 }
+//                 let ret = resp;
+//                 console.log("ret", ret);
+//                 return ret.json();
+//             }
+//         )
+//     }
+//
+//     function createMessage(text, element, id) {
+//         let messageEl = document.getElementById(id);
+//         if (messageEl === null) {
+//             let div = document.createElement("div");
+//             div.id = id;
+//             div.classList.add("alert-form");
+//             div.classList.add("alert-warning");
+//             div.innerText = text;
+//             element.parentElement.appendChild(div);
+//             messagesArr.push(div);
+//         }
+//     }
+//
+//     function clear(){
+//         for (let i = 0; i < messagesArr.length; i++) {
+//                     messagesArr[i].remove();
+//                 }
+//         messagesArr=[];
+//     }
+//
+//     submit.addEventListener("click", dataCheckingEvent);
+// })
+
 
 document.addEventListener("DOMContentLoaded",function (e) {
 
@@ -7,6 +129,11 @@ document.addEventListener("DOMContentLoaded",function (e) {
     const submit = document.querySelector(".btn[type=submit]");
     const email = document.querySelector("#username");
     const id = document.querySelector("#id");
+    const name = $("#name")[0];
+    const lastname = $("#lastname")[0];
+    console.log("name", name);
+    console.log("lastname", lastname);
+
     let messagesArr = [];
 
     function getApiHost(email, id) {
@@ -30,13 +157,16 @@ document.addEventListener("DOMContentLoaded",function (e) {
         checkPassRepetition();
         checkPassFormat();
         checkEmailFormat();
+        checkNames("Wpisz imię", name);
+        checkNames("Wpisz nazwisko", lastname);
+
 
         console.log("messagesArr", messagesArr);
 
         if (messagesArr.length === 0) {
             checkEmailJson(email, id).then(result => {
                 if(!result){
-                    createMessage("Ten adres email nie jest dostępny.", email, "#emailMessage");
+                    createMessage("Ten adres email nie jest dostępny.", email);
                 } else {
                     done = true;
                     console.log("trigger on");
@@ -48,14 +178,14 @@ document.addEventListener("DOMContentLoaded",function (e) {
 
     function checkPassRepetition() {
         if (passwordRep && password.value !== passwordRep.value) {
-            createMessage("Hasła są niezgodne!", password, "#passwordMessage");
+            createMessage("Hasła są niezgodne!", password);
         }
     }
 
     function checkPassFormat(){
         const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
         if(!password.value.match(pattern)){
-            createMessage("Hasło musi zawierać małe i duże znaki, znak specjalny i cyfrę i mieć co najmniej 8 znaków", password, "#passFormatMess");
+            createMessage("Hasło musi zawierać małe i duże znaki, znak specjalny i cyfrę i mieć co najmniej 8 znaków", password);
         }
     }
 
@@ -63,7 +193,13 @@ document.addEventListener("DOMContentLoaded",function (e) {
     function checkEmailFormat() {
         const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         if (!email.value.match(pattern) ) {
-            createMessage("Wpisz email", email, "#emailEmpty");
+            createMessage("Wpisz email", email);
+        }
+    }
+
+    function checkNames(text, element){
+        if(element.value===""){
+            createMessage(text, element);
         }
     }
 
@@ -83,23 +219,19 @@ document.addEventListener("DOMContentLoaded",function (e) {
         )
     }
 
-    function createMessage(text, element, id) {
-        let messageEl = document.getElementById(id);
-        if (messageEl === null) {
-            let div = document.createElement("div");
-            div.id = id;
-            div.classList.add("alert-form");
-            div.classList.add("alert-warning");
-            div.innerText = text;
-            element.parentElement.appendChild(div);
-            messagesArr.push(div);
-        }
+    function createMessage(text, element) {
+        let div = document.createElement("div");
+        div.classList.add("alert-form");
+        div.classList.add("alert-warning");
+        div.innerText = text;
+        element.parentElement.appendChild(div);
+        messagesArr.push(div);
     }
 
     function clear(){
         for (let i = 0; i < messagesArr.length; i++) {
-                    messagesArr[i].remove();
-                }
+            messagesArr[i].remove();
+        }
         messagesArr=[];
     }
 

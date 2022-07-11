@@ -46,6 +46,7 @@
                                     <form:hidden path="phone"/>
                                     <form:hidden path="id"/>
                                     <input type="submit" value="Zmień" class="btn btn-danger" id="button">
+                                    <a type="button" class="btn btn-secondary" onClick="history.go(-1)">Cofnij</a>
                                 </form:form>
                             </div>
                         </div>

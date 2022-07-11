@@ -115,6 +115,28 @@ public class AdminsController {
         return "redirect:/admin/users";
     }
 
+    @GetMapping("/admin/password/{id}/{roleName}")
+    public String showUserPasswordEditForm(@PathVariable Long id, @PathVariable String roleName, Model model){
+        User user = userService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "not found"));
+        user.setPassword("");
+        model.addAttribute("user", user);
+        return "user/password-edit";
+    }
+
+    @PostMapping("/admin/password/{id}/{roleName}   ")
+    public String proceedUserPasswordEditForm(@Valid User user, BindingResult result,@PathVariable String roleName){
+        if (!result.hasErrors()){
+            userService.changePassword(user);
+            switch (roleName){
+                case "admin" :
+                    return "redirect:/admin/list";
+                case "user" :
+                    return "redirect:/admin/users";
+            }
+        }
+        return "user/password-edit";
+    }
+
     @GetMapping("admin/user/delete/{id}")
     private String showUserDeleteForm(@PathVariable Long id, Model model){
         userService.findById(id).ifPresentOrElse(user -> model.addAttribute("user", user), () -> {
