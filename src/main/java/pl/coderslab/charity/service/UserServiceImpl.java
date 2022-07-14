@@ -125,7 +125,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public boolean usernameRepetitionFound(User user){
         User savedUser = userRepository.findByUsername(user.getUsername());
