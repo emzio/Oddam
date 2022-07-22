@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    private String proceedRegisterForm(@Valid User user, BindingResult result, @RequestParam String password2){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(), password2) || userService.usernameRepetitionFound(user)){
+    private String proceedRegisterForm(@Valid User user, BindingResult result){
+        if(result.hasErrors() || userService.usernameRepetitionFound(user)){
             return "/register/register";
         }
         userRegister.saveNotRegisteredUser(user);
@@ -79,8 +79,8 @@ public class UserController {
     }
 
     @PostMapping("/user/password/edit")
-    private String proceedUserPasswordEditForm(@Valid User user, BindingResult result, @RequestParam String password2){
-        if (!result.hasErrors() && userService.verifyPasswordRepetition(user.getPassword(), password2)){
+    private String proceedUserPasswordEditForm(@Valid User user, BindingResult result){
+        if (!result.hasErrors()){
             userService.changePassword(user);
             return "redirect:/";
         }
@@ -113,8 +113,8 @@ public class UserController {
     }
 
     @PostMapping("/password-recovery/uuid/{code}")
-    public String processPasswordForm(@Valid User user, BindingResult result, @RequestParam String password2){
-        if (!userService.verifyPasswordRepetition(user.getPassword(), password2) || result.hasErrors()){
+    public String processPasswordForm(@Valid User user, BindingResult result){
+        if (result.hasErrors()){
             return "/password-recovery/set";
         }
         userPassRecoveryService.editPassword(user);

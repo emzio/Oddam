@@ -6,6 +6,7 @@ import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -19,5 +20,10 @@ public class CategoryServiceImp implements CategoryService{
     @Override
     public List<Category> findAll(){
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public Optional<Category> findById(Long id) {
+        return categoryRepository.findById(id);
     }
 }

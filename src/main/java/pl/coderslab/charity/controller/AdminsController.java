@@ -60,8 +60,8 @@ public class AdminsController {
     }
 
     @PostMapping("admin/add")
-    private String proceedAddForm(@Valid User user, BindingResult result, @RequestParam String passwordRep){
-        if(result.hasErrors() || !userService.verifyPasswordRepetition(user.getPassword(),passwordRep) || userService.usernameRepetitionFound(user)
+    private String proceedAddForm(@Valid User user, BindingResult result){
+        if(result.hasErrors()|| userService.usernameRepetitionFound(user)
         ){
             return "admin/add";
         }
@@ -78,7 +78,7 @@ public class AdminsController {
     }
 
     @PostMapping("admin/edit/{id}")
-    private String proceedAddForm(@Valid User user, BindingResult result){
+    private String proceedEditForm(@Valid User user, BindingResult result){
         if (userService.usernameRepetitionFound(user) || result.hasErrors()){
             return "admin/edit";
         }

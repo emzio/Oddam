@@ -59,11 +59,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean verifyPasswordRepetition(String password, String passwordRep){
-        return password.equals(passwordRep);
-    }
-
-    @Override
     public List<String> findRolesNames(CurrentUser customUser){
         return customUser.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).toList();
