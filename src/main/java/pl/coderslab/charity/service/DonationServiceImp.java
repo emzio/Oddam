@@ -2,6 +2,7 @@ package pl.coderslab.charity.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.DonationRepository;
@@ -58,5 +59,10 @@ public class DonationServiceImp implements DonationService{
         Donation donation = findByIdJoiningCategories(id);
         donation.setPickedUp(true);
         save(donation);
+    }
+
+    @Override
+    public List<Donation> findAllByCategory(Category category) {
+        return donationRepository.findAllByCategory(category);
     }
 }

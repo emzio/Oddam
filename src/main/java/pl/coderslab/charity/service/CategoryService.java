@@ -7,7 +7,11 @@ import java.util.Optional;
 
 public interface CategoryService {
 
-    public List<Category> findAll();
+    void save(Category category) ;
 
-    public Optional<Category> findById(Long id);
+    List<Category> findAll();
+
+    Optional<Category> findById(Long id);
+
+    void delete(Long id);
 }

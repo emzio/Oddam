@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 @ControllerAdvice
 class GlobalDefaultExceptionHandler {
@@ -16,7 +17,7 @@ class GlobalDefaultExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(GlobalDefaultExceptionHandler.class);
 
     @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) {
         ModelAndView mav = new ModelAndView();
         if (AnnotationUtils.findAnnotation (e.getClass(), ResponseStatus.class) != null){
             mav.setViewName("exceptions/orderNotFound");
@@ -26,6 +27,7 @@ class GlobalDefaultExceptionHandler {
             mav.setViewName(DEFAULT_ERROR_VIEW);
         }
         logger.error("Request: " + req.getRequestURL() + " raised " + e);
+        logger.error("StackTrace: " + Arrays.toString(e.getStackTrace()));
         return mav;
     }
 

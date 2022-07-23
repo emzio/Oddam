@@ -3,6 +3,7 @@ package pl.coderslab.charity.service;
 import com.sun.xml.bind.v2.TODO;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.User;
 
@@ -23,4 +24,6 @@ public interface DonationService {
 
 
     void setPickedUp(Long id);
+
+    List<Donation> findAllByCategory(Category category);
 }

@@ -60,6 +60,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Wybierz:</h6>
+                    <a class="collapse-item" href="/user/profile">Profil</a>
                     <a class="collapse-item" href="/user/donation/add">Przekaż Dar</a>
                     <a class="collapse-item" href="/logout">logout</a>
                     <a class="collapse-item" href="/user/password/edit">Zmień hasło</a>
@@ -76,12 +77,6 @@
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
-        <!-- Sidebar Message -->
-        <div class="sidebar-card d-none d-lg-flex">
-            <img class="sidebar-card-illustration mb-2" src="../../../resources/sb-admin/img/undraw_rocket.svg" alt="...">
-            <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-            <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-        </div>
 
     </ul>
     <!-- End of Sidebar -->
@@ -122,6 +117,13 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
+
+                            <a class="dropdown-item" href="/user/profile">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profil
+                            </a>
+
+
                             <a class="dropdown-item" href="/user/password/edit">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Zmień hasło

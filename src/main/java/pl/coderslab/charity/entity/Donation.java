@@ -183,7 +183,7 @@ public class Donation implements Comparable<Donation>{
     @Override
     public int compareTo(Donation donation) {
         if (this.getPickedUp().compareTo(donation.pickedUp)==0){
-            return (this.pickedUp==false ?
+            return (!this.pickedUp ?
                     this.getCreatedOn().compareTo(donation.createdOn) :
                     this.getPickedUpDate().compareTo(donation.pickedUpDate));
         }
