@@ -122,25 +122,25 @@
                     <c:choose>
                         <c:when test="${counter.index % 2 == 0}">
                             <li>
-                            <div class="col">
-                                <div class="title">${institution.getName()}</div>
-                                <div class="subtitle">${institution.getDescription()}</div>
-                            </div>
-                            <c:choose>
-                                <c:when test="${counter.last}">
-                                    <div  style="background: transparent !important" class="col">
-                                        <div  class="title"></div>
-                                        <div class="subtitle"></div>
-                                    </div>
-                                    </li>
-                                </c:when>
-                            </c:choose>
+                                <div class="col">
+                                    <div class="title">${institution.getName()}</div>
+                                    <div class="subtitle">${institution.getDescription()}</div>
+                                </div>
+                        <c:choose>
+                            <c:when test="${counter.last}">
+                                <div  style="background: transparent !important" class="col">
+                                    <div  class="title"></div>
+                                    <div class="subtitle"></div>
+                                </div>
+                            </li>
+                            </c:when>
+                        </c:choose>
                         </c:when>
                         <c:otherwise>
-                            <div class="col">
-                                <div class="title">${institution.getName()}</div>
-                                <div class="subtitle">${institution.getDescription()}</div>
-                            </div>
+                                <div class="col">
+                                    <div class="title">${institution.getName()}</div>
+                                    <div class="subtitle">${institution.getDescription()}</div>
+                                </div>
                             </li>
                         </c:otherwise>
                     </c:choose>

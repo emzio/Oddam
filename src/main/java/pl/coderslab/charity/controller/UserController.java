@@ -11,7 +11,6 @@ import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
